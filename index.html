@@ -440,6 +440,9 @@
  .community-hero { background: linear-gradient(135deg, var(--dark) 0%, var(--primary-mid) 60%, var(--dark) 100%); padding: 120px 24px 80px; text-align: center; }
  .community-hero h1 { font-family: var(--font-heading); font-size: clamp(28px, 5vw, 54px); font-weight: 700; color: var(--white); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px; }
  .community-hero p { font-size: 18px; color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto 40px; }
+ #page-community { background: linear-gradient(135deg, var(--dark) 0%, var(--primary-mid) 60%, var(--dark) 100%); }
+ .community-atf { padding: 80px 24px 48px; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start; }
+ @media (min-width: 900px) { .community-atf { grid-template-columns: 1fr 1fr; gap: 64px; padding-top: 100px; } .community-atf-left { text-align: left !important; } .community-atf-left p { margin-left: 0 !important; } }
  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto 48px; }
  .benefit-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(0,192,192,0.18); border-radius: var(--radius-lg); padding: 28px 24px; text-align: left; }
  .benefit-card .benefit-icon { font-size: 32px; margin-bottom: 12px; }
@@ -731,8 +734,8 @@
  <section style="background: var(--dark); padding: 80px 24px;">
  <div class="section-inner" style="text-align:center;">
  <span class="section-tag">A Personal Invitation</span>
- <h2 class="section-title">Join My <span class="gold">Inner Circle</span></h2>
- <p class="section-desc" style="margin: 0 auto 40px;">I am personally inviting people who feel called to intercede to pray and study the Word with me. If that is you, let me know — I will reach out personally.</p>
+ <h2 class="section-title">Join My <span class="gold">Prayer Circle</span></h2>
+ <p class="section-desc" style="margin: 0 auto 40px;">I pray with a small, close group of people every week — praying together, studying the Word, and standing in the gap for one another. I would love to have you join us.</p>
  <button class="btn-primary" onclick="showPage('community')">Request an Invitation</button>
  </div>
  </section>
@@ -757,7 +760,7 @@
  <p style="margin-top:8px; font-size: 14px; color: rgba(255,255,255,0.4);">Watch for an email confirmation at <strong id="successEmail"></strong>.</p>
  <div class="community-invite-box">
  <h3>Want to go deeper?</h3>
- <p>I personally pray with a small, close circle of intercessors. If you feel called to that kind of commitment, let me know — I would love to have you.</p>
+ <p>I pray with a small, close group of people every week. I would love to have you in that circle — come pray with me.</p>
  <button class="btn-primary" onclick="showPage('community')" style="font-size:14px; padding: 12px 28px;">Request an Invitation →</button>
  </div>
  <div style="margin-top: 28px;">
@@ -846,43 +849,26 @@
 
 <!-- COMMUNITY PAGE -->
 <div class="page" id="page-community">
- <div class="community-hero">
+
+ <!-- ABOVE-THE-FOLD: two-col on desktop, stacked on mobile -->
+ <div class="community-atf">
+
+ <!-- LEFT: intro -->
+ <div class="community-atf-left" style="text-align: center;">
  <span class="section-tag" style="font-size:12px;">A Personal Invitation</span>
- <h1>I Want You <span style="color: var(--accent-light);">In My Circle</span></h1>
- <p style="max-width:620px; margin: 0 auto 12px; font-size:17px; color: rgba(255,255,255,0.65); line-height:1.8;">This is not a church programme or an open community. I am personally inviting a small group of people who feel called to intercede — to pray with me, study the Word with me, and stand in the gap for one another and for the advancement of God's kingdom.</p>
- <p style="font-family: var(--font-display); font-style:italic; font-size:15px; color: var(--accent); margin-bottom: 48px;">"Two are better than one... for if they fall, the one will lift up his fellow." — Ecclesiastes 4:9–10 KJV</p>
- <div class="benefits-grid">
- <div class="benefit-card">
- <div class="benefit-icon"></div>
- <h3>Live Intercessory Meetings</h3>
- <p>Join weekday prayer and scripture sessions via interactive Zoom-style meetings. Come prepared to pray, study, and grow together in the Spirit.</p>
- </div>
- <div class="benefit-card">
- <div class="benefit-icon"></div>
- <h3>Deep Scripture Study</h3>
- <p>We do not just pray — we dig into the Word. Members receive curated scriptures, devotional guides, and prayer assignments to build their intercession foundation.</p>
- </div>
- <div class="benefit-card">
- <div class="benefit-icon"></div>
- <h3>Community Prayer Wall</h3>
- <p>Receive and respond to community-wide prayer assignments. Your prayers join with others to advance God's cause on the earth — agreements that move heaven.</p>
- </div>
- <div class="benefit-card">
- <div class="benefit-icon"></div>
- <h3>Personal Welcome & Onboarding</h3>
- <p>Every person who joins is personally welcomed by me. Before you step in, I will walk you through a foundational course to ground you in the call and discipline of intercession.</p>
- </div>
- </div>
+ <h1 style="margin: 16px 0 20px;">Join My <span style="color: var(--accent-light);">Prayer Circle</span></h1>
+ <p style="max-width:540px; margin: 0 auto 16px; font-size:17px; color: rgba(255,255,255,0.65); line-height:1.85;">I pray with a small, close group of people every week. We pray together, study the Word together, and stand in the gap for one another and for the advancement of God's kingdom. I would love to have you in that circle.</p>
+ <p style="font-family: var(--font-display); font-style:italic; font-size:14px; color: var(--accent); margin-bottom: 0;">"Two are better than one... for if they fall, the one will lift up his fellow." — Ecclesiastes 4:9–10 KJV</p>
  </div>
 
- <section style="background: rgba(11,45,51,0.35); padding: 64px 24px;">
- <div class="section-inner" style="max-width: 760px;">
- <div style="text-align:center; margin-bottom: 40px;">
- <span class="section-tag">Express Your Interest</span>
- <h2 class="section-title" style="font-size: clamp(24px, 4vw, 36px);">This Circle Is <span class="gold">By Invitation</span></h2>
- <p style="font-size:15px; color: rgba(255,255,255,0.55); max-width:560px; margin: 12px auto 0; line-height:1.8;">If you feel called to pray, let me know. Fill in your details and I will personally reach out to you with next steps — including everything you need to get started.</p>
+ <!-- RIGHT: form -->
+ <div>
+ <div style="text-align:center; margin-bottom: 28px;">
+ <span class="section-tag">Come Pray With Me</span>
+ <h2 class="section-title" style="font-size: clamp(22px, 3.5vw, 32px); margin-top: 12px;">Let Me Know <span class="gold">You're Interested</span></h2>
+ <p style="font-size:14px; color: rgba(255,255,255,0.45); max-width:460px; margin: 10px auto 0; line-height:1.8;">Fill in your details and I will personally reach out with everything you need to get started.</p>
  </div>
- <div class="community-join-form" style="background: rgba(6,15,16,0.7); border: 1px solid rgba(0,192,192,0.18); border-radius: var(--radius-lg); padding: 40px 36px;">
+ <div class="community-join-form" style="background: rgba(6,15,16,0.7); border: 1px solid rgba(0,192,192,0.18); border-radius: var(--radius-lg); padding: 36px 32px;">
  <div class="join-success" id="joinSuccess">
  <div style="width:64px; height:64px; border-radius:50%; background: linear-gradient(135deg, var(--accent), var(--accent-light)); margin: 0 auto 20px; display:flex; align-items:center; justify-content:center;">
  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -913,8 +899,41 @@
  <textarea id="jMotivation" placeholder="Share a little about your prayer journey or what you're believing God for..." style="width:100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); color: var(--white); font-family: var(--font-body); font-size:15px; padding: 14px 16px; resize: vertical; min-height: 90px; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
  </div>
  <div class="form-group" style="margin-bottom:24px;"><label class="form-checkbox"><input type="checkbox" id="jNotify" checked /><span>Notify me before every Saturday live stream</span></label></div>
- <button class="submit-btn" onclick="joinCommunity()">Express My Interest — Join the Circle</button>
- <p class="form-note" style="margin-top:12px;">Your information is private and will only be seen by PC Lancelot. We will reach out personally.</p>
+ <button class="submit-btn" onclick="joinCommunity()">I Want to Pray With You</button>
+ <p class="form-note" style="margin-top:12px;">Your information is private and will only be seen by PC Lancelot. I will reach out personally.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- BENEFIT CARDS — below the fold -->
+ <section style="background: rgba(11,45,51,0.35); padding: 64px 24px 80px;">
+ <div class="section-inner">
+ <div style="text-align:center; margin-bottom: 48px;">
+ <span class="section-tag">What We Do Together</span>
+ <h2 class="section-title">Life in the <span class="gold">Prayer Circle</span></h2>
+ </div>
+ <div class="benefits-grid">
+ <div class="benefit-card">
+ <div class="benefit-icon"></div>
+ <h3>Live Intercessory Meetings</h3>
+ <p>We meet on weekdays for prayer and scripture sessions. Come prepared to pray, study, and grow together in the Spirit.</p>
+ </div>
+ <div class="benefit-card">
+ <div class="benefit-icon"></div>
+ <h3>Deep Scripture Study</h3>
+ <p>We do not just pray — we dig into the Word. Members receive curated scriptures, devotional guides, and prayer assignments to build their intercession foundation.</p>
+ </div>
+ <div class="benefit-card">
+ <div class="benefit-icon"></div>
+ <h3>Community Prayer Wall</h3>
+ <p>We carry one another's burdens. Your prayers join with others to advance God's cause on the earth — agreements that move heaven.</p>
+ </div>
+ <div class="benefit-card">
+ <div class="benefit-icon"></div>
+ <h3>Personal Welcome & Onboarding</h3>
+ <p>Every person who joins is personally welcomed by me. I will walk you through a foundational course to ground you in the call and discipline of intercession.</p>
  </div>
  </div>
  </div>
