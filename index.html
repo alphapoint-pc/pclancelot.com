@@ -238,9 +238,10 @@
  .btn-hero-secondary:hover { background: rgba(255,255,255,0.88); border-color: var(--white); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,255,255,0.2); }
  /* Desktop: side-by-side layout */
  @media (min-width: 768px) {
- .hero { padding: 88px 40px 36px; min-height: calc(100svh - 68px); }
- .hero-inner { flex-direction: row; align-items: center; justify-content: center; gap: 48px; }
- .hero-flyer { max-width: 520px; margin-bottom: 0; flex-shrink: 0; }
+ .hero { padding: 88px 40px 36px; min-height: calc(100svh - 68px); max-height: calc(100svh - 68px); }
+ .hero-inner { flex-direction: row; align-items: center; justify-content: center; gap: 48px; height: 100%; }
+ .hero-flyer { max-width: 520px; margin-bottom: 0; flex-shrink: 1; min-width: 0; }
+ .hero-flyer img { max-height: calc(100svh - 192px); width: auto; max-width: 100%; object-fit: contain; }
  .hero-right { display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
  .hero-cta-group { max-width: 100%; }
  .hero-live-badge { margin-bottom: 20px; }
@@ -260,6 +261,26 @@
  font-family: var(--font-display); font-style: italic;
  font-size: clamp(14px, 2vw, 17px); color: rgba(255,255,255,0.5); line-height: 1.6;
  }
+
+ /* CALLING SECTION */
+ .calling-scripture {
+   border-left: 3px solid var(--accent); padding: 16px 24px; margin-bottom: 36px;
+   background: rgba(0,192,192,0.06); border-radius: 0 var(--radius) var(--radius) 0;
+   max-width: 680px;
+ }
+ .calling-scripture p { font-family: var(--font-display); font-style: italic; font-size: 18px; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 8px; }
+ .calling-scripture cite { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 1px; }
+ .calling-card-accent { height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 2px; margin-bottom: 20px; width: 48px; }
+ .calling-verse { margin-top: 16px; padding: 12px 14px; background: rgba(0,192,192,0.06); border-radius: var(--radius); font-family: var(--font-display); font-style: italic; font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; border-left: 2px solid rgba(0,192,192,0.3); }
+ .calling-banner {
+   margin-top: 64px; padding: 48px 40px; text-align: center;
+   background: linear-gradient(135deg, rgba(11,45,51,0.8), rgba(6,20,22,0.95));
+   border: 1px solid rgba(0,192,192,0.3); border-radius: var(--radius-lg);
+   position: relative; overflow: hidden;
+ }
+ .calling-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(0,192,192,0.08) 0%, transparent 70%); pointer-events: none; }
+ .calling-banner-text { font-family: var(--font-display); font-size: clamp(18px, 3vw, 26px); font-style: italic; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+ .calling-banner-text span { color: var(--accent-light); font-style: normal; font-weight: 700; }
 
  /* STREAM BANNER */
  .stream-banner {
@@ -612,14 +633,49 @@
 
  <section style="background: var(--dark); padding: 80px 24px;">
  <div class="section-inner">
- <span class="section-tag">How It Works</span>
- <h2 class="section-title">Your Prayer in <span class="gold">3 Simple Steps</span></h2>
- <p class="section-desc">Getting your prayer request to God through our ministry has never been easier.</p>
- <div class="features-grid">
- <div class="feature-card" style="text-align:center;"><div class="feature-icon"></div><h3>1. Submit Your Request</h3><p>Fill out our simple prayer request form. Share your name, email, and the prayer you need lifted up. Your request is safe and treated with reverence.</p></div>
- <div class="feature-card" style="text-align:center;"><div class="feature-icon"></div><h3>2. Join the Live Stream</h3><p>Tune into our weekly "Bring Your Prayer Request" live stream on YouTube every Saturday at 9AM CST. PC Lancelot prays over requests in real time.</p></div>
- <div class="feature-card" style="text-align:center;"><div class="feature-icon"></div><h3>3. Receive Your Breakthrough</h3><p>Stand in faith. God is listening. Many have shared miraculous testimonies of healing, provision, and deliverance after prayer on this ministry.</p></div>
- </div>
+   <span class="section-tag">Our Divine Mandate</span>
+   <h2 class="section-title">Called to <span class="gold">Stand in the Gap</span></h2>
+
+   <div class="calling-scripture">
+     <p>"And I sought for a man among them, that should make up the hedge, and stand in the gap before me for the land..."</p>
+     <cite>— Ezekiel 22:30 KJV</cite>
+   </div>
+
+   <p class="section-desc" style="max-width: 780px; font-size: 18px; line-height: 1.9; margin-bottom: 56px;">
+     God raised up this ministry with a clear and holy charge — to stand as an intercessor before His throne on behalf of His people. Not merely to pray, but to <em style="color: var(--accent-light); font-style: normal;">advance His cause upon the earth</em> — to see His kingdom come and His will be done in the lives of those who cry out to Him. Every request lifted here is a seed sown into the purposes of God.
+   </p>
+
+   <div class="features-grid">
+     <div class="feature-card">
+       <div class="calling-card-accent"></div>
+       <h3>We Stand in the Gap</h3>
+       <p>Intercession is not a suggestion — it is a holy calling. PC Lancelot was appointed to stand between heaven and earth, bringing the needs of God's people before the throne of Grace with faith, fervency, and fire.</p>
+       <div class="calling-verse">"The effectual fervent prayer of a righteous man availeth much." — James 5:16 KJV</div>
+     </div>
+     <div class="feature-card">
+       <div class="calling-card-accent"></div>
+       <h3>We Advance His Kingdom</h3>
+       <p>Every prayer lifted is ground taken for God's glory. This ministry does not pray defensively — we pray offensively, contending for breakthrough, divine order, and the fulfilment of God's sovereign plan in every life and every nation.</p>
+       <div class="calling-verse">"The kingdom of heaven suffereth violence, and the violent take it by force." — Matthew 11:12 KJV</div>
+     </div>
+     <div class="feature-card">
+       <div class="calling-card-accent"></div>
+       <h3>We Break Every Chain</h3>
+       <p>Many of God's people are weighed down by burdens, bondages, and battles they were never meant to carry alone. Through prayer, yokes are destroyed, minds are renewed, and what the enemy meant for harm is turned into a testimony.</p>
+       <div class="calling-verse">"And it shall come to pass in that day, that his burden shall be taken away from off thy shoulder." — Isaiah 10:27 KJV</div>
+     </div>
+     <div class="feature-card">
+       <div class="calling-card-accent"></div>
+       <h3>We Unlock Your Purpose</h3>
+       <p>God did not save you merely to survive — He saved you to fulfil a divine assignment. Our prayers target the release of gifts, callings, and destinies; that you may be fully equipped and sent forth in the power of the Holy Ghost.</p>
+       <div class="calling-verse">"For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained." — Ephesians 2:10 KJV</div>
+     </div>
+   </div>
+
+   <div class="calling-banner">
+     <p class="calling-banner-text">This is not just a prayer meeting. This is a <span>war room</span> — and every Saturday at 9AM CST, the gates of heaven are opened for your breakthrough.</p>
+     <button class="btn-primary" onclick="showPage('prayer')" style="margin-top: 28px; padding: 16px 40px; font-size: 16px;">Bring Your Request Before God</button>
+   </div>
  </div>
  </section>
 
