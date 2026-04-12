@@ -903,8 +903,8 @@
  </select>
  </div>
  <div class="form-group" style="margin-bottom:20px;">
- <label>What draws you to intercessory prayer? <span style="font-size:12px; color: rgba(255,255,255,0.35); font-weight:400;">(Optional — helps us personalise your welcome)</span></label>
- <textarea id="jMotivation" placeholder="Share a little about your prayer journey or what you're believing God for..." style="width:100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); color: var(--white); font-family: var(--font-body); font-size:15px; padding: 14px 16px; resize: vertical; min-height: 90px; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+ <label>What draws you to prayer? <span style="font-size:12px; color: rgba(255,255,255,0.35); font-weight:400;">(Optional — helps us personalise your welcome)</span></label>
+ <textarea id="jMotivation" placeholder="Tell us about your prayer journey..." style="width:100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); color: var(--white); font-family: var(--font-body); font-size:15px; padding: 14px 16px; resize: vertical; min-height: 90px; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
  </div>
  <div class="form-group" style="margin-bottom:24px;"><label class="form-checkbox"><input type="checkbox" id="jNotify" checked /><span>Notify me before every Saturday live stream</span></label></div>
  <button class="submit-btn" onclick="joinCommunity()">I Want to Pray With You</button>
@@ -956,12 +956,12 @@
  <div class="livestream-hero">
  <span class="section-tag">Every Saturday · 9AM CST · Live on YouTube</span>
  <h1>Bring Your Prayer Request — <span style="color: var(--accent-light);">Live</span></h1>
- <p style="font-size:17px; color: rgba(255,255,255,0.6); max-width: 560px; margin: 0 auto 40px;">Join PC Lancelot live every Saturday at 9AM CST for an anointed prayer session. Submit your request below, then tune in to watch God move.</p>
+ <p style="font-size:17px; color: rgba(255,255,255,0.6); max-width: 560px; margin: 0 auto 40px;">I pray for God's people every Saturday at 9AM CST on YouTube. Submit your request below, then tune in and watch God move on your behalf.</p>
  <div style="padding: 0 24px;">
  <div class="video-embed-area">
  <div class="video-placeholder">
  <div class="play-btn"></div>
- <p>Watch live on YouTube<br/><a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener">@pclancelot →</a></p>
+ <p>Watch live on YouTube<br/><a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener">@pclancelot/streams →</a></p>
  </div>
  </div>
  </div>
@@ -972,13 +972,23 @@
  <span class="section-tag">Stream Schedule</span>
  <h2 class="section-title">Never Miss a <span class="gold">Prayer Session</span></h2>
  </div>
- <div class="schedule-grid" style="max-width: 800px; margin: 0 auto;">
- <div class="schedule-card"><div class="day">Weekly Live Stream</div><h3>Bring Your Prayer Request</h3><div class="time"> Every Saturday · 9:00 AM CST<br/> All time zones welcome</div><button class="notify-btn" onclick="showPage('community')"> Get Notified</button></div>
- <div class="schedule-card"><div class="day">Special Sessions</div><h3>Prayer & Fasting Livestreams</h3><div class="time"> Announced in advance<br/> Email community first</div><button class="notify-btn" onclick="showPage('community')">Join Prayer Circle</button></div>
+ <div class="schedule-grid" style="max-width: 900px; margin: 0 auto;">
+ <div class="schedule-card">
+ <div class="day">Every Saturday</div>
+ <h3>Bring Your Prayer Request</h3>
+ <div class="time">9:00 AM CST · Live on YouTube<br/>All time zones welcome</div>
+ <a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener" class="notify-btn" style="display:inline-block; text-decoration:none; text-align:center;">Watch on YouTube</a>
+ </div>
+ <div class="schedule-card">
+ <div class="day">Every Weekday</div>
+ <h3>Kingdom Prayers</h3>
+ <div class="time">Intercessory Prayer Meeting<br/>Live on Google Meet</div>
+ <a href="https://meet.google.com/nws-rvtg-hwg" target="_blank" rel="noopener" class="notify-btn" style="display:inline-block; text-decoration:none; text-align:center;">Join the Meeting</a>
+ </div>
  </div>
  <div class="countdown-section">
  <h3>Next Stream In</h3>
- <div class="next-stream"> Next Saturday · 9:00 AM CST on YouTube</div>
+ <div class="next-stream">Next Saturday · 9:00 AM CST on YouTube</div>
  <div class="countdown-grid">
  <div class="countdown-unit"><div class="countdown-num" id="cd-days">--</div><div class="countdown-label">Days</div></div>
  <div class="countdown-colon">:</div>
@@ -1007,12 +1017,12 @@
  <div class="contact-grid">
  <div class="contact-info">
  <h2>Connect With Us</h2>
- <div class="contact-item"><div class="c-icon"></div><div><h4>YouTube</h4><p><a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener">youtube.com/@pclancelot</a></p></div></div>
+ <div class="contact-item"><div class="c-icon"></div><div><h4>YouTube</h4><p><a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener">youtube.com/@pclancelot/streams</a></p></div></div>
  <div class="contact-item"><div class="c-icon"></div><div><h4>Email</h4><p><a href="mailto:prayer@pclancelot.com">prayer@pclancelot.com</a></p></div></div>
  <div class="contact-item"><div class="c-icon"></div><div><h4>Website</h4><p>pclancelot.com</p></div></div>
  <div class="contact-item"><div class="c-icon"></div><div><h4>Prayer Requests</h4><p>Submit via our <a href="#" onclick="showPage('prayer'); return false;">Prayer Request form</a> for the fastest response.</p></div></div>
  <div class="social-links">
- <a href="https://www.youtube.com/@pclancelot" target="_blank" class="social-link"> YouTube</a>
+ <a href="https://www.youtube.com/@pclancelot/streams" target="_blank" class="social-link"> YouTube</a>
  <a href="#" class="social-link"> Facebook</a>
  <a href="#" class="social-link"> Instagram</a>
  <a href="#" class="social-link"> X (Twitter)</a>
