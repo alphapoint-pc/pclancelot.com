@@ -556,6 +556,13 @@
  /* RESPONSIVE */
  @media (max-width: 900px) { .about-content { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr 1fr; } .contact-grid { grid-template-columns: 1fr; } }
  @media (max-width: 640px) { nav { padding: 0 16px; } .nav-links { display: none; } .hamburger { display: flex; } .form-row.two-col { grid-template-columns: 1fr; } .prayer-form { padding: 28px 20px; } .community-join-form { padding: 28px 20px; } .footer-top { grid-template-columns: 1fr; } .about-values { grid-template-columns: 1fr; } }
+
+ /* KPC INVITE BANNER (prayer success page) */
+ .kpc-invite-banner { position: relative; background: linear-gradient(135deg, rgba(0,192,192,0.08), rgba(0,192,192,0.03)); border: 1px solid rgba(0,192,192,0.3); border-radius: var(--radius-lg); padding: 32px 28px; max-width: 560px; margin: 28px auto 0; text-align: center; overflow: hidden; }
+ .kpc-invite-banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent)); }
+ .kpc-banner-tag { font-family: var(--font-heading); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+ .kpc-invite-banner h3 { font-family: var(--font-heading); font-size: clamp(17px, 3vw, 21px); color: #fff; margin-bottom: 12px; font-weight: 700; line-height: 1.3; }
+ .kpc-invite-banner p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 22px; max-width: 380px; margin-left: auto; margin-right: auto; }
  </style>
 </head>
 <body>
@@ -762,10 +769,12 @@
  <h2>Your Prayer Has Been Received!</h2>
  <p>Thank you, <strong id="successName"></strong>. Your request has been entered into our prayer list. PC Lancelot will lift your need before God on Saturday's live stream.</p>
  <p style="margin-top:8px; font-size: 14px; color: rgba(255,255,255,0.4);">Watch for an email confirmation at <strong id="successEmail"></strong>.</p>
- <div class="community-invite-box">
- <h3>Want to go deeper?</h3>
- <p>I pray with a small, close group of people every week. I would love to have you in that circle — come pray with me.</p>
- <button class="btn-primary" onclick="showPage('community')" style="font-size:14px; padding: 12px 28px;">Request an Invitation →</button>
+ <!-- KPC Invite Banner -->
+ <div class="kpc-invite-banner">
+   <div class="kpc-banner-tag">Kingdom Prayer Circle</div>
+   <h3>Would you like to join my Prayer Circle?</h3>
+   <p>We meet every weekday via Zoom — interceding together, pressing forward in prayer for the advancement of God's Kingdom.</p>
+   <button class="btn-primary" onclick="showPage('community')" style="font-size:14px; padding: 12px 32px;">Learn More</button>
  </div>
  <div style="margin-top: 28px;">
  <button onclick="resetPrayerForm()" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 10px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">← Submit Another Request</button>
@@ -1179,31 +1188,63 @@
  setTimeout(() => t.classList.remove('show'), 4000);
  }
  function submitPrayerRequest() {
- const firstName = document.getElementById('pFirstName').value.trim();
- const email = document.getElementById('pEmail').value.trim();
- const country = document.getElementById('pCountry').value;
- const request = document.getElementById('pRequest').value.trim();
- const consent = document.getElementById('pConsent').checked;
- if (!firstName) { alert('Please enter your first name.'); return; }
- if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
- if (!country) { alert('Please select your country.'); return; }
- if (!request) { alert('Please write your prayer request.'); return; }
- if (!consent) { alert('Please check the consent box to continue.'); return; }
- document.getElementById('successName').textContent = firstName;
- document.getElementById('successEmail').textContent = email;
- document.getElementById('prayerFormWrap').style.display = 'none';
- document.getElementById('prayerSuccess').classList.add('show');
- window.scrollTo({ top: 0, behavior: 'smooth' });
- showToast('Prayer Received! ', 'God hears you, ' + firstName + '. We\'ll be praying.');
+   const firstName = document.getElementById('pFirstName').value.trim();
+   const lastName  = document.getElementById('pLastName').value.trim();
+   const email     = document.getElementById('pEmail').value.trim();
+   const country   = document.getElementById('pCountry').value;
+   const request   = document.getElementById('pRequest').value.trim();
+   const consent   = document.getElementById('pConsent').checked;
+   const anonymous = document.getElementById('pAnonymous').checked;
+   const addComm   = document.getElementById('pCommunity').checked;
+   const selChip   = document.querySelector('#categoryGrid .category-chip.selected input');
+   const category  = selChip ? selChip.value : 'General';
+   if (!firstName) { alert('Please enter your first name.'); return; }
+   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+   if (!country)   { alert('Please select your country.'); return; }
+   if (!request)   { alert('Please write your prayer request.'); return; }
+   if (!consent)   { alert('Please check the consent box to continue.'); return; }
+   const btn = document.querySelector('#prayerFormWrap .submit-btn');
+   btn.textContent = 'Sending…'; btn.disabled = true;
+   const fullName = firstName + (lastName ? ' ' + lastName : '');
+   const payload = {
+     _subject: 'Prayer Request — ' + fullName + ' (' + country + ')',
+     name: fullName, email: email, country: country,
+     category: category, prayer_request: request,
+     anonymous_on_stream: anonymous ? 'Yes' : 'No',
+     join_community: addComm ? 'Yes' : 'No'
+   };
+   /* ── Apps Script endpoint — replace YOUR_APPS_SCRIPT_URL after deploying ── */
+   var ENDPOINT = 'YOUR_APPS_SCRIPT_URL';
+   fetch(ENDPOINT, {
+     method: 'POST',
+     mode: 'no-cors',                     /* Apps Script requires no-cors from browser */
+     headers: { 'Content-Type': 'text/plain' },
+     body: JSON.stringify(payload)
+   })
+   .then(function() {
+     /* no-cors = opaque response; treat any completion as success */
+     document.getElementById('successName').textContent = firstName;
+     document.getElementById('successEmail').textContent = email;
+     document.getElementById('prayerFormWrap').style.display = 'none';
+     document.getElementById('prayerSuccess').classList.add('show');
+     window.scrollTo({ top: 0, behavior: 'smooth' });
+     showToast('Prayer Received!', 'God hears you, ' + firstName + '. We\'ll be praying.');
+   })
+   .catch(function() {
+     btn.textContent = 'Submit My Prayer Request'; btn.disabled = false;
+     alert('Connection error. Please check your internet and try again.');
+   });
  }
  function resetPrayerForm() {
- document.getElementById('prayerFormWrap').style.display = 'block';
- document.getElementById('prayerSuccess').classList.remove('show');
- ['pFirstName','pLastName','pEmail','pRequest'].forEach(id => document.getElementById(id).value = '');
- document.getElementById('pCountry').value = '';
- document.getElementById('pAnonymous').checked = false;
- document.getElementById('pCommunity').checked = false;
- document.getElementById('pConsent').checked = false;
+   document.getElementById('prayerFormWrap').style.display = 'block';
+   document.getElementById('prayerSuccess').classList.remove('show');
+   ['pFirstName','pLastName','pEmail','pRequest'].forEach(id => document.getElementById(id).value = '');
+   document.getElementById('pCountry').value = '';
+   document.getElementById('pAnonymous').checked = false;
+   document.getElementById('pCommunity').checked = false;
+   document.getElementById('pConsent').checked = false;
+   const btn = document.querySelector('#prayerFormWrap .submit-btn');
+   if (btn) { btn.textContent = 'Submit My Prayer Request'; btn.disabled = false; }
  }
  function joinCommunity() {
  const firstName = document.getElementById('jFirstName').value.trim();
