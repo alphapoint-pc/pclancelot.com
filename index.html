@@ -7,7 +7,7 @@
  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
  <style>
  :root {
- --primary: #0b2d33;
+ --primary: #0b2d33;h
  --primary-mid: #0f3c44;
  --primary-light:#1a5a66;
  --accent: #00c0c0;
@@ -1142,11 +1142,11 @@
    const fullName = firstName + (lastName ? ' ' + lastName : '');
    const payload = {
      _subject: 'Prayer Request — ' + fullName + ' (' + country + ')',
-     name: fullName, email: email, country: country,
+     first_name: firstName, last_name: lastName, email: email, country: country,
      prayer_request: request
    };
    /* ── Apps Script endpoint — replace YOUR_APPS_SCRIPT_URL after deploying ── */
-   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxfYM7RBDkrM2x3rFg57bPY59PNyEaSmVhtF8X4osnH5dTeBMwxktlHE1DZ77eTu9Zx/exec';
+   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec';
    fetch(ENDPOINT, {
      method: 'POST',
      mode: 'no-cors',                     /* Apps Script requires no-cors from browser */
