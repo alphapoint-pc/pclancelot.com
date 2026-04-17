@@ -395,11 +395,15 @@
  .poc-definition { display: none; margin-top: 12px; padding: 14px 18px; border-left: 2px solid rgba(0,192,192,0.25); background: rgba(0,192,192,0.04); border-radius: 0 8px 8px 0; text-align: left; }
  .poc-definition p { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7; margin: 0; }
  .poc-definition em { color: rgba(0,192,192,0.55); font-style: italic; }
- .form-success { display: none; text-align: center; padding: 48px 24px; }
- .form-success.show { display: block; }
+ .form-success { display: none; text-align: center; padding: 64px 24px; min-height: 80vh; }
+ .form-success.show { display: flex; flex-direction: column; align-items: center; justify-content: center; }
  .success-icon { font-size: 72px; margin-bottom: 20px; }
  .form-success h2 { font-family: var(--font-heading); font-size: 28px; color: var(--accent-light); margin-bottom: 12px; text-transform: uppercase; }
  .form-success p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
+ .success-personal-msg { max-width: 520px; margin: 0 auto 28px; font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.75); }
+ .success-personal-msg strong { color: var(--accent-light); }
+ .success-scripture { font-family: var(--font-display); font-style: italic; font-size: 15px; color: rgba(0,192,192,0.7); max-width: 420px; margin: 0 auto 32px; line-height: 1.7; }
+ .success-scripture cite { display: block; font-size: 12px; font-style: normal; margin-top: 6px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
  .community-invite-box {
  background: linear-gradient(135deg, rgba(0,192,192,0.1), rgba(11,61,70,0.4));
  border: 1px solid rgba(0,192,192,0.3); border-radius: var(--radius-lg); padding: 28px; margin-top: 24px; text-align: left;
@@ -732,10 +736,19 @@
  <div class="form-section">
  <div class="form-container">
  <div class="form-success" id="prayerSuccess">
- <div class="success-icon"></div>
- <h2>Your Prayer Has Been Received!</h2>
- <p>Thank you, <strong id="successName"></strong>. Your request has been entered into our prayer list. PC Lancelot will lift your need before God on Saturday's live stream.</p>
- <p style="margin-top:8px; font-size: 14px; color: rgba(255,255,255,0.4);">Watch for an email confirmation at <strong id="successEmail"></strong>.</p>
+ <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;">
+   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+ </div>
+ <span class="section-tag" style="margin-bottom:14px;">Prayer Received</span>
+ <h2 style="margin-bottom:20px;">We Have Your Request, <span id="successName"></span></h2>
+ <p class="success-personal-msg">
+   Your prayer request has been received and <strong>will be printed out</strong> and physically laid before the Lord. Every Saturday at <strong>9AM CST</strong>, we gather to pray and fast — holding each request up before God in faith and agreement. We will be standing with you.
+ </p>
+ <p class="success-scripture">
+   &ldquo;Again I say unto you, That if two of you shall agree on earth as touching any thing that they shall ask, it shall be done for them of my Father which is in heaven.&rdquo;
+   <cite>— Matthew 18:19 KJV</cite>
+ </p>
+ <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:28px;">A confirmation has been sent to <strong style="color:rgba(255,255,255,0.5);" id="successEmail"></strong></p>
  <!-- KPC Invite Banner -->
  <div class="kpc-invite-banner">
    <div class="kpc-banner-tag">God Lovers Prayer Circle</div>
