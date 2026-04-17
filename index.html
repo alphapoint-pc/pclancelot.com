@@ -397,9 +397,15 @@
  .poc-definition em { color: rgba(0,192,192,0.55); font-style: italic; }
  .form-success { display: none; text-align: center; padding: 80px 24px; }
  .form-success.show {
-   display: flex; flex-direction: column; align-items: center; justify-content: center;
-   position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 600;
-   background: var(--dark); overflow-y: auto; padding: 80px 24px 60px;
+   display: flex; flex-direction: column; align-items: center;
+   /* justify-content:center removed — breaks mobile scroll when content overflows */
+   position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1001;
+   background: var(--dark); overflow-y: auto;
+   padding: 96px 24px 64px; /* 96px = nav height + breathing room */
+ }
+ .form-success-inner {
+   width: 100%; max-width: 600px; margin: 0 auto;
+   display: flex; flex-direction: column; align-items: center; text-align: center;
  }
  .success-icon { font-size: 72px; margin-bottom: 20px; }
  .form-success h2 { font-family: var(--font-heading); font-size: 28px; color: var(--accent-light); margin-bottom: 12px; text-transform: uppercase; }
@@ -591,13 +597,13 @@
  <div class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
- <button onclick="showPage('home'); toggleMobileMenu()"> Home</button>
- <button onclick="showPage('livestream'); toggleMobileMenu()"> Live Stream</button>
- <button onclick="showPage('about'); toggleMobileMenu()"> About</button>
- <button onclick="showPage('community'); toggleMobileMenu()"> Community</button>
- <button onclick="showPage('testimony'); toggleMobileMenu()"> Share Testimony</button>
- <button onclick="showPage('contact'); toggleMobileMenu()"> Contact</button>
- <button onclick="showPage('prayer'); toggleMobileMenu()" class="mobile-cta"> Submit Prayer Request</button>
+ <button onclick="showPage('home'); toggleMobileMenu()">Home</button>
+ <button onclick="showPage('livestream'); toggleMobileMenu()">Live Stream</button>
+ <button onclick="showPage('about'); toggleMobileMenu()">About</button>
+ <button onclick="showPage('community'); toggleMobileMenu()">Community</button>
+ <button onclick="showPage('testimony'); toggleMobileMenu()">Share Testimony</button>
+ <button onclick="showPage('contact'); toggleMobileMenu()">Contact</button>
+ <button onclick="showPage('prayer'); toggleMobileMenu()" class="mobile-cta">Submit Prayer Request</button>
 </div>
 <!-- HOME PAGE -->
 <div class="page active" id="page-home">
@@ -626,10 +632,10 @@
  </div>
  </section>
  <div class="stream-banner">
- <div class="stream-item"><span class="icon"></span><div><strong>Every Saturday</strong> <span>– 9:00 AM CST</span></div></div>
- <div class="stream-item"><span class="icon"></span><div><strong>YouTube</strong> <span>– PC Lancelot</span></div></div>
- <div class="stream-item"><span class="icon"></span><div><strong>All Are Welcome</strong> <span>– Every Nation, Every Need</span></div></div>
- <div class="stream-item"><span class="icon"></span><div><strong>No Request Too Big</strong> <span>– God Hears Them All</span></div></div>
+ <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><strong>Every Saturday</strong> <span>– 9:00 AM CST</span></div></div>
+ <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span><div><strong>YouTube</strong> <span>– PC Lancelot</span></div></div>
+ <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><strong>All Are Welcome</strong> <span>– Every Nation, Every Need</span></div></div>
+ <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>No Request Too Big</strong> <span>– God Hears Them All</span></div></div>
  </div>
  <section style="background: var(--dark); padding: 80px 24px;">
  <div class="section-inner">
@@ -688,12 +694,12 @@
  <h2 class="section-title">No Need Too <span class="gold">Big or Small</span></h2>
  <p class="section-desc">Whatever you're facing, bring it to God. PC Lancelot stands in the gap for every need.</p>
  <div class="features-grid">
- <div class="feature-card"><div class="feature-icon"></div><h3>Healing & Health</h3><p>Physical illness, chronic conditions, mental health, healing for yourself or a loved one.</p></div>
- <div class="feature-card"><div class="feature-icon"></div><h3>Family & Relationships</h3><p>Marriage restoration, prodigal children, reconciliation, protection over your household.</p></div>
- <div class="feature-card"><div class="feature-icon"></div><h3>Financial Breakthrough</h3><p>Debt cancellation, open doors for employment, business blessing, provision and overflow.</p></div>
- <div class="feature-card"><div class="feature-icon"></div><h3>Spiritual Growth</h3><p>Salvation for the unsaved, deeper faith, deliverance, anointing, and divine direction.</p></div>
- <div class="feature-card"><div class="feature-icon"></div><h3>Legal & Justice</h3><p>Court cases, injustice, immigration, freedom from oppression and unjust systems.</p></div>
- <div class="feature-card"><div class="feature-icon"></div><h3>Nations & Leaders</h3><p>Prayer for governments, nations, peace, revival, and the spreading of the Gospel.</p></div>
+ <div class="feature-card"><div class="feature-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Healing & Health</h3><p>Physical illness, chronic conditions, mental health, healing for yourself or a loved one.</p></div>
+ <div class="feature-card"><div class="feature-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Family & Relationships</h3><p>Marriage restoration, prodigal children, reconciliation, protection over your household.</p></div>
+ <div class="feature-card"><div class="feature-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Financial Breakthrough</h3><p>Debt cancellation, open doors for employment, business blessing, provision and overflow.</p></div>
+ <div class="feature-card"><div class="feature-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Spiritual Growth</h3><p>Salvation for the unsaved, deeper faith, deliverance, anointing, and divine direction.</p></div>
+ <div class="feature-card"><div class="feature-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3>Legal & Justice</h3><p>Court cases, injustice, immigration, freedom from oppression and unjust systems.</p></div>
+ <div class="feature-card"><div class="feature-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Nations & Leaders</h3><p>Prayer for governments, nations, peace, revival, and the spreading of the Gospel.</p></div>
  </div>
  </div>
  </section>
@@ -703,11 +709,11 @@
  <h2 class="section-title">God Is Still <span class="gold">Moving</span></h2>
  <p class="section-desc">Real testimonies from real people whose lives God has touched through this ministry.</p>
  <div class="testimonials-grid">
- <div class="testimonial-card"><div class="stars"></div><p class="testimonial-text">I submitted a prayer request for my mother's cancer diagnosis. The very next week after the live stream, her scans showed significant improvement. I believe with my whole heart that prayer moved mountains.</p><div class="testimonial-author"><div class="testimonial-avatar">M</div><div><div class="testimonial-name">Mary O.</div><div class="testimonial-location"> Nigeria</div></div></div></div>
- <div class="testimonial-card"><div class="stars"></div><p class="testimonial-text">I was on the verge of losing my business. I cried out in my prayer request. Within two weeks of PC Lancelot praying over it, I received an unexpected contract that saved everything. Glory to God!</p><div class="testimonial-author"><div class="testimonial-avatar">D</div><div><div class="testimonial-name">David K.</div><div class="testimonial-location"> United States</div></div></div></div>
- <div class="testimonial-card"><div class="stars"></div><p class="testimonial-text">My marriage was broken and I had given up. I submitted my request anonymously. The prayer that night touched something deep. My husband called the next day wanting to reconcile. Jesus is Lord!</p><div class="testimonial-author"><div class="testimonial-avatar">G</div><div><div class="testimonial-name">Grace A.</div><div class="testimonial-location"> United Kingdom</div></div></div></div>
+ <div class="testimonial-card"><div class="stars"></div><p class="testimonial-text">I submitted a prayer request for my mother's cancer diagnosis. The very next week after the live stream, her scans showed significant improvement. I believe with my whole heart that prayer moved mountains.</p><div class="testimonial-author"><div class="testimonial-avatar">M</div><div><div class="testimonial-name">Mary O.</div><div class="testimonial-location">Nigeria</div></div></div></div>
+ <div class="testimonial-card"><div class="stars"></div><p class="testimonial-text">I was on the verge of losing my business. I cried out in my prayer request. Within two weeks of PC Lancelot praying over it, I received an unexpected contract that saved everything. Glory to God!</p><div class="testimonial-author"><div class="testimonial-avatar">D</div><div><div class="testimonial-name">David K.</div><div class="testimonial-location">United States</div></div></div></div>
+ <div class="testimonial-card"><div class="stars"></div><p class="testimonial-text">My marriage was broken and I had given up. I submitted my request anonymously. The prayer that night touched something deep. My husband called the next day wanting to reconcile. Jesus is Lord!</p><div class="testimonial-author"><div class="testimonial-avatar">G</div><div><div class="testimonial-name">Grace A.</div><div class="testimonial-location">United Kingdom</div></div></div></div>
  </div>
- <div style="text-align:center; margin-top:40px;"><button class="btn-secondary" onclick="showPage('prayer')">Share Your Testimony </button></div>
+ <div style="text-align:center; margin-top:40px;"><button class="btn-secondary" onclick="showPage('testimony')">Share Your Testimony</button></div>
  </div>
  </section>
  <section style="background: linear-gradient(135deg, #007a7a 0%, var(--accent) 50%, #00b0b0 100%); padding: 60px 24px; text-align: center;">
@@ -740,7 +746,8 @@
  <div class="form-section">
  <div class="form-container">
  <div class="form-success" id="prayerSuccess">
- <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;">
+ <div class="form-success-inner">
+ <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
  </div>
  <span class="section-tag" style="margin-bottom:14px;">Prayer Received</span>
@@ -753,15 +760,16 @@
    <cite>— Matthew 18:19 KJV</cite>
  </p>
  <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:28px;">A confirmation has been sent to <strong style="color:rgba(255,255,255,0.5);" id="successEmail"></strong></p>
- <!-- KPC Invite Banner -->
+ <!-- Prayer Circle invite -->
  <div class="kpc-invite-banner">
-   <div class="kpc-banner-tag">God Lovers Prayer Circle</div>
+   <div class="kpc-banner-tag">A Personal Invitation</div>
    <h3>Would you like to join my Prayer Circle?</h3>
-   <p>We meet every weekday via Zoom — interceding together, pressing forward in prayer for the advancement of God's Kingdom.</p>
+   <p>I pray with a close group of believers every weekday — interceding together and pressing forward in prayer for the advancement of God's Kingdom. I would love to have you join us.</p>
    <button class="btn-primary" onclick="showPage('community')" style="font-size:14px; padding: 12px 32px;">Learn More</button>
  </div>
  <div style="margin-top: 28px;">
- <button onclick="resetPrayerForm()" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 10px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">← Submit Another Request</button>
+ <button onclick="resetPrayerForm()" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 10px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">Submit Another Request</button>
+ </div>
  </div>
  </div>
  <div id="prayerFormWrap">
@@ -808,13 +816,13 @@
  <h1>Meet <span style="color: var(--accent-light);">PC Lancelot</span></h1>
  <p>PC Lancelot is a dedicated servant of God, called to intercede for people across the nations. Through the weekly "Bring Your Prayer Request" live stream on YouTube every Saturday at 9AM CST, this ministry has become a place of miracles, healing, and breakthrough for thousands of believers around the world.</p>
  <p>What began as a simple desire to pray for people in the comment section of a YouTube video has grown into a global prayer movement — touching hearts from Nigeria to the United States, from the United Kingdom to the Philippines, and everywhere in between.</p>
- <div class="scripture-pull"><p>"The prayer of a righteous person is powerful and effective."</p><cite>— James 5:16 (NIV)</cite></div>
+ <div class="scripture-pull"><p>"The effectual fervent prayer of a righteous man availeth much."</p><cite>— James 5:16 KJV</cite></div>
  <p>This ministry believes in the power of agreement in prayer. When two or more gather in His name, He is there. Every request submitted is treated with reverence, confidentiality, and genuine faith.</p>
  <div class="about-values">
- <div class="value-item"><div class="value-icon"></div><div class="value-text"><h4>Intercession First</h4><p>Every request is prayed over with full faith and anointing.</p></div></div>
- <div class="value-item"><div class="value-icon"></div><div class="value-text"><h4>Confidentiality</h4><p>Your personal details are safe and treated with care.</p></div></div>
- <div class="value-item"><div class="value-icon"></div><div class="value-text"><h4>Global Reach</h4><p>We pray for people in every nation, every background.</p></div></div>
- <div class="value-item"><div class="value-icon"></div><div class="value-text"><h4>Spirit-Led</h4><p>Every session is surrendered to the Holy Spirit's direction.</p></div></div>
+ <div class="value-item"><div class="value-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="value-text"><h4>Intercession First</h4><p>Every request is prayed over with full faith and anointing.</p></div></div>
+ <div class="value-item"><div class="value-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="value-text"><h4>Confidentiality</h4><p>Your personal details are safe and treated with care.</p></div></div>
+ <div class="value-item"><div class="value-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="value-text"><h4>Global Reach</h4><p>We pray for people in every nation, every background.</p></div></div>
+ <div class="value-item"><div class="value-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><div class="value-text"><h4>Spirit-Led</h4><p>Every session is surrendered to the Holy Spirit's direction.</p></div></div>
  </div>
  </div>
  </div>
@@ -824,7 +832,7 @@
  <span class="section-tag">Our Mission</span>
  <h2 class="section-title" style="margin-bottom:20px;">To Be a <span class="gold">House of Prayer</span> for All Nations</h2>
  <p style="font-size: 17px; color: rgba(255,255,255,0.6); line-height: 1.9; margin-bottom: 40px;">The PC Lancelot Ministry exists to create a place of encounter — where ordinary people can bring their burdens before God and leave with the assurance that their prayers have been heard. We believe healing is real. Breakthroughs are available. And God is still in the business of answering prayer.</p>
- <button class="btn-primary" onclick="showPage('prayer')"> Submit a Prayer Request</button>
+ <button class="btn-primary" onclick="showPage('prayer')">Submit a Prayer Request</button>
  </div>
  </section>
  <div class="ornament-divider"> </div>
@@ -840,7 +848,7 @@
  <h1 style="margin: 16px 0 20px;">Join My <span style="color: var(--accent-light);">Prayer Circle</span></h1>
  <!-- Mobile-only scroll-to-form button -->
  <button class="community-scroll-btn" onclick="document.getElementById('communityForm').scrollIntoView({behavior:'smooth'})">Fill the Form Below to Get Started</button>
- <p style="max-width:560px; margin: 28px auto 20px; font-size:17px; color: rgba(255,255,255,0.65); line-height:1.85;">After years of privately engaging in Kingdom Prayer — the kind of prayer that advances the cause of God upon the earth and lifts up His people to walk in the fullness of their purpose — the Holy Spirit led me to create <strong style="color: var(--accent-light);">God Lovers Prayer Circle</strong>: a community of passionate believers, trained and anointed by God into a priesthood of prayer and intercession, to position His church for the great end-time harvest and the return of our Lord and Saviour Jesus Christ.</p>
+ <p style="max-width:560px; margin: 28px auto 20px; font-size:17px; color: rgba(255,255,255,0.65); line-height:1.85;">After years of privately engaging in Kingdom Prayer — the kind of prayer that advances the cause of God upon the earth and lifts up His people to walk in the fullness of their purpose — the Holy Spirit led me to build a close, covenant community of passionate believers, trained and anointed by God into a priesthood of prayer and intercession, to position His church for the great end-time harvest and the return of our Lord and Saviour Jesus Christ.</p>
  <p style="font-family: var(--font-display); font-style:italic; font-size:15px; color: var(--accent); margin-bottom: 0;">"Two are better than one; because they have a good reward for their labour." — Ecclesiastes 4:9 KJV</p>
  </div>
  <!-- RIGHT: form -->
@@ -895,22 +903,22 @@
  </div>
  <div class="benefits-grid">
  <div class="benefit-card">
- <div class="benefit-icon"></div>
+ <div class="benefit-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
  <h3>Live Intercessory Meetings</h3>
  <p>We meet on weekdays for prayer and scripture sessions. Come prepared to pray, study, and grow together in the Spirit.</p>
  </div>
  <div class="benefit-card">
- <div class="benefit-icon"></div>
+ <div class="benefit-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
  <h3>Deep Scripture Study</h3>
  <p>We do not just pray — we dig into the Word. Members receive curated scriptures, devotional guides, and prayer assignments to build their intercession foundation.</p>
  </div>
  <div class="benefit-card">
- <div class="benefit-icon"></div>
+ <div class="benefit-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
  <h3>Community Prayer Wall</h3>
  <p>We carry one another's burdens. Your prayers join with others to advance God's cause on the earth — agreements that move heaven.</p>
  </div>
  <div class="benefit-card">
- <div class="benefit-icon"></div>
+ <div class="benefit-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
  <h3>Personal Welcome & Onboarding</h3>
  <p>Every person who joins is personally welcomed by me. I will walk you through a foundational course to ground you in the call and discipline of intercession.</p>
  </div>
@@ -968,7 +976,7 @@
  <div style="max-width: 860px; margin: 0 auto 48px;">
  <div class="video-embed-area">
  <div class="video-placeholder">
- <div class="play-btn"></div>
+ <div class="play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
  <p>Watch live on YouTube<br/><a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener">@pclancelot/streams →</a></p>
  </div>
  </div>
@@ -989,15 +997,15 @@
  <div class="contact-grid">
  <div class="contact-info">
  <h2>Connect With Us</h2>
- <div class="contact-item"><div class="c-icon"></div><div><h4>YouTube</h4><p><a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener">youtube.com/@pclancelot/streams</a></p></div></div>
- <div class="contact-item"><div class="c-icon"></div><div><h4>Email</h4><p><a href="mailto:prayer@pclancelot.com">prayer@pclancelot.com</a></p></div></div>
- <div class="contact-item"><div class="c-icon"></div><div><h4>Website</h4><p>pclancelot.com</p></div></div>
- <div class="contact-item"><div class="c-icon"></div><div><h4>Prayer Requests</h4><p>Submit via our <a href="#" onclick="showPage('prayer'); return false;">Prayer Request form</a> for the fastest response.</p></div></div>
+ <div class="contact-item"><div class="c-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div><div><h4>YouTube</h4><p><a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener">youtube.com/@pclancelot/streams</a></p></div></div>
+ <div class="contact-item"><div class="c-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><h4>Email</h4><p><a href="mailto:prayer@pclancelot.com">prayer@pclancelot.com</a></p></div></div>
+ <div class="contact-item"><div class="c-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><h4>Website</h4><p>pclancelot.com</p></div></div>
+ <div class="contact-item"><div class="c-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><h4>Prayer Requests</h4><p>Submit via our <a href="#" onclick="showPage('prayer'); return false;">Prayer Request form</a> for the fastest response.</p></div></div>
  <div class="social-links">
- <a href="https://www.youtube.com/@pclancelot/streams" target="_blank" class="social-link"> YouTube</a>
- <a href="#" class="social-link"> Facebook</a>
- <a href="#" class="social-link"> Instagram</a>
- <a href="#" class="social-link"> X (Twitter)</a>
+ <a href="https://www.youtube.com/@pclancelot/streams" target="_blank" class="social-link">YouTube</a>
+ <a href="#" class="social-link">Facebook</a>
+ <a href="#" class="social-link">Instagram</a>
+ <a href="#" class="social-link">X (Twitter)</a>
  </div>
  </div>
  <div class="contact-form">
@@ -1020,7 +1028,7 @@
  <select id="cSubject"><option value="" disabled selected>Choose a subject</option><option>General Enquiry</option><option>Ministry Partnership</option><option>Speaking / Event Invitation</option><option>Testimony / Praise Report</option><option>Technical Support</option><option>Other</option></select>
  </div>
  <div class="form-group" style="margin-bottom:24px;"><label>Message <span class="req">*</span></label><textarea id="cMessage" placeholder="Write your message here..." style="min-height: 140px;"></textarea></div>
- <button class="submit-btn" onclick="submitContact()"> Send Message</button>
+ <button class="submit-btn" onclick="submitContact()">Send Message</button>
  </div>
  </div>
  </div>
@@ -1037,11 +1045,23 @@
  <div class="form-section">
  <div class="form-container">
  <div class="form-success" id="testimonySuccess">
- <div class="success-icon"></div>
- <h2>Thank You for Sharing!</h2>
- <p>Your testimony has been received. We may feature it (with your permission) to encourage others in faith. To God be the glory!</p>
- <div style="margin-top: 28px;">
- <button onclick="resetTestimonyForm()" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 10px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">← Share Another Testimony</button>
+ <div class="form-success-inner">
+ <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+ </div>
+ <span class="section-tag" style="margin-bottom:14px;">To God Be the Glory</span>
+ <h2 style="margin-bottom:20px;">Thank You for Sharing!</h2>
+ <p class="success-personal-msg">
+   Your testimony has been received. Stories like yours build faith in others who are still waiting for their breakthrough. We may feature it — with your permission — to encourage others. <strong>God is still moving.</strong>
+ </p>
+ <p class="success-scripture">
+   &ldquo;And they overcame him by the blood of the Lamb, and by the word of their testimony.&rdquo;
+   <cite>— Revelation 12:11 KJV</cite>
+ </p>
+ <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 8px;">
+   <button class="btn-primary" onclick="showPage('prayer')" style="font-size:14px; padding: 12px 28px;">Submit a Prayer Request</button>
+   <button onclick="resetTestimonyForm()" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 12px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">Share Another Testimony</button>
+ </div>
  </div>
  </div>
  <div id="testimonyFormWrap">
@@ -1093,7 +1113,7 @@
  </div>
  <div class="footer-bottom">
  <p>© 2025 PC Lancelot Ministry · <a href="#">pclancelot.com</a> · All rights reserved.</p>
- <p>Built with prayer and purpose </p>
+ <p>Built with prayer and purpose</p>
  </div>
  </div>
 </template>
@@ -1178,10 +1198,7 @@
    document.getElementById('prayerSuccess').classList.remove('show');
    ['pFirstName','pLastName','pEmail','pRequest'].forEach(id => document.getElementById(id).value = '');
    document.getElementById('pCountry').value = '';
-   document.getElementById('pAnonymous').checked = false;
-   document.getElementById('pCommunity').checked = false;
-   document.getElementById('pConsent').checked = false;
-   const btn = document.querySelector('#prayerFormWrap .submit-btn');
+     const btn = document.querySelector('#prayerFormWrap .submit-btn');
    if (btn) { btn.textContent = 'Submit My Prayer Request'; btn.disabled = false; }
  }
  function joinCommunity() {
