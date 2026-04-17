@@ -387,6 +387,14 @@
  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,192,192,0.5); }
  .form-note { text-align: center; margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.35); }
  .form-note a { color: var(--accent-light); text-decoration: underline; }
+ .poc-note { text-align: center; margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.6; }
+ .poc-term { color: rgba(0,192,192,0.6); text-decoration: underline dotted; cursor: pointer; transition: color 0.2s; }
+ .poc-term:hover { color: var(--accent-light); }
+ .poc-toggle-icon { font-size: 9px; color: rgba(0,192,192,0.4); margin-left: 3px; cursor: pointer; transition: transform 0.3s; display: inline-block; }
+ .poc-toggle-icon.open { transform: rotate(180deg); }
+ .poc-definition { display: none; margin-top: 12px; padding: 14px 18px; border-left: 2px solid rgba(0,192,192,0.25); background: rgba(0,192,192,0.04); border-radius: 0 8px 8px 0; text-align: left; }
+ .poc-definition p { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7; margin: 0; }
+ .poc-definition em { color: rgba(0,192,192,0.55); font-style: italic; }
  .form-success { display: none; text-align: center; padding: 48px 24px; }
  .form-success.show { display: block; }
  .success-icon { font-size: 72px; margin-bottom: 20px; }
@@ -758,26 +766,12 @@
  </div>
  <div class="form-divider"></div>
  <p class="form-section-label"> Your Prayer Request</p>
- <div class="form-group" style="margin-bottom: 20px;">
- <label>Prayer Category</label>
- <div class="category-grid" id="categoryGrid">
- <label class="category-chip selected" onclick="selectCategory(this)"><input type="radio" name="category" value="Healing & Health" checked /> Healing</label>
- <label class="category-chip" onclick="selectCategory(this)"><input type="radio" name="category" value="Family & Relationships" /> Family</label>
- <label class="category-chip" onclick="selectCategory(this)"><input type="radio" name="category" value="Financial Breakthrough" /> Financial</label>
- <label class="category-chip" onclick="selectCategory(this)"><input type="radio" name="category" value="Spiritual Growth" /> Spiritual</label>
- <label class="category-chip" onclick="selectCategory(this)"><input type="radio" name="category" value="Legal & Justice" /> Legal</label>
- <label class="category-chip" onclick="selectCategory(this)"><input type="radio" name="category" value="Marriage & Love" /> Marriage</label>
- <label class="category-chip" onclick="selectCategory(this)"><input type="radio" name="category" value="Mental Health" /> Mental Health</label>
- <label class="category-chip" onclick="selectCategory(this)"><input type="radio" name="category" value="Other" /> Other</label>
- </div>
- </div>
  <div class="form-group" style="margin-bottom: 20px;"><label>Your Prayer Request <span class="req">*</span></label><textarea id="pRequest" placeholder="Share your prayer request here. Be as specific as you'd like — God is in the details. Your request is kept confidential." required></textarea></div>
- <div class="form-group" style="margin-bottom: 20px;"><label class="form-checkbox"><input type="checkbox" id="pAnonymous" /><span>Keep my name <strong>anonymous</strong> when this request is mentioned on the live stream.</span></label></div>
- <div class="form-group" style="margin-bottom: 8px;"><label class="form-checkbox"><input type="checkbox" id="pCommunity" /><span>Yes! <strong>Add me to the prayer community</strong> and keep me updated with answered prayers, stream reminders, and devotionals.</span></label></div>
- <div class="form-divider"></div>
- <div class="form-group"><label class="form-checkbox"><input type="checkbox" id="pConsent" required /><span>I agree that my name and country may be mentioned during the live stream (unless anonymous above), and I consent to receiving email updates from PC Lancelot Ministry. I can unsubscribe at any time. <span class="req">*</span></span></label></div>
- <button class="submit-btn" onclick="submitPrayerRequest()"> Submit My Prayer Request</button>
- <p class="form-note">Your information is safe. We will never share or sell your data.<br/>Have a testimony? <a href="#" onclick="showPage('contact'); return false;">Contact us</a>.</p>
+ <button class="submit-btn" onclick="submitPrayerRequest()">Submit My Prayer Request</button>
+ <p class="poc-note">By submitting, you acknowledge that not every request may be individually read. What matters is the act of faith — your submission is a <span class="poc-term" onclick="togglePoc()">point of contact</span> between you and God. <span class="poc-toggle-icon" id="pocIcon">&#9660;</span></p>
+ <div class="poc-definition" id="pocDefinition">
+   <p>A point of contact is a tangible act of faith — a moment where you intentionally reach toward God. Just as two believers join hands in agreement <em>(Matthew 18:19 KJV)</em>, or as the woman with the issue of blood pressed through the crowd and touched the hem of Jesus' garment, believing that contact alone would bring her healing <em>(Mark 5:27–29 KJV)</em> — your submitted request is that moment. It is not the words that move God; it is the faith behind them. He honours faith expressed in action.</p>
+ </div>
  </div>
  </div>
  </div>
@@ -871,8 +865,7 @@
  </div>
  <div class="form-group" style="margin-bottom:24px;"><label class="form-checkbox"><input type="checkbox" id="jNotify" checked /><span>Notify me before every Saturday live stream</span></label></div>
  <button class="submit-btn" onclick="joinCommunity()">I Want to Pray With You</button>
- <p class="form-note" style="margin-top:12px;">Your information is private and will only be seen by PC Lancelot. I will reach out personally.</p>
- </div>
+  </div>
  </div>
  </div>
  </div>
@@ -1057,21 +1050,7 @@
  <label>What did God do? <span class="req">*</span></label>
  <textarea id="tTestimony" placeholder="Tell us what happened! How did God move? What prayer was answered? Don't hold back — give Him all the glory!" style="min-height:180px;"></textarea>
  </div>
- <div class="form-group" style="margin-bottom:20px;">
- <label>Prayer category that was answered</label>
- <div class="category-grid">
- <label class="category-chip selected" onclick="selectCategoryT(this)"><input type="checkbox" name="tcategory" value="Healing & Health" /> Healing</label>
- <label class="category-chip" onclick="selectCategoryT(this)"><input type="checkbox" name="tcategory" value="Family & Relationships" /> Family</label>
- <label class="category-chip" onclick="selectCategoryT(this)"><input type="checkbox" name="tcategory" value="Financial Breakthrough" /> Financial</label>
- <label class="category-chip" onclick="selectCategoryT(this)"><input type="checkbox" name="tcategory" value="Spiritual Growth" /> Spiritual</label>
- <label class="category-chip" onclick="selectCategoryT(this)"><input type="checkbox" name="tcategory" value="Legal & Justice" /> Legal</label>
- <label class="category-chip" onclick="selectCategoryT(this)"><input type="checkbox" name="tcategory" value="Marriage & Love" /> Marriage</label>
- <label class="category-chip" onclick="selectCategoryT(this)"><input type="checkbox" name="tcategory" value="Other" /> Other</label>
- </div>
- </div>
- <div class="form-group" style="margin-bottom:20px;"><label class="form-checkbox"><input type="checkbox" id="tFeature" checked /><span>I give permission for my testimony to be <strong>shared publicly</strong> on the website or live stream to encourage others (your full last name will not be shown).</span></label></div>
- <div class="form-divider"></div>
- <button class="submit-btn" onclick="submitTestimony()"> Submit My Testimony</button>
+ <button class="submit-btn" onclick="submitTestimony()">Submit My Testimony</button>
  <p class="form-note">To God be all the glory! Thank you for sharing what He has done.</p>
  </div>
  </div>
@@ -1121,6 +1100,13 @@
  document.addEventListener('DOMContentLoaded', renderFooters);
  function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
  function selectCategory(el) { document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
+ function togglePoc() {
+   const def = document.getElementById('pocDefinition');
+   const icon = document.getElementById('pocIcon');
+   const isOpen = def.style.display === 'block';
+   def.style.display = isOpen ? 'none' : 'block';
+   icon.classList.toggle('open', !isOpen);
+ }
  function showToast(title, msg) {
  const t = document.getElementById('toast');
  document.getElementById('toast-title').textContent = title;
@@ -1134,25 +1120,17 @@
    const email     = document.getElementById('pEmail').value.trim();
    const country   = document.getElementById('pCountry').value;
    const request   = document.getElementById('pRequest').value.trim();
-   const consent   = document.getElementById('pConsent').checked;
-   const anonymous = document.getElementById('pAnonymous').checked;
-   const addComm   = document.getElementById('pCommunity').checked;
-   const selChip   = document.querySelector('#categoryGrid .category-chip.selected input');
-   const category  = selChip ? selChip.value : 'General';
    if (!firstName) { alert('Please enter your first name.'); return; }
    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
    if (!country)   { alert('Please select your country.'); return; }
    if (!request)   { alert('Please write your prayer request.'); return; }
-   if (!consent)   { alert('Please check the consent box to continue.'); return; }
    const btn = document.querySelector('#prayerFormWrap .submit-btn');
    btn.textContent = 'Sending…'; btn.disabled = true;
    const fullName = firstName + (lastName ? ' ' + lastName : '');
    const payload = {
      _subject: 'Prayer Request — ' + fullName + ' (' + country + ')',
      name: fullName, email: email, country: country,
-     category: category, prayer_request: request,
-     anonymous_on_stream: anonymous ? 'Yes' : 'No',
-     join_community: addComm ? 'Yes' : 'No'
+     prayer_request: request
    };
    /* ── Apps Script endpoint — replace YOUR_APPS_SCRIPT_URL after deploying ── */
    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxfYM7RBDkrM2x3rFg57bPY59PNyEaSmVhtF8X4osnH5dTeBMwxktlHE1DZ77eTu9Zx/exec';
@@ -1209,8 +1187,7 @@
  document.getElementById('contactSuccess').style.display = 'block';
  showToast('Message Sent! ', 'Thank you, ' + name + '. We\'ll be in touch soon.');
  }
- function selectCategoryT(el) { el.classList.toggle('selected'); }
- function submitTestimony() {
+  function submitTestimony() {
  const firstName = document.getElementById('tFirstName').value.trim();
  const testimony = document.getElementById('tTestimony').value.trim();
  const country = document.getElementById('tCountry').value;
