@@ -78,6 +78,10 @@
     }
 
     /* ── Live badge ── */
+    .badge-wrap {
+      text-align: center;
+      padding: 0 24px;
+    }
     .badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(0,192,192,0.12);
@@ -86,7 +90,7 @@
       font-size: 11px; font-weight: 700;
       color: #00dede; letter-spacing: 2px;
       text-transform: uppercase;
-      margin: 28px 24px 0;
+      margin: 0;
     }
     .live-dot {
       width: 8px; height: 8px; border-radius: 50%;
@@ -215,11 +219,13 @@
       <img src="flyer.jpg" alt="Bring Your Prayer Request — PC Lancelot, This Saturday 9AM CST" />
     </div>
 
-    <!-- Live badge -->
-    <div class="badge">
-      <span class="live-dot"></span>
-      This Saturday &middot; 9AM CST &middot; Live
+    <!-- CTA immediately below flyer -->
+    <div class="cta-wrap" style="margin-top: 28px;">
+      <a class="cta-btn" href="https://pclancelot.com">
+        Send Your Prayer Request
+      </a>
     </div>
+    <p class="sub-note">pclancelot.com &mdash; Your request is kept private and prayed over with faith.</p>
 
     <!-- Invitation copy -->
     <div class="invite-body">
@@ -239,13 +245,13 @@
       <cite>— Matthew 18:19 KJV</cite>
     </div>
 
-    <!-- CTA -->
-    <div class="cta-wrap">
-      <a class="cta-btn" href="https://pclancelot.com">
-        Send Your Prayer Request
+    <!-- Live badge -->
+    <div class="badge-wrap" style="margin-top: 28px;">
+      <a class="badge" href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener" style="text-decoration:none;">
+        <span class="live-dot"></span>
+        This Saturday &middot; 9AM CST &middot; Live
       </a>
     </div>
-    <p class="sub-note">pclancelot.com &mdash; Your request is kept private and prayed over with faith.</p>
 
     <div class="divider">&#9135;&#9135;&#9135;</div>
 
