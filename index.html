@@ -654,8 +654,8 @@
  <div class="hero-inner">
  <!-- FLYER IMAGE (replace flyer.png with your actual filename after uploading to GitHub) -->
  <div class="hero-flyer">
- <img src="flyer.jpg" alt="Bring Your Prayer Request — PC Lancelot, Every Day 7:00AM CST"
- onerror="this.parentElement.innerHTML='<div class=\'hero-flyer-placeholder\'><div class=\'flyer-title\'><span>BRING</span><span>YOUR PRAYER</span><span>REQUEST</span></div><p class=\'flyer-sub\'>Every Day · 7:00AM CST</p></div>'" />
+ <img src="flyer.png" alt="Bring Your Prayer Request — PC Lancelot, Every Day 7:00AM CST"
+ onerror="if(this.src.includes('.png')){this.src='flyer.jpg'}else{this.parentElement.innerHTML='<div class=\'hero-flyer-placeholder\'><div class=\'flyer-title\'><span>BRING</span><span>YOUR PRAYER</span><span>REQUEST</span></div><p class=\'flyer-sub\'>Every Day · 7:00AM CST</p></div>'}" />
  </div>
  <!-- RIGHT SIDE: badge + text + buttons -->
  <div class="hero-right">
@@ -864,7 +864,7 @@
  <div class="about-hero">
  <div class="about-content">
  <div class="about-image-wrap">
- <img src="profile.png" alt="PC Lancelot" class="about-photo" onerror="this.parentElement.innerHTML='<div class=\'about-image-placeholder\'><span class=\'placeholder-icon\'></span><span class=\'placeholder-text\'>Add your photo here</span></div>'" />
+ <img src="profile.png" alt="PC Lancelot" class="about-photo" onerror="if(this.src.includes('.png')){this.src='profile.jpg'}else{this.parentElement.innerHTML='<div class=\'about-image-placeholder\'><span class=\'placeholder-icon\'></span><span class=\'placeholder-text\'>Add your photo here</span></div>'}" />
  </div>
  <div class="about-text">
  <span class="section-tag">About the Ministry</span>
