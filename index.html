@@ -686,6 +686,66 @@
 .attend-modal-hdr p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 .attend-field-note { font-size: 12px; color: rgba(0,192,192,0.7); margin-bottom: 8px; line-height: 1.5; }
 @media (max-width: 480px) { .attend-modal-card { padding: 32px 24px; } }
+.rally-flyer-png-wrap { width: 100%; max-width: 480px; margin: 0 auto 28px; }
+.rally-flyer-png { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 20px; border: 1px solid rgba(0,192,192,0.3); box-shadow: 0 16px 60px rgba(0,192,192,0.15), 0 4px 20px rgba(0,0,0,0.6); display: block; }
+/* ============================================================
+   TESTIMONY OPTIONS
+   ============================================================ */
+.t-options-bar { background: linear-gradient(135deg, var(--primary-mid), var(--dark)); border-bottom: 1px solid rgba(0,192,192,0.15); padding: 28px 20px; }
+.t-options-inner { display: flex; gap: 12px; max-width: 720px; margin: 0 auto; }
+.t-option { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 12px 16px; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); cursor: pointer; transition: all 0.25s ease; color: rgba(255,255,255,0.5); }
+.t-option:hover { border-color: rgba(0,192,192,0.3); color: rgba(255,255,255,0.8); background: rgba(0,192,192,0.05); }
+.t-option.active { border-color: var(--accent); background: rgba(0,192,192,0.08); color: var(--accent-light); }
+.t-opt-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(0,192,192,0.08); border: 1px solid rgba(0,192,192,0.15); margin-bottom: 4px; transition: all 0.25s ease; }
+.t-option.active .t-opt-icon { background: rgba(0,192,192,0.15); border-color: rgba(0,192,192,0.4); }
+.t-opt-label { font-family: var(--font-heading); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+.t-opt-desc { font-size: 11px; opacity: 0.65; letter-spacing: 0.3px; }
+/* Voice recorder */
+.voice-recorder-wrap { background: rgba(0,0,0,0.25); border: 1px solid rgba(0,192,192,0.15); border-radius: var(--radius); padding: 24px 20px; margin-bottom: 20px; text-align: center; }
+.voice-rec-label { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
+.voice-rec-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px; }
+.voice-rec-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #dc2626, #ef4444); color: white; border: none; padding: 13px 24px; border-radius: 50px; font-family: var(--font-heading); font-size: 15px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; box-shadow: 0 4px 16px rgba(220,38,38,0.4); transition: all 0.3s; }
+.voice-rec-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(220,38,38,0.5); }
+.voice-stop-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.25); color: white; padding: 12px 22px; border-radius: 50px; font-family: var(--font-heading); font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+.voice-stop-btn:hover { background: rgba(255,255,255,0.18); }
+.voice-timer { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--accent-light); letter-spacing: 2px; min-width: 60px; }
+.voice-status { font-size: 13px; color: rgba(255,255,255,0.4); min-height: 18px; }
+.voice-preview-label { font-size: 12px; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.voice-upload-area { border: 1.5px dashed rgba(0,192,192,0.3); border-radius: var(--radius); padding: 28px 20px; text-align: center; cursor: pointer; transition: all 0.25s; background: rgba(0,192,192,0.03); }
+.voice-upload-area:hover { border-color: var(--accent); background: rgba(0,192,192,0.07); }
+.voice-upload-label { font-family: var(--font-heading); font-size: 14px; color: var(--accent-light); margin-top: 10px; margin-bottom: 4px; }
+.voice-upload-sub { font-size: 12px; color: rgba(255,255,255,0.35); }
+.t-or-divider { display: flex; align-items: center; gap: 12px; margin: 24px 0 20px; }
+.t-or-divider::before, .t-or-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+.t-or-divider span { font-size: 12px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+/* Video option cards */
+.vid-option-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,192,192,0.15); border-radius: var(--radius); padding: 20px; }
+.vid-option-heading { display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-size: 13px; letter-spacing: 0.5px; color: var(--accent-light); text-transform: uppercase; margin-bottom: 10px; }
+.vid-option-note { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; margin-bottom: 14px; }
+.vid-email-card { background: rgba(0,192,192,0.04); border-color: rgba(0,192,192,0.2); }
+.vid-email-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 50px; border: 1.5px solid rgba(0,192,192,0.4); color: var(--accent-light); font-family: var(--font-heading); font-size: 13px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; transition: all 0.25s; }
+.vid-email-btn:hover { background: rgba(0,192,192,0.1); }
+@media (max-width: 480px) {
+  .t-opt-desc { display: none; }
+  .t-opt-label { font-size: 12px; }
+  .t-option { padding: 16px 8px 12px; }
+  .t-opt-icon { width: 40px; height: 40px; }
+}
+/* ============================================================
+   MEDIA TESTIMONY SECTION
+   ============================================================ */
+/* ============================================================
+   TESTIMONY DISCLAIMER
+   ============================================================ */
+.testimony-disclaimer-wrap { max-width: 720px; margin: 0 auto; padding: 24px 24px 8px; }
+.testimony-disclaimer { font-size: 11px; color: rgba(255,255,255,0.2); line-height: 1.8; text-align: center; }
+.media-how-card { background: rgba(0,0,0,0.2); border: 1px solid rgba(0,192,192,0.15); border-radius: var(--radius); padding: 20px; margin-bottom: 4px; }
+.media-how-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+.media-how-icon { width: 34px; height: 34px; min-width: 34px; background: rgba(0,192,192,0.1); border: 1px solid rgba(0,192,192,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.media-how-title { font-family: var(--font-heading); font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--accent-light); margin-bottom: 5px; }
+.media-how-text { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+.media-form-notes { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: center; margin-top: 16px; }
+.media-note-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.35); }
  </style>
 </head>
 <body>
@@ -713,7 +773,7 @@
  <li><button onclick="showPage('community')" id="nav-community">Prayer Circle</button></li>
  <li><button onclick="showPage('testimony')" id="nav-testimony">Testimony</button></li>
  <li><button onclick="showPage('contact')" id="nav-contact">Contact</button></li>
- <li><button onclick="showPage('rally')" id="nav-rally">Prayer Rally</button></li>
+ <li><button onclick="showPage('events')" id="nav-events">Events</button></li>
  <li><button onclick="showPage('prayer')" class="nav-cta"> Submit Prayer</button></li>
  </ul>
  <div class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
@@ -725,7 +785,7 @@
  <button onclick="showPage('community'); toggleMobileMenu()">Prayer Circle</button>
  <button onclick="showPage('testimony'); toggleMobileMenu()">Share Testimony</button>
  <button onclick="showPage('contact'); toggleMobileMenu()">Contact</button>
- <button onclick="showPage('rally'); toggleMobileMenu()">Prayer Rally</button>
+ <button onclick="showPage('events'); toggleMobileMenu()">Events</button>
  <button onclick="showPage('prayer'); toggleMobileMenu()" class="mobile-cta">Submit Prayer Request</button>
 </div>
 <!-- HOME PAGE -->
@@ -747,11 +807,11 @@
  <button class="btn-hero-primary" onclick="showPage('prayer')">
  Submit Your Prayer Request
  </button>
- <button class="btn-hero-secondary" onclick="showPage('community')">
- Join My Prayer Circle
- </button>
- <button class="btn-hero-tertiary" onclick="showPage('testimony')">
+ <button class="btn-hero-secondary" onclick="showPage('testimony')">
  Share Your Testimony
+ </button>
+ <button class="btn-hero-tertiary" onclick="showPage('community')">
+ Join My Prayer Circle
  </button>
  </div>
  </div>
@@ -1187,76 +1247,177 @@
 </div>
 <!-- TESTIMONY PAGE -->
 <div class="page" id="page-testimony">
- <div class="form-page-hero">
- <span class="section-tag" style="font-size:12px; letter-spacing:3px;">Give God the Glory</span>
- <h1>Share Your Testimony</h1>
- <p>Has God answered your prayer through this ministry? Your story could ignite faith in someone else. Share it here!</p>
- </div>
- <div class="form-section">
- <div class="form-container">
- <div class="form-success" id="testimonySuccess">
- <div class="form-success-inner">
- <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
- </div>
- <span class="section-tag" style="margin-bottom:14px;">To God Be the Glory</span>
- <h2 style="margin-bottom:20px;">Thank You for Sharing!</h2>
- <p class="success-personal-msg">
-   Your testimony has been received. Stories like yours build faith in others who are still waiting for their breakthrough. We may feature it — with your permission — to encourage others. <strong>God is still moving.</strong>
- </p>
- <p class="success-scripture">
-   &ldquo;And they overcame him by the blood of the Lamb, and by the word of their testimony.&rdquo;
-   <cite>— Revelation 12:11 KJV</cite>
- </p>
- <!-- YouTube subscribe -->
- <div class="yt-sub-box">
-   <div class="yt-sub-tag">Stay Connected</div>
-   <p>Subscribe to the YouTube channel and click the <strong style="color:#fff;">notification bell</strong> — you'll be notified whenever we go live.</p>
-   <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
-     <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
-     Subscribe on YouTube
-   </a>
- </div>
- <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 20px;">
-   <button class="btn-primary" onclick="showPage('prayer')" style="font-size:14px; padding: 12px 28px;">Submit a Prayer Request</button>
-   <button onclick="resetTestimonyForm()" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 12px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">Share Another Testimony</button>
- </div>
- </div>
- </div>
- <div id="testimonyFormWrap">
- <div class="prayer-form">
- <p class="form-section-label"> Your Information</p>
- <div class="form-row two-col">
- <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="tFirstName" placeholder="Your first name" /></div>
- <div class="form-group"><label>Last Name</label><input type="text" id="tLastName" placeholder="Optional" /></div>
- </div>
- <div class="form-row two-col">
- <div class="form-group"><label>Email Address</label><input type="email" id="tEmail" placeholder="your@email.com (optional)" /></div>
- <div class="form-group">
- <label>Country <span class="req">*</span></label>
- <select id="tCountry">
- <option value="" disabled selected>Select your country</option>
- <option>Australia</option><option>Brazil</option><option>Canada</option><option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option><option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option><option>South Africa</option><option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option><option>United States</option><option>Zimbabwe</option><option>Other</option>
- </select>
- </div>
- </div>
- <div class="form-divider"></div>
- <p class="form-section-label"> Your Testimony</p>
- <div class="form-group" style="margin-bottom:20px;">
- <label>What did God do? <span class="req">*</span></label>
- <textarea id="tTestimony" placeholder="Tell us what happened! How did God move? What prayer was answered? Don't hold back — give Him all the glory!" style="min-height:180px;"></textarea>
- </div>
- <button class="submit-btn" onclick="submitTestimony()">Submit My Testimony</button>
- <p class="form-note">To God be all the glory! Thank you for sharing what He has done.</p>
- </div>
- </div>
- </div>
- </div>
- <div class="ornament-divider"> </div>
- <footer id="testimonyFooter"></footer>
+
+  <!-- Shared full-screen success overlay (used by all 3 paths) -->
+  <div class="form-success" id="testimonySuccess">
+    <div class="form-success-inner">
+      <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <span class="section-tag" style="margin-bottom:14px;">To God Be the Glory</span>
+      <h2 id="testimonySuccessHeading" style="margin-bottom:20px;">Thank You for Sharing!</h2>
+      <p class="success-personal-msg" id="testimonySuccessMsg">Your testimony has been received. Stories like yours build faith in others who are still waiting for their breakthrough. <strong>God is still moving.</strong></p>
+      <p class="success-scripture">&ldquo;And they overcame him by the blood of the Lamb, and by the word of their testimony.&rdquo;<cite>— Revelation 12:11 KJV</cite></p>
+      <div class="yt-sub-box">
+        <div class="yt-sub-tag">Stay Connected</div>
+        <p>Subscribe to the YouTube channel and click the <strong style="color:#fff;">notification bell</strong> — you'll be notified whenever we go live.</p>
+        <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
+          <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
+          Subscribe on YouTube
+        </a>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+        <button class="btn-primary" onclick="showPage('prayer')" style="font-size:14px;padding:12px 28px;">Submit a Prayer Request</button>
+        <button onclick="resetAllTestimonyForms()" style="background:none;border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:12px 24px;border-radius:50px;font-size:14px;cursor:pointer;transition:all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'">Share Another</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page hero -->
+  <div class="form-page-hero" id="testimonyHero">
+    <span class="section-tag" style="font-size:12px;letter-spacing:3px;">Give God the Glory</span>
+    <h1>Share Your Testimony</h1>
+    <p>Has God answered your prayer through this ministry? Your story could ignite faith in someone else.</p>
+  </div>
+
+  <!-- 2-option selector -->
+  <div class="t-options-bar">
+    <div class="t-options-inner">
+      <button class="t-option active" id="opt-text" onclick="selectTestimonyType('text')">
+        <div class="t-opt-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+        </div>
+        <div class="t-opt-label">Text</div>
+        <div class="t-opt-desc">Type your story</div>
+      </button>
+      <button class="t-option" id="opt-media" onclick="selectTestimonyType('media')">
+        <div class="t-opt-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <div class="t-opt-label">Video or Voice</div>
+        <div class="t-opt-desc">Upload a recording</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- TEXT FORM -->
+  <div class="form-section" id="formText">
+    <div class="form-container">
+      <div id="testimonyFormWrap">
+        <div class="prayer-form">
+          <p class="form-section-label">Your Information</p>
+          <div class="form-row two-col">
+            <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="tFirstName" placeholder="Your first name" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" id="tLastName" placeholder="Optional" /></div>
+          </div>
+          <div class="form-row two-col">
+            <div class="form-group"><label>Email Address</label><input type="email" id="tEmail" placeholder="your@email.com (optional)" /></div>
+            <div class="form-group">
+              <label>Country <span class="req">*</span></label>
+              <select id="tCountry">
+                <option value="" disabled selected>Select your country</option>
+                <option>Australia</option><option>Brazil</option><option>Canada</option><option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option><option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option><option>South Africa</option><option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option><option>United States</option><option>Zimbabwe</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-divider"></div>
+          <p class="form-section-label">Your Testimony</p>
+          <div class="form-group" style="margin-bottom:20px;">
+            <label>What did God do? <span class="req">*</span></label>
+            <textarea id="tTestimony" placeholder="Tell us what happened! How did God move? What prayer was answered? Don't hold back — give Him all the glory!" style="min-height:180px;"></textarea>
+          </div>
+          <div class="form-divider"></div>
+          <p class="form-section-label">Interview Contact <span style="font-size:11px; color:rgba(255,255,255,0.3); font-weight:400; text-transform:none; letter-spacing:0;">&nbsp;&mdash; Optional</span></p>
+          <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; margin-bottom:18px;">If your story is one we would love to share live or feature more fully, what is the best way to reach you? We will only contact you with your permission.</p>
+          <div class="form-row two-col">
+            <div class="form-group">
+              <label>Preferred Contact Method</label>
+              <select id="tContactMethod">
+                <option value="" disabled selected>Choose one</option>
+                <option>WhatsApp</option>
+                <option>Email</option>
+                <option>Phone call</option>
+                <option>Instagram DM</option>
+                <option>Facebook</option>
+                <option>No contact please</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Your Contact Detail</label>
+              <input type="text" id="tContactDetail" placeholder="e.g. +1 234 567 8900 or @handle" />
+            </div>
+          </div>
+          <button class="submit-btn" onclick="submitTestimony()">Submit My Testimony</button>
+          <p class="form-note">To God be all the glory! Thank you for sharing what He has done.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO OR VOICE FORM — opens Google Form in new tab -->
+  <div class="form-section" id="formMedia" style="display:none;">
+    <div class="form-container">
+      <div class="prayer-form">
+
+        <p class="form-section-label">Share Your Story</p>
+
+        <!-- How-to card -->
+        <div class="media-how-card">
+          <div class="media-how-row">
+            <div class="media-how-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <div>
+              <div class="media-how-title">Recording on your phone</div>
+              <p class="media-how-text">You can record a video or voice note directly from your phone when the form opens — no app needed. Tap <strong style="color:var(--white);">Add file</strong>, then choose your camera to record right there.</p>
+            </div>
+          </div>
+          <div class="media-how-row" style="margin-bottom:0;">
+            <div class="media-how-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <div class="media-how-title">Already have a recording?</div>
+              <p class="media-how-text">Tap <strong style="color:var(--white);">Add file</strong> in the form and choose it from your phone's gallery or files. MP4, MOV, MP3, M4A and most common formats are accepted.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA button -->
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdF0midim6HfuwjmZ2H3Q6pwOwpoASU9HBpf54ZrSPvbG95fw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="submit-btn" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:28px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload a Video or Voice Recording
+        </a>
+
+        <div class="media-form-notes">
+          <div class="media-note-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Stored securely on Google Drive
+          </div>
+          <div class="media-note-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            Up to 10GB per file
+          </div>
+          <div class="media-note-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Opens in a new tab &mdash; returns to this page when done
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimony disclaimer -->
+  <div class="testimony-disclaimer-wrap">
+    <p class="testimony-disclaimer">By submitting a testimony in any form &mdash; written, audio, or video &mdash; you confirm that: the story, names, and any images or recordings shared are your own, and that every person mentioned, depicted, or identifiable in your submission has given their full and informed consent to have their story shared publicly. You grant PC Lancelot Ministry a non-exclusive, royalty-free, worldwide licence to publish, broadcast, and share your testimony for ministry and outreach purposes, including on this website, YouTube, and social media platforms. Submissions may be edited for length and clarity. PC Lancelot Ministry reserves the right to decline or remove any submission at its sole discretion. For any concerns, contact <a href="mailto:prayer@pclancelot.com" style="color:rgba(0,192,192,0.4);">prayer@pclancelot.com</a>.</p>
+  </div>
+
+  <div class="ornament-divider"> </div>
+  <footer id="testimonyFooter"></footer>
 </div>
 <!-- RALLY PAGE -->
-<div class="page" id="page-rally">
+<div class="page" id="page-events">
   <div class="rally-hero">
     <div class="rally-bg-orbs">
       <span style="width:700px;height:700px;top:-120px;left:-200px;animation-delay:0s"></span>
@@ -1275,41 +1436,50 @@
           Online &mdash; Join From Anywhere
         </div>
       </div>
-      <!-- Flyer Card -->
-      <div class="rally-flyer-card">
-        <div class="rally-flyer-topbar"></div>
-        <div class="rally-flyer-body">
-          <div class="rally-ministry-tag">PC Lancelot Prayer Ministry</div>
-          <h1 class="rally-title">Kingdom<br/><span>Prayer</span><br/>Rally</h1>
-          <div class="rally-scripture-text">"...Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance..." &mdash; Ephesians 6:18 KJV</div>
-          <div class="rally-divider"></div>
-          <div class="rally-event-details">
-            <div class="rally-detail-item">
-              <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-              <div>
-                <div class="rally-detail-label">Next Date</div>
-                <div class="rally-detail-value" id="rally-date">Loading...</div>
-              </div>
-            </div>
-            <div class="rally-detail-item">
-              <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              <div>
-                <div class="rally-detail-label">Time</div>
-                <div class="rally-detail-value">12:00 PM CST</div>
-              </div>
-            </div>
-            <div class="rally-detail-item">
-              <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-              <div>
-                <div class="rally-detail-label">Format</div>
-                <div class="rally-detail-value">Online &mdash; Anywhere</div>
-              </div>
-            </div>
-            <div class="rally-detail-item">
-              <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
-              <div>
-                <div class="rally-detail-label">Frequency</div>
-                <div class="rally-detail-value">Monthly &middot; 1st Saturday</div>
+      <!-- Flyer PNG + dynamic card fallback -->
+      <div class="rally-flyer-png-wrap">
+        <!-- Replace rally-flyer.png with your 1080×1080px event flyer (Facebook-ad square format) uploaded to the repo root -->
+        <img src="rally-flyer.png" class="rally-flyer-png" alt="Kingdom Prayer Rally — First Saturday Monthly, 12PM CST, Online"
+             onerror="this.style.display='none';document.getElementById('rallyFlyerPlaceholder').style.display='block';"
+             onload="document.getElementById('rallyFlyerPlaceholder').style.display='none';" />
+        <div id="rallyFlyerPlaceholder" style="display:none;">
+          <!-- dynamic flyer card (shown when no PNG is present) -->
+          <div class="rally-flyer-card">
+            <div class="rally-flyer-topbar"></div>
+            <div class="rally-flyer-body">
+              <div class="rally-ministry-tag">PC Lancelot Prayer Ministry</div>
+              <h1 class="rally-title">Kingdom<br/><span>Prayer</span><br/>Rally</h1>
+              <div class="rally-scripture-text">"...Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance..." &mdash; Ephesians 6:18 KJV</div>
+              <div class="rally-divider"></div>
+              <div class="rally-event-details">
+                <div class="rally-detail-item">
+                  <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                  <div>
+                    <div class="rally-detail-label">Next Date</div>
+                    <div class="rally-detail-value" id="rally-date">Loading...</div>
+                  </div>
+                </div>
+                <div class="rally-detail-item">
+                  <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                  <div>
+                    <div class="rally-detail-label">Time</div>
+                    <div class="rally-detail-value">12:00 PM CST</div>
+                  </div>
+                </div>
+                <div class="rally-detail-item">
+                  <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                  <div>
+                    <div class="rally-detail-label">Format</div>
+                    <div class="rally-detail-value">Online &mdash; Anywhere</div>
+                  </div>
+                </div>
+                <div class="rally-detail-item">
+                  <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+                  <div>
+                    <div class="rally-detail-label">Frequency</div>
+                    <div class="rally-detail-value">Monthly &middot; 1st Saturday</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1418,7 +1588,7 @@
   </div>
 
   <div class="ornament-divider"> </div>
-  <footer id="rallyFooter"></footer>
+  <footer id="eventsFooter"></footer>
 </div>
 <!-- FOOTER TEMPLATE -->
 <template id="footerTemplate">
@@ -1431,7 +1601,7 @@
  </div>
  <p>A global prayer ministry dedicated to interceding for every need. Bringing your prayer requests before God — live every day at 7:00AM CST.</p>
  </div>
- <div class="footer-col"><h4>Ministry</h4><ul><li><button onclick="showPage('home')">Home</button></li><li><button onclick="showPage('about')">About</button></li><li><button onclick="showPage('livestream')">Live Stream</button></li><li><button onclick="showPage('community')">Prayer Circle</button></li><li><button onclick="showPage('rally')">Prayer Rally</button></li></ul></div>
+ <div class="footer-col"><h4>Ministry</h4><ul><li><button onclick="showPage('home')">Home</button></li><li><button onclick="showPage('about')">About</button></li><li><button onclick="showPage('livestream')">Live Stream</button></li><li><button onclick="showPage('community')">Prayer Circle</button></li><li><button onclick="showPage('events')">Events</button></li></ul></div>
  <div class="footer-col"><h4>Prayer</h4><ul><li><button onclick="showPage('prayer')">Submit a Request</button></li><li><button onclick="showPage('testimony')">Share Testimony</button></li><li><button onclick="showPage('prayer')">Family Prayer</button></li><li><button onclick="showPage('community')">Join Prayer Circle</button></li></ul></div>
  <div class="footer-col"><h4>Connect</h4><ul><li><button onclick="showPage('contact')">Contact Us</button></li><li><a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener">YouTube Channel</a></li><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li></ul></div>
  </div>
@@ -1485,26 +1655,45 @@
 <script>
 // ── Internal page switch (no URL push) ──────────────────────
 function _showPageInternal(name) {
-  var validPages = ['home','prayer','about','community','livestream','contact','testimony','rally'];
+  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events'];
   if (validPages.indexOf(name) === -1) name = 'home';
+
   // Reset fullscreen success overlays
   document.querySelectorAll('.form-success.show').forEach(function(el){ el.classList.remove('show'); });
-  ['prayerFormWrap','testimonyFormWrap'].forEach(function(id) {
+
+  // Reset form wrappers
+  ['prayerFormWrap','testimonyFormWrap'].forEach(function(id){
     var el = document.getElementById(id); if (el) el.style.display = '';
   });
+
+  // Reset page heroes
   document.querySelectorAll('#page-prayer .form-page-hero, #page-testimony .form-page-hero').forEach(function(el){ el.style.display = ''; });
+
+  // Reset contact form
   var cSuccess = document.getElementById('contactSuccess');
-  var cWrap = document.getElementById('contactFormWrap');
+  var cWrap    = document.getElementById('contactFormWrap');
   if (cSuccess && name !== 'contact') { cSuccess.style.display = 'none'; if (cWrap) cWrap.style.display = ''; }
+
+  // When leaving testimony: reset to text tab
+  if (name !== 'testimony') {
+    var fText  = document.getElementById('formText');
+    var fMedia = document.getElementById('formMedia');
+    if (fText)  fText.style.display  = '';
+    if (fMedia) fMedia.style.display = 'none';
+    document.querySelectorAll('.t-option').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+  }
+
   // Switch page
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
   var pageEl = document.getElementById('page-' + name);
   if (!pageEl) { name = 'home'; pageEl = document.getElementById('page-home'); }
   pageEl.classList.add('active');
+
   // Update nav
   document.querySelectorAll('.nav-links button').forEach(function(b){ b.classList.remove('active'); });
   var btn = document.getElementById('nav-' + name);
   if (btn) btn.classList.add('active');
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
   renderFooters();
 }
@@ -1518,7 +1707,7 @@ function showPage(name) {
 
 function renderFooters() {
   var tpl = document.getElementById('footerTemplate').innerHTML;
-  ['homeFooter','prayerFooter','aboutFooter','communityFooter','livestreamFooter','contactFooter','testimonyFooter','rallyFooter'].forEach(function(id) {
+  ['homeFooter','prayerFooter','aboutFooter','communityFooter','livestreamFooter','contactFooter','testimonyFooter','eventsFooter'].forEach(function(id){
     var el = document.getElementById(id); if (el) el.innerHTML = tpl;
   });
 }
@@ -1533,7 +1722,7 @@ function selectCategory(el) {
 }
 
 function togglePoc() {
-  var def = document.getElementById('pocDefinition');
+  var def  = document.getElementById('pocDefinition');
   var icon = document.getElementById('pocIcon');
   var isOpen = def.style.display === 'block';
   def.style.display = isOpen ? 'none' : 'block';
@@ -1548,23 +1737,24 @@ function showToast(title, msg) {
   setTimeout(function(){ t.classList.remove('show'); }, 4000);
 }
 
+// ── Prayer form ──────────────────────────────────────────────
 function submitPrayerRequest() {
   var firstName = document.getElementById('pFirstName').value.trim();
-  var lastName = document.getElementById('pLastName').value.trim();
-  var email = document.getElementById('pEmail').value.trim();
-  var country = document.getElementById('pCountry').value;
-  var request = document.getElementById('pRequest').value.trim();
+  var lastName  = document.getElementById('pLastName').value.trim();
+  var email     = document.getElementById('pEmail').value.trim();
+  var country   = document.getElementById('pCountry').value;
+  var request   = document.getElementById('pRequest').value.trim();
   if (!firstName) { alert('Please enter your first name.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-  if (!country) { alert('Please select your country.'); return; }
-  if (!request) { alert('Please write your prayer request.'); return; }
+  if (!country)   { alert('Please select your country.'); return; }
+  if (!request)   { alert('Please write your prayer request.'); return; }
   var btn = document.querySelector('#prayerFormWrap .submit-btn');
   btn.textContent = 'Sending…'; btn.disabled = true;
   var fullName = firstName + (lastName ? ' ' + lastName : '');
   var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, country: country, prayer_request: request };
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec';
   fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
-    .then(function() {
+    .then(function(){
       document.getElementById('successName').textContent = firstName;
       document.getElementById('successEmail').textContent = email;
       document.getElementById('prayerFormWrap').style.display = 'none';
@@ -1573,7 +1763,7 @@ function submitPrayerRequest() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       showToast('Prayer Received!', 'God hears you, ' + firstName + '. We\'ll be praying.');
     })
-    .catch(function() { btn.textContent = 'Submit My Prayer Request'; btn.disabled = false; alert('Connection error. Please check your internet and try again.'); });
+    .catch(function(){ btn.textContent = 'Submit My Prayer Request'; btn.disabled = false; alert('Connection error. Please check your internet and try again.'); });
 }
 
 function resetPrayerForm() {
@@ -1586,13 +1776,14 @@ function resetPrayerForm() {
   if (btn) { btn.textContent = 'Submit My Prayer Request'; btn.disabled = false; }
 }
 
+// ── Community form ───────────────────────────────────────────
 function joinCommunity() {
   var firstName = document.getElementById('jFirstName').value.trim();
-  var email = document.getElementById('jEmail').value.trim();
-  var country = document.getElementById('jCountry').value;
+  var email     = document.getElementById('jEmail').value.trim();
+  var country   = document.getElementById('jCountry').value;
   if (!firstName) { alert('Please enter your first name.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-  if (!country) { alert('Please select your country.'); return; }
+  if (!country)   { alert('Please select your country.'); return; }
   document.getElementById('joinFormWrap').style.display = 'none';
   document.getElementById('joinSuccess').classList.add('show');
   showToast('Welcome to the Family!', 'You\'ve joined the prayer community, ' + firstName + '!');
@@ -1603,14 +1794,15 @@ function resetCommunityForm() {
   document.getElementById('joinSuccess').classList.remove('show');
   ['jFirstName','jLastName','jEmail','jMotivation'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
   var jCountry = document.getElementById('jCountry'); if (jCountry) jCountry.value = '';
-  var jNotify = document.getElementById('jNotify'); if (jNotify) jNotify.checked = true;
+  var jNotify  = document.getElementById('jNotify');  if (jNotify)  jNotify.checked = true;
 }
 
+// ── Contact form ─────────────────────────────────────────────
 function submitContact() {
-  var name = document.getElementById('cName').value.trim();
-  var email = document.getElementById('cEmail').value.trim();
+  var name    = document.getElementById('cName').value.trim();
+  var email   = document.getElementById('cEmail').value.trim();
   var message = document.getElementById('cMessage').value.trim();
-  if (!name) { alert('Please enter your name.'); return; }
+  if (!name)    { alert('Please enter your name.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email.'); return; }
   if (!message) { alert('Please write your message.'); return; }
   document.getElementById('contactFormWrap').style.display = 'none';
@@ -1618,49 +1810,65 @@ function submitContact() {
   showToast('Message Sent!', 'Thank you, ' + name + '. We\'ll be in touch soon.');
 }
 
+// ── Testimony: type selector ─────────────────────────────────
+function selectTestimonyType(type) {
+  ['text','media'].forEach(function(t){
+    var btn = document.getElementById('opt-' + t);
+    var frm = document.getElementById('form' + t.charAt(0).toUpperCase() + t.slice(1));
+    if (btn) btn.classList.toggle('active', t === type);
+    if (frm) frm.style.display = (t === type) ? '' : 'none';
+  });
+}
+
+// ── Testimony: text ──────────────────────────────────────────
 function submitTestimony() {
   var firstName = document.getElementById('tFirstName').value.trim();
   var testimony = document.getElementById('tTestimony').value.trim();
-  var country = document.getElementById('tCountry').value;
+  var country   = document.getElementById('tCountry').value;
   if (!firstName) { alert('Please enter your first name.'); return; }
-  if (!country) { alert('Please select your country.'); return; }
+  if (!country)   { alert('Please select your country.'); return; }
   if (!testimony) { alert('Please share your testimony.'); return; }
-  document.getElementById('testimonyFormWrap').style.display = 'none';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec';
+  var contactMethod = document.getElementById('tContactMethod').value;
+  var contactDetail = document.getElementById('tContactDetail').value.trim();
+  var payload = { _subject: 'Text Testimony — ' + firstName + ' (' + country + ')', type: 'testimony_text', first_name: firstName, country: country, testimony: testimony, email: document.getElementById('tEmail').value.trim(), contact_method: contactMethod, contact_detail: contactDetail };
+  var btn = document.querySelector('#testimonyFormWrap .submit-btn');
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+  fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
+    .then(function(){ showTestimonySuccess('text', firstName); showToast('Testimony Received!', 'To God be the glory, ' + firstName + '!'); })
+    .catch(function(){ if (btn) { btn.textContent = 'Submit My Testimony'; btn.disabled = false; } alert('Connection error. Please try again.'); });
+}
+
+function showTestimonySuccess(type, firstName) {
+  ['formText','formMedia'].forEach(function(id){ var el = document.getElementById(id); if (el) el.style.display = 'none'; });
+  var hero = document.getElementById('testimonyHero'); if (hero) hero.style.display = 'none';
+  var optBar = document.querySelector('.t-options-bar'); if (optBar) optBar.style.display = 'none';
+  var headings = { text: 'Thank You for Sharing!', voice: 'Voice Note Received!', video: 'Video Testimony Received!' };
+  var msgs = { text: 'Your testimony has been received. Stories like yours build faith in others who are still waiting for their breakthrough. <strong>God is still moving.</strong>', voice: 'Your voice note has been received by the ministry. We will listen to it and your story will be a blessing. <strong>God is still moving.</strong>', video: 'Your video testimony has been received. We will review it and your story will build faith in others. <strong>God is still moving.</strong>' };
+  var hEl = document.getElementById('testimonySuccessHeading'); if (hEl) hEl.textContent = headings[type] || 'Thank You!';
+  var mEl = document.getElementById('testimonySuccessMsg');     if (mEl) mEl.innerHTML  = msgs[type]     || '';
   document.getElementById('testimonySuccess').classList.add('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  showToast('Testimony Received!', 'To God be the glory, ' + firstName + '!');
 }
 
-function resetTestimonyForm() {
-  document.getElementById('testimonyFormWrap').style.display = 'block';
+function resetAllTestimonyForms() {
   document.getElementById('testimonySuccess').classList.remove('show');
-  ['tFirstName','tLastName','tEmail','tTestimony'].forEach(function(id){ document.getElementById(id).value = ''; });
-  document.getElementById('tCountry').value = '';
+  var hero = document.getElementById('testimonyHero'); if (hero) hero.style.display = '';
+  var optBar = document.querySelector('.t-options-bar'); if (optBar) optBar.style.display = '';
+  selectTestimonyType('text');
+  ['tFirstName','tLastName','tEmail','tTestimony','tContactDetail'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
+  var tc = document.getElementById('tCountry'); if (tc) tc.value = '';
+  var tm = document.getElementById('tContactMethod'); if (tm) tm.value = '';
+  var tb = document.querySelector('#testimonyFormWrap .submit-btn'); if (tb) { tb.textContent = 'Submit My Testimony'; tb.disabled = false; }
 }
 
-// ── Live stream countdown (daily 7AM CST = 13:00 UTC) ───────
-function updateCountdown() {
-  var now = new Date();
-  var target = new Date();
-  target.setUTCHours(13, 0, 0, 0);
-  if (target <= now) target.setDate(target.getDate() + 1);
-  var diff = target - now;
-  if (diff <= 0) return;
-  var pad = function(n){ return String(n).padStart(2,'0'); };
-  var el = function(id){ return document.getElementById(id); };
-  if (el('cd-hours')) el('cd-hours').textContent = pad(Math.floor(diff / 3600000));
-  if (el('cd-mins'))  el('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
-  if (el('cd-secs'))  el('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
-}
-
-// ── Rally: first Saturday calculator ────────────────────────
+// ── Events page: first Saturday calculator ───────────────────
 function getNextFirstSaturday() {
   var now = new Date();
   function firstSatOfMonth(y, m) {
     var d = new Date(y, m, 1);
     var offset = (6 - d.getDay() + 7) % 7;
-    var sat = new Date(Date.UTC(y, m, 1 + offset, 18, 0, 0, 0)); // 12PM CST = 18:00 UTC
-    return sat;
+    return new Date(Date.UTC(y, m, 1 + offset, 18, 0, 0, 0));
   }
   var candidate = firstSatOfMonth(now.getFullYear(), now.getMonth());
   if (candidate <= now) {
@@ -1675,25 +1883,24 @@ function initRallyFlyer() {
   var next = getNextFirstSaturday();
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var dateStr = 'Saturday, ' + months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
-  var el = document.getElementById('rally-date');
-  if (el) el.textContent = dateStr;
+  var el = document.getElementById('rally-date'); if (el) el.textContent = dateStr;
 }
 
 var _rallyTarget = null;
 function updateRallyCountdown() {
   if (!_rallyTarget) _rallyTarget = getNextFirstSaturday();
-  var now = new Date();
+  var now  = new Date();
   var diff = _rallyTarget - now;
   if (diff <= 0) { _rallyTarget = getNextFirstSaturday(); diff = _rallyTarget - now; initRallyFlyer(); }
   var pad = function(n){ return String(Math.max(0, Math.floor(n))).padStart(2,'0'); };
-  var el = function(id){ return document.getElementById(id); };
+  var el  = function(id){ return document.getElementById(id); };
   if (el('rally-cd-days'))  el('rally-cd-days').textContent  = pad(diff / 86400000);
   if (el('rally-cd-hours')) el('rally-cd-hours').textContent = pad((diff % 86400000) / 3600000);
   if (el('rally-cd-mins'))  el('rally-cd-mins').textContent  = pad((diff % 3600000) / 60000);
   if (el('rally-cd-secs'))  el('rally-cd-secs').textContent  = pad((diff % 60000) / 1000);
 }
 
-// ── Attendance modal ─────────────────────────────────────────
+// ── Attend modal ─────────────────────────────────────────────
 function openAttendModal() {
   document.getElementById('attendModalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1711,12 +1918,12 @@ function closeAttendModal(e) {
 }
 
 function submitAttendance() {
-  var email = document.getElementById('aEmail').value.trim();
+  var email     = document.getElementById('aEmail').value.trim();
   var firstName = document.getElementById('aFirstName').value.trim();
-  var location = document.getElementById('aLocation').value.trim();
+  var location  = document.getElementById('aLocation').value.trim();
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
   if (!firstName) { alert('Please enter your first name.'); return; }
-  if (!location) { alert('Please enter your country or location.'); return; }
+  if (!location)  { alert('Please enter your country or location.'); return; }
   var next = getNextFirstSaturday();
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var dateStr = months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
@@ -1725,21 +1932,33 @@ function submitAttendance() {
   var btn = document.getElementById('attendSubmitBtn');
   if (btn) { btn.textContent = 'Registering…'; btn.disabled = true; }
   fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
-    .then(function() {
+    .then(function(){
       document.getElementById('attendConfirmDate').textContent = dateStr;
       document.getElementById('attendForm').style.display = 'none';
       document.getElementById('attendSuccess').style.display = 'block';
       showToast('You are Registered!', 'See you at the rally, ' + firstName + '!');
     })
-    .catch(function() {
-      if (btn) { btn.textContent = 'Send Me the Link'; btn.disabled = false; }
-      alert('Connection error. Please try again.');
-    });
+    .catch(function(){ if (btn) { btn.textContent = 'Send Me the Link'; btn.disabled = false; } alert('Connection error. Please try again.'); });
 }
 
-// ── DOMContentLoaded: hash routing ──────────────────────────
+// ── Live stream countdown (7AM CST = 13:00 UTC) ──────────────
+function updateCountdown() {
+  var now    = new Date();
+  var target = new Date();
+  target.setUTCHours(13, 0, 0, 0);
+  if (target <= now) target.setDate(target.getDate() + 1);
+  var diff = target - now;
+  if (diff <= 0) return;
+  var pad = function(n){ return String(n).padStart(2,'0'); };
+  var el  = function(id){ return document.getElementById(id); };
+  if (el('cd-hours')) el('cd-hours').textContent = pad(Math.floor(diff / 3600000));
+  if (el('cd-mins'))  el('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+  if (el('cd-secs'))  el('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+}
+
+// ── DOMContentLoaded: hash routing ───────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
-  var validPages = ['home','prayer','about','community','livestream','contact','testimony','rally'];
+  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events'];
   var hash = (window.location.hash || '').replace('#','').toLowerCase();
   var startPage = (hash && validPages.indexOf(hash) !== -1) ? hash : 'home';
   _showPageInternal(startPage);
@@ -1758,7 +1977,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initRallyFlyer();
 });
 
-// ── Countdown intervals ──────────────────────────────────────
+// ── Countdown intervals ───────────────────────────────────────
 setInterval(updateCountdown, 1000);
 updateCountdown();
 setInterval(updateRallyCountdown, 1000);
