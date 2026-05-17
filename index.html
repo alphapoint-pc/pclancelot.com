@@ -688,18 +688,6 @@
 @media (max-width: 480px) { .attend-modal-card { padding: 32px 24px; } }
 .rally-flyer-png-wrap { width: 100%; max-width: 480px; margin: 0 auto 28px; }
 .rally-flyer-png { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 20px; border: 1px solid rgba(0,192,192,0.3); box-shadow: 0 16px 60px rgba(0,192,192,0.15), 0 4px 20px rgba(0,0,0,0.6); display: block; }
-/* ============================================================
-   TESTIMONY OPTIONS
-   ============================================================ */
-.t-options-bar { background: linear-gradient(135deg, var(--primary-mid), var(--dark)); border-bottom: 1px solid rgba(0,192,192,0.15); padding: 28px 20px; }
-.t-options-inner { display: flex; gap: 12px; max-width: 720px; margin: 0 auto; }
-.t-option { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 12px 16px; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); cursor: pointer; transition: all 0.25s ease; color: rgba(255,255,255,0.5); }
-.t-option:hover { border-color: rgba(0,192,192,0.3); color: rgba(255,255,255,0.8); background: rgba(0,192,192,0.05); }
-.t-option.active { border-color: var(--accent); background: rgba(0,192,192,0.08); color: var(--accent-light); }
-.t-opt-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(0,192,192,0.08); border: 1px solid rgba(0,192,192,0.15); margin-bottom: 4px; transition: all 0.25s ease; }
-.t-option.active .t-opt-icon { background: rgba(0,192,192,0.15); border-color: rgba(0,192,192,0.4); }
-.t-opt-label { font-family: var(--font-heading); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
-.t-opt-desc { font-size: 11px; opacity: 0.65; letter-spacing: 0.3px; }
 /* Voice recorder */
 .voice-recorder-wrap { background: rgba(0,0,0,0.25); border: 1px solid rgba(0,192,192,0.15); border-radius: var(--radius); padding: 24px 20px; margin-bottom: 20px; text-align: center; }
 .voice-rec-label { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
@@ -725,12 +713,6 @@
 .vid-email-card { background: rgba(0,192,192,0.04); border-color: rgba(0,192,192,0.2); }
 .vid-email-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 50px; border: 1.5px solid rgba(0,192,192,0.4); color: var(--accent-light); font-family: var(--font-heading); font-size: 13px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; transition: all 0.25s; }
 .vid-email-btn:hover { background: rgba(0,192,192,0.1); }
-@media (max-width: 480px) {
-  .t-opt-desc { display: none; }
-  .t-opt-label { font-size: 12px; }
-  .t-option { padding: 16px 8px 12px; }
-  .t-opt-icon { width: 40px; height: 40px; }
-}
 /* ============================================================
    MEDIA TESTIMONY SECTION
    ============================================================ */
@@ -746,6 +728,31 @@
 .media-how-text { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
 .media-form-notes { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: center; margin-top: 16px; }
 .media-note-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.35); }
+/* ============================================================
+   TESTIMONY ACCORDION CARDS
+   ============================================================ */
+.testimony-choices { max-width: 720px; margin: 0 auto; padding: 32px 24px 16px; display: flex; flex-direction: column; gap: 16px; }
+.testimony-choice-card { background: linear-gradient(145deg, rgba(11,45,51,0.5), rgba(6,15,16,0.7)); border: 1.5px solid rgba(0,192,192,0.18); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.3s ease, background 0.3s ease; }
+.testimony-choice-card.open { border-color: rgba(0,192,192,0.55); }
+.testimony-choice-hdr { display: flex; align-items: center; gap: 16px; padding: 22px 24px; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s ease; }
+.testimony-choice-hdr:hover { background: rgba(0,192,192,0.04); }
+.testimony-choice-hdr:active { background: rgba(0,192,192,0.08); }
+.testimony-choice-ico { width: 52px; height: 52px; min-width: 52px; background: rgba(0,192,192,0.08); border: 1px solid rgba(0,192,192,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; }
+.testimony-choice-card.open .testimony-choice-ico { background: rgba(0,192,192,0.15); border-color: rgba(0,192,192,0.45); }
+.testimony-choice-lbl { flex: 1; min-width: 0; }
+.testimony-choice-title { font-family: var(--font-heading); font-size: clamp(15px, 4vw, 19px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); margin-bottom: 5px; line-height: 1.2; }
+.testimony-choice-sub { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+.testimony-choice-card.open .testimony-choice-sub { color: var(--accent-light); }
+.testimony-choice-chevron { flex-shrink: 0; transition: transform 0.3s ease; color: rgba(0,192,192,0.45); }
+.testimony-choice-card.open .testimony-choice-chevron { transform: rotate(180deg); color: var(--accent); }
+.testimony-choice-body { display: none; border-top: 1px solid rgba(0,192,192,0.15); }
+.testimony-choice-card.open .testimony-choice-body { display: block; }
+@media (max-width: 480px) {
+  .testimony-choices { padding: 20px 16px 12px; }
+  .testimony-choice-hdr { padding: 18px 16px; gap: 12px; }
+  .testimony-choice-ico { width: 44px; height: 44px; min-width: 44px; border-radius: 11px; }
+  .testimony-choice-title { font-size: 15px; }
+}
  </style>
 </head>
 <body>
@@ -1277,134 +1284,124 @@
   <div class="form-page-hero" id="testimonyHero">
     <span class="section-tag" style="font-size:12px;letter-spacing:3px;">Give God the Glory</span>
     <h1>Share Your Testimony</h1>
-    <p>Has God answered your prayer through this ministry? Your story could ignite faith in someone else.</p>
+    <p>What has God done in your life? Every testimony is a declaration of His faithfulness — and yours could be exactly what someone else needs to hear today.</p>
   </div>
 
-  <!-- 2-option selector -->
-  <div class="t-options-bar">
-    <div class="t-options-inner">
-      <button class="t-option active" id="opt-text" onclick="selectTestimonyType('text')">
-        <div class="t-opt-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
-        </div>
-        <div class="t-opt-label">Text</div>
-        <div class="t-opt-desc">Type your story</div>
-      </button>
-      <button class="t-option" id="opt-media" onclick="selectTestimonyType('media')">
-        <div class="t-opt-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-        </div>
-        <div class="t-opt-label">Video or Voice</div>
-        <div class="t-opt-desc">Upload a recording</div>
-      </button>
-    </div>
-  </div>
+  <!-- Accordion choice cards -->
+  <div class="testimony-choices">
 
-  <!-- TEXT FORM -->
-  <div class="form-section" id="formText">
-    <div class="form-container">
-      <div id="testimonyFormWrap">
-        <div class="prayer-form">
-          <p class="form-section-label">Your Information</p>
-          <div class="form-row two-col">
-            <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="tFirstName" placeholder="Your first name" /></div>
-            <div class="form-group"><label>Last Name</label><input type="text" id="tLastName" placeholder="Optional" /></div>
-          </div>
-          <div class="form-row two-col">
-            <div class="form-group"><label>Email Address</label><input type="email" id="tEmail" placeholder="your@email.com (optional)" /></div>
-            <div class="form-group">
-              <label>Country <span class="req">*</span></label>
-              <select id="tCountry">
-                <option value="" disabled selected>Select your country</option>
-                <option>Australia</option><option>Brazil</option><option>Canada</option><option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option><option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option><option>South Africa</option><option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option><option>United States</option><option>Zimbabwe</option><option>Other</option>
-              </select>
+    <!-- Card 1: Type your testimony -->
+    <div class="testimony-choice-card" id="choice-text">
+      <div class="testimony-choice-hdr" onclick="openTestimonyChoice('text')" role="button" aria-expanded="false" aria-controls="testimonyTextBody">
+        <div class="testimony-choice-ico">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+        </div>
+        <div class="testimony-choice-lbl">
+          <div class="testimony-choice-title">Tap to type your testimony</div>
+          <div class="testimony-choice-sub">Write and send your story &mdash; takes about 2 minutes</div>
+        </div>
+        <svg class="testimony-choice-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="testimony-choice-body" id="testimonyTextBody">
+        <div id="testimonyFormWrap" style="padding: 0 24px 28px;">
+          <div style="padding-top: 24px;">
+            <p class="form-section-label">Your Information</p>
+            <div class="form-row two-col">
+              <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="tFirstName" placeholder="Your first name" /></div>
+              <div class="form-group"><label>Last Name</label><input type="text" id="tLastName" placeholder="Optional" /></div>
             </div>
-          </div>
-          <div class="form-divider"></div>
-          <p class="form-section-label">Your Testimony</p>
-          <div class="form-group" style="margin-bottom:20px;">
-            <label>What did God do? <span class="req">*</span></label>
-            <textarea id="tTestimony" placeholder="Tell us what happened! How did God move? What prayer was answered? Don't hold back — give Him all the glory!" style="min-height:180px;"></textarea>
-          </div>
-          <div class="form-divider"></div>
-          <p class="form-section-label">Interview Contact <span style="font-size:11px; color:rgba(255,255,255,0.3); font-weight:400; text-transform:none; letter-spacing:0;">&nbsp;&mdash; Optional</span></p>
-          <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; margin-bottom:18px;">If your story is one we would love to share live or feature more fully, what is the best way to reach you? We will only contact you with your permission.</p>
-          <div class="form-row two-col">
-            <div class="form-group">
-              <label>Preferred Contact Method</label>
-              <select id="tContactMethod">
-                <option value="" disabled selected>Choose one</option>
-                <option>WhatsApp</option>
-                <option>Email</option>
-                <option>Phone call</option>
-                <option>Instagram DM</option>
-                <option>Facebook</option>
-                <option>No contact please</option>
-              </select>
+            <div class="form-row two-col">
+              <div class="form-group"><label>Email Address</label><input type="email" id="tEmail" placeholder="your@email.com (optional)" /></div>
+              <div class="form-group">
+                <label>Country <span class="req">*</span></label>
+                <select id="tCountry">
+                  <option value="" disabled selected>Select your country</option>
+                  <option>Australia</option><option>Brazil</option><option>Canada</option><option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option><option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option><option>South Africa</option><option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option><option>United States</option><option>Zimbabwe</option><option>Other</option>
+                </select>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Your Contact Detail</label>
-              <input type="text" id="tContactDetail" placeholder="e.g. +1 234 567 8900 or @handle" />
+            <div class="form-divider"></div>
+            <p class="form-section-label">Your Testimony</p>
+            <div class="form-group" style="margin-bottom:20px;">
+              <label>What did God do? <span class="req">*</span></label>
+              <textarea id="tTestimony" placeholder="Tell us what happened. How did God move? Don't hold back — give Him all the glory!" style="min-height:160px;"></textarea>
             </div>
+            <div class="form-divider"></div>
+            <p class="form-section-label">Interview Contact <span style="font-size:11px;color:rgba(255,255,255,0.3);font-weight:400;text-transform:none;letter-spacing:0;">&nbsp;&mdash; Optional</span></p>
+            <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:18px;">If your story is one we would love to feature or share live, what is the best way to reach you? We will only contact you with your permission.</p>
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label>Preferred Contact Method</label>
+                <select id="tContactMethod">
+                  <option value="" disabled selected>Choose one</option>
+                  <option>WhatsApp</option>
+                  <option>Email</option>
+                  <option>Phone call</option>
+                  <option>Instagram DM</option>
+                  <option>Facebook</option>
+                  <option>No contact please</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Your Contact Detail</label>
+                <input type="text" id="tContactDetail" placeholder="e.g. +1 234 567 8900 or @handle" />
+              </div>
+            </div>
+            <button class="submit-btn" onclick="submitTestimony()">Submit My Testimony</button>
+            <p class="form-note" style="margin-top:14px;">To God be all the glory! Thank you for sharing what He has done.</p>
           </div>
-          <button class="submit-btn" onclick="submitTestimony()">Submit My Testimony</button>
-          <p class="form-note">To God be all the glory! Thank you for sharing what He has done.</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- VIDEO OR VOICE FORM — opens Google Form in new tab -->
-  <div class="form-section" id="formMedia" style="display:none;">
-    <div class="form-container">
-      <div class="prayer-form">
-
-        <p class="form-section-label">Share Your Story</p>
-
-        <!-- How-to card -->
-        <div class="media-how-card">
-          <div class="media-how-row">
-            <div class="media-how-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            </div>
-            <div>
-              <div class="media-how-title">Recording on your phone</div>
-              <p class="media-how-text">You can record a video or voice note directly from your phone when the form opens — no app needed. Tap <strong style="color:var(--white);">Add file</strong>, then choose your camera to record right there.</p>
-            </div>
-          </div>
-          <div class="media-how-row" style="margin-bottom:0;">
-            <div class="media-how-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div>
-              <div class="media-how-title">Already have a recording?</div>
-              <p class="media-how-text">Tap <strong style="color:var(--white);">Add file</strong> in the form and choose it from your phone's gallery or files. MP4, MOV, MP3, M4A and most common formats are accepted.</p>
-            </div>
-          </div>
+    <!-- Card 2: Send a video or voice note -->
+    <div class="testimony-choice-card" id="choice-media">
+      <div class="testimony-choice-hdr" onclick="openTestimonyChoice('media')" role="button" aria-expanded="false" aria-controls="testimonyMediaBody">
+        <div class="testimony-choice-ico">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
         </div>
-
-        <!-- CTA button -->
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdF0midim6HfuwjmZ2H3Q6pwOwpoASU9HBpf54ZrSPvbG95fw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="submit-btn" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:28px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Upload a Video or Voice Recording
-        </a>
-
-        <div class="media-form-notes">
-          <div class="media-note-item">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Stored securely on Google Drive
-          </div>
-          <div class="media-note-item">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            Up to 10GB per file
-          </div>
-          <div class="media-note-item">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            Opens in a new tab &mdash; returns to this page when done
-          </div>
+        <div class="testimony-choice-lbl">
+          <div class="testimony-choice-title">Tap to send a video or voice note</div>
+          <div class="testimony-choice-sub">Upload a recording from your phone &mdash; up to 10GB</div>
         </div>
-
+        <svg class="testimony-choice-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
+      <div class="testimony-choice-body" id="testimonyMediaBody">
+        <div style="padding: 24px;">
+          <div class="media-how-card">
+            <div class="media-how-row">
+              <div class="media-how-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              </div>
+              <div>
+                <div class="media-how-title">Recording on your phone</div>
+                <p class="media-how-text">When the form opens, tap <strong style="color:var(--white);">Add file</strong> and choose your camera to record a video directly — or pick an existing recording from your gallery. No app needed.</p>
+              </div>
+            </div>
+            <div class="media-how-row" style="margin-bottom:0;">
+              <div class="media-how-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <div class="media-how-title">Already have a recording?</div>
+                <p class="media-how-text">Choose it from your files. MP4, MOV, MP3, M4A and most common formats are accepted. Up to 10GB per file.</p>
+              </div>
+            </div>
+          </div>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdF0midim6HfuwjmZ2H3Q6pwOwpoASU9HBpf54ZrSPvbG95fw/viewform?usp=publish-editor" target="_blank" rel="noopener" class="submit-btn" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload a Video or Voice Recording
+          </a>
+          <div class="media-form-notes">
+            <div class="media-note-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Stored securely on Google Drive</div>
+            <div class="media-note-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Opens in a new tab &mdash; returns here when done</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+      </button>
     </div>
   </div>
 
@@ -1674,13 +1671,9 @@ function _showPageInternal(name) {
   var cWrap    = document.getElementById('contactFormWrap');
   if (cSuccess && name !== 'contact') { cSuccess.style.display = 'none'; if (cWrap) cWrap.style.display = ''; }
 
-  // When leaving testimony: reset to text tab
+  // When leaving testimony: close all accordion cards
   if (name !== 'testimony') {
-    var fText  = document.getElementById('formText');
-    var fMedia = document.getElementById('formMedia');
-    if (fText)  fText.style.display  = '';
-    if (fMedia) fMedia.style.display = 'none';
-    document.querySelectorAll('.t-option').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+    document.querySelectorAll('.testimony-choice-card').forEach(function(c){ c.classList.remove('open'); });
   }
 
   // Switch page
@@ -1810,14 +1803,22 @@ function submitContact() {
   showToast('Message Sent!', 'Thank you, ' + name + '. We\'ll be in touch soon.');
 }
 
-// ── Testimony: type selector ─────────────────────────────────
-function selectTestimonyType(type) {
-  ['text','media'].forEach(function(t){
-    var btn = document.getElementById('opt-' + t);
-    var frm = document.getElementById('form' + t.charAt(0).toUpperCase() + t.slice(1));
-    if (btn) btn.classList.toggle('active', t === type);
-    if (frm) frm.style.display = (t === type) ? '' : 'none';
-  });
+// ── Testimony: accordion choice ──────────────────────────────
+function openTestimonyChoice(type) {
+  var card = document.getElementById('choice-' + type);
+  if (!card) return;
+  var isOpen = card.classList.contains('open');
+  // Close all cards first
+  document.querySelectorAll('.testimony-choice-card').forEach(function(c){ c.classList.remove('open'); });
+  // Toggle: if it was closed, open it; if it was open, leave closed (acts as close)
+  if (!isOpen) {
+    card.classList.add('open');
+    // Scroll so the card header sits just below the navbar
+    setTimeout(function(){
+      var top = card.getBoundingClientRect().top + window.scrollY - 88;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }, 60);
+  }
 }
 
 // ── Testimony: text ──────────────────────────────────────────
@@ -1840,13 +1841,20 @@ function submitTestimony() {
 }
 
 function showTestimonySuccess(type, firstName) {
-  ['formText','formMedia'].forEach(function(id){ var el = document.getElementById(id); if (el) el.style.display = 'none'; });
-  var hero = document.getElementById('testimonyHero'); if (hero) hero.style.display = 'none';
-  var optBar = document.querySelector('.t-options-bar'); if (optBar) optBar.style.display = 'none';
-  var headings = { text: 'Thank You for Sharing!', voice: 'Voice Note Received!', video: 'Video Testimony Received!' };
-  var msgs = { text: 'Your testimony has been received. Stories like yours build faith in others who are still waiting for their breakthrough. <strong>God is still moving.</strong>', voice: 'Your voice note has been received by the ministry. We will listen to it and your story will be a blessing. <strong>God is still moving.</strong>', video: 'Your video testimony has been received. We will review it and your story will build faith in others. <strong>God is still moving.</strong>' };
-  var hEl = document.getElementById('testimonySuccessHeading'); if (hEl) hEl.textContent = headings[type] || 'Thank You!';
-  var mEl = document.getElementById('testimonySuccessMsg');     if (mEl) mEl.innerHTML  = msgs[type]     || '';
+  // Hide accordion and hero
+  var choices = document.querySelector('.testimony-choices');
+  if (choices) choices.style.display = 'none';
+  var dw = document.querySelector('.testimony-disclaimer-wrap');
+  if (dw) dw.style.display = 'none';
+  var hero = document.getElementById('testimonyHero');
+  if (hero) hero.style.display = 'none';
+  // Update success message
+  var headings = { text: 'Thank You for Sharing!', voice: 'Voice Note Received!', video: 'Video Testimony Received!', media: 'Testimony Received!' };
+  var msgs = { text: 'Your testimony has been received. Stories like yours build faith in others who are still waiting for their breakthrough. <strong>God is still moving.</strong>', media: 'Your recording has been received. We will listen to it and your story will be a blessing to many. <strong>God is still moving.</strong>' };
+  var hEl = document.getElementById('testimonySuccessHeading');
+  var mEl = document.getElementById('testimonySuccessMsg');
+  if (hEl) hEl.textContent = headings[type] || 'Thank You!';
+  if (mEl) mEl.innerHTML  = msgs[type] || msgs.text;
   document.getElementById('testimonySuccess').classList.add('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1854,12 +1862,16 @@ function showTestimonySuccess(type, firstName) {
 function resetAllTestimonyForms() {
   document.getElementById('testimonySuccess').classList.remove('show');
   var hero = document.getElementById('testimonyHero'); if (hero) hero.style.display = '';
-  var optBar = document.querySelector('.t-options-bar'); if (optBar) optBar.style.display = '';
-  selectTestimonyType('text');
+  var choices = document.querySelector('.testimony-choices'); if (choices) choices.style.display = '';
+  var dw = document.querySelector('.testimony-disclaimer-wrap'); if (dw) dw.style.display = '';
+  // Close all accordion cards
+  document.querySelectorAll('.testimony-choice-card').forEach(function(c){ c.classList.remove('open'); });
+  // Reset text form
   ['tFirstName','tLastName','tEmail','tTestimony','tContactDetail'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
   var tc = document.getElementById('tCountry'); if (tc) tc.value = '';
   var tm = document.getElementById('tContactMethod'); if (tm) tm.value = '';
-  var tb = document.querySelector('#testimonyFormWrap .submit-btn'); if (tb) { tb.textContent = 'Submit My Testimony'; tb.disabled = false; }
+  var tb = document.querySelector('#testimonyFormWrap .submit-btn');
+  if (tb) { tb.textContent = 'Submit My Testimony'; tb.disabled = false; }
 }
 
 // ── Events page: first Saturday calculator ───────────────────
