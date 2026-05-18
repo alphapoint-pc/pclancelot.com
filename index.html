@@ -559,7 +559,7 @@
  .toast-text h4 { font-size: 14px; font-weight: 700; color: var(--accent-light); margin-bottom: 4px; }
  .toast-text p { font-size: 13px; color: rgba(255,255,255,0.6); }
  /* RESPONSIVE */
- @media (max-width: 900px) { .about-content { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr 1fr; } .contact-grid { grid-template-columns: 1fr; } }
+ @media (max-width: 900px) { .about-content { grid-template-columns: 1fr; } .about-image-wrap { order: 2; } .about-text { order: 1; } .footer-top { grid-template-columns: 1fr 1fr; } .contact-grid { grid-template-columns: 1fr; } }
  @media (max-width: 640px) { nav { padding: 0 16px; } .nav-links { display: none; } .hamburger { display: flex; } .form-row.two-col { grid-template-columns: 1fr; } .prayer-form { padding: 28px 20px; } .community-join-form { padding: 28px 20px; } .footer-top { grid-template-columns: 1fr; } .about-values { grid-template-columns: 1fr; } }
  /* KPC INVITE BANNER (prayer success page) */
  .kpc-invite-banner { position: relative; background: linear-gradient(135deg, rgba(0,192,192,0.08), rgba(0,192,192,0.03)); border: 1px solid rgba(0,192,192,0.3); border-radius: var(--radius-lg); padding: 32px 28px; max-width: 560px; margin: 28px auto 0; text-align: center; overflow: hidden; }
@@ -1471,9 +1471,6 @@
     </div>
 
   </div>
-      </button>
-    </div>
-  </div>
 
   <!-- Testimony disclaimer -->
   <div class="testimony-disclaimer-wrap">
@@ -2117,102 +2114,102 @@ document.addEventListener('DOMContentLoaded', function() {
 var PRAYER_DAYS = [
   {
     date:'2026-05-18', day:'Mon · May 18', topic:'Wisdom to Prepare',
-    point:'Lord, let Your grace and wisdom abound in us, enabling us to diligently do all that is needed to achieve Your purpose for this event.',
-    ref:'Zechariah 4:6', scripture:'"Not by might, nor by power, but by my spirit, saith the LORD of hosts... The hands of Zerubbabel have laid the foundation of this house; his hands shall also finish it." — Zechariah 4:6,9 KJV'
+    point:'Lord, thank You that Your grace and wisdom abound in us, enabling us to diligently do all that is needed to achieve Your purpose for this event. We lack no wisdom — You have given it generously!',
+    ref:'Zechariah 4:6,9', scripture:'"Not by might, nor by power, but by my spirit, saith the LORD of hosts... The hands of Zerubbabel have laid the foundation of this house; his hands shall also finish it." — Zechariah 4:6,9 KJV'
   },
   {
     date:'2026-05-19', day:'Tue · May 19', topic:'Resources for the Ministry',
-    point:'Father, release every resource — financial, material, and human — that is needed to execute this rally to Your glory. Let nothing be lacking.',
+    point:'Father, thank You for the release of every resource — financial, material, and human — needed to execute this rally to Your glory. We lack nothing! You are our Provider and every need is already met in You.',
     ref:'Philippians 4:19', scripture:'"But my God shall supply all your need according to his riches in glory by Christ Jesus." — Philippians 4:19 KJV'
   },
   {
     date:'2026-05-20', day:'Wed · May 20', topic:'Outreach & Advertisement',
-    point:'Lord, make our message fly like arrows into the right hearts. Let the right people find this rally at the right time — every soul You intend to reach, let them be reached.',
+    point:'Lord, thank You that our message is already flying like arrows into the right hearts. The right people are finding this rally at the right time — every soul You intend to reach is being reached now!',
     ref:'Luke 14:23', scripture:'"...Go out into the highways and hedges, and compel them to come in, that my house may be filled." — Luke 14:23 KJV'
   },
   {
     date:'2026-05-21', day:'Thu · May 21', topic:'Technical Stability',
-    point:'Lord, command peace over every device, connection, and system involved. Bind every technical failure before it can arise. Let the stream flow without disruption to the glory of Your name.',
+    point:'Thank You, Lord, that Your peace already rests on every device, connection, and system involved. Every technical failure is bound before it arises. The stream flows without disruption to the glory of Your name!',
     ref:'Ecclesiastes 9:10', scripture:'"Whatsoever thy hand findeth to do, do it with thy might; for there is no work, nor device, nor knowledge, nor wisdom, in the grave, whither thou goest." — Ecclesiastes 9:10 KJV'
   },
   {
     date:'2026-05-22', day:'Fri · May 22', topic:'Those Who Will Minister',
-    point:'Father, clothe every minister and team member with Your anointing. Purify our hearts, sharpen our spirits, and let Your fire rest on all who will serve in this rally.',
+    point:'Father, thank You for clothing every minister and team member with Your anointing. Our hearts are purified, our spirits sharpened, and Your fire rests upon all who will serve in this rally!',
     ref:'2 Chronicles 6:41', scripture:'"...Let thy priests, O LORD God, be clothed with salvation, and let thy saints rejoice in goodness." — 2 Chronicles 6:41 KJV'
   },
   {
     date:'2026-05-23', day:'Sat · May 23', topic:'Those Who Will Attend',
-    point:'Lord, stir the hearts of every person You have chosen to attend. Remove every excuse, every distraction, and every hindrance. Draw them by Your Spirit.',
+    point:'Lord, thank You that the hearts of every person You have chosen are already stirred! Every excuse, every distraction, every hindrance is removed. They are coming — drawn irresistibly by Your Spirit!',
     ref:'Hebrews 10:25', scripture:'"Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another: and so much the more, as ye see the day approaching." — Hebrews 10:25 KJV'
   },
   {
     date:'2026-05-24', day:'Sun · May 24', topic:'Miracles & Life Transformation',
-    point:'God of signs and wonders, arise at this rally. Let the lame walk, the burdened go free, the broken be made whole. Let no one leave the same way they came in.',
+    point:'Thank You, God of signs and wonders! We declare that no one will leave this rally the same way they came in. The lame walk, the burdened go free, the broken are made whole — it is already done!',
     ref:'James 5:14-15', scripture:'"Is any sick among you? let him call for the elders of the church; and let them pray over him, anointing him with oil in the name of the Lord: And the prayer of faith shall save the sick, and the Lord shall raise him up..." — James 5:14-15 KJV'
   },
   {
     date:'2026-05-25', day:'Mon · May 25', topic:'A Massive Turnout',
-    point:'Lord of the harvest, send labourers and seekers. Let this rally draw multitudes from every nation, tribe, and background. Overflow our expectations with Your abundance.',
+    point:'Lord of the harvest, thank You for the multitudes You are drawing from every nation, tribe, and background! Our expectations are already exceeded by Your abundance. The house will be filled!',
     ref:'Mark 6:34', scripture:'"And Jesus, when he came out, saw much people, and was moved with compassion toward them, because they were as sheep not having a shepherd..." — Mark 6:34 KJV'
   },
   {
     date:'2026-05-26', day:'Tue · May 26', topic:'Unity Among Believers',
-    point:'Father, bring us together as one body — one heart, one voice, one purpose. Remove all strife, competition, and division. Let the world see Your people in one accord.',
+    point:'Father, thank You that we are one body — one heart, one voice, one purpose! All strife and division are gone. The world already sees Your people in one glorious accord. We are better together!',
     ref:'Psalm 133:1', scripture:'"Behold, how good and how pleasant it is for brethren to dwell together in unity!" — Psalm 133:1 KJV'
   },
   {
     date:'2026-05-27', day:'Wed · May 27', topic:'The Unsaved to Hear the Gospel',
-    point:'Lord, position this rally to be a moment of divine encounter for those who do not yet know You. Let the Gospel reach every heart that is searching, doubting, and hungry.',
+    point:'Lord, thank You that this rally is already a moment of divine encounter for those who do not yet know You. The Gospel is reaching every hungry, searching, doubting heart — and none shall leave untouched!',
     ref:'Romans 10:14', scripture:'"How then shall they call on him in whom they have not believed? and how shall they believe in him of whom they have not heard? and how shall they hear without a preacher?" — Romans 10:14 KJV'
   },
   {
     date:'2026-05-28', day:'Thu · May 28', topic:'Open Hearts & Receptive Spirits',
-    point:'Holy Spirit, prepare the soil before the seed falls. Break up every hardened heart. Let pride, doubt, and unbelief crumble before Your Word goes forth on June 6.',
+    point:'Holy Spirit, thank You for preparing the soil before the seed falls! Every hardened heart is already softened. Pride, doubt, and unbelief crumble before Your Word — the ground is ready for June 6!',
     ref:'Isaiah 55:3', scripture:'"Incline your ear, and come unto me: hear, and your soul shall live; and I will make an everlasting covenant with you, even the sure mercies of David." — Isaiah 55:3 KJV'
   },
   {
     date:'2026-05-29', day:'Fri · May 29', topic:'Against Every Spiritual Opposition',
-    point:'Lord of Hosts, arise against every principality, power, and spiritual stronghold that would hinder this rally. Let every assignment of the enemy be cancelled in the name of Jesus.',
+    point:'Lord of Hosts, thank You that every principality, power, and spiritual stronghold that would hinder this rally is already cancelled! Greater is He that is in us than he that is in the world. We are more than conquerors!',
     ref:'Ephesians 6:12', scripture:'"For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places." — Ephesians 6:12 KJV'
   },
   {
     date:'2026-05-30', day:'Sat · May 30', topic:'Prayer for the Nations',
-    point:'King of all nations, we pray for every country represented at this rally. Let Your kingdom come and Your will be done in every land, in every government, and in every home.',
+    point:'King of all nations, thank You that every country represented at this rally will encounter Your glory! Your kingdom is coming and Your will is being done in every land, every government, and every home. All nations shall serve Him!',
     ref:'Psalm 72:11', scripture:'"Yea, all kings shall fall down before him: all nations shall serve him." — Psalm 72:11 KJV'
   },
   {
     date:'2026-05-31', day:'Sun · May 31', topic:'Salvations — None to Perish',
-    point:'Father, let this rally mark the moment of salvation for souls that have been at the edge of eternity. Let Your mercy triumph over judgment. Save, Lord — save abundantly.',
+    point:'Father, thank You that this rally is already a moment of salvation for souls at the edge of eternity! Your mercy triumphs over judgment — we declare that souls will be saved abundantly on June 6. None shall perish!',
     ref:'2 Peter 3:9', scripture:'"The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish, but that all should come to repentance." — 2 Peter 3:9 KJV'
   },
   {
     date:'2026-06-01', day:'Mon · Jun 1', topic:'Healing in Every Form',
-    point:'Jehovah Rapha — our Healer — manifest Your power. Let bodies be healed, minds be restored, emotions be made whole. Send Your word and heal every sickness represented at this rally.',
+    point:'Jehovah Rapha — thank You for healing that is already flowing! Bodies are healed, minds are restored, emotions are made whole. Your word is sent and healing is accomplished. Every sickness at this rally meets its end!',
     ref:'James 5:15', scripture:'"And the prayer of faith shall save the sick, and the Lord shall raise him up; and if he have committed sins, they shall be forgiven him." — James 5:15 KJV'
   },
   {
     date:'2026-06-02', day:'Tue · Jun 2', topic:'Financial Breakthrough for Attendees',
-    point:'Lord, let this rally be a turning point for every person in financial bondage. Open the windows of heaven over the lives of those who attend. Break the spirit of lack and usher in overflow.',
+    point:'Lord, thank You for the financial breakthrough already released over every person in bondage who will attend! The windows of heaven are open. The spirit of lack is broken and overflow is their new normal!',
     ref:'Malachi 3:10', scripture:'"Bring ye all the tithes into the storehouse...and prove me now herewith, saith the LORD of hosts, if I will not open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it." — Malachi 3:10 KJV'
   },
   {
     date:'2026-06-03', day:'Wed · Jun 3', topic:'Family Restoration',
-    point:'God of all families, restore what the enemy has broken. Turn the hearts of fathers to children and children to fathers. Let this rally set off a wave of healing in homes around the world.',
+    point:'God of all families, thank You for the wave of healing already moving through homes around the world! Hearts of fathers are turned to children, and children to fathers. What the enemy broke, You have already restored!',
     ref:'Malachi 4:6', scripture:'"And he shall turn the heart of the fathers to the children, and the heart of the children to their fathers, lest I come and smite the earth with a curse." — Malachi 4:6 KJV'
   },
   {
     date:'2026-06-04', day:'Thu · Jun 4', topic:'Fire of the Holy Spirit',
-    point:'Holy Spirit, fall afresh on this gathering. Baptise every participant in Your fire. Let there be a fresh outpouring — revival, renewal, and awakening — beginning at this rally.',
+    point:'Holy Spirit, thank You for the fresh outpouring already released upon this gathering! Every participant is baptised in Your fire. Revival, renewal, and awakening begin at this rally — the fire is falling!',
     ref:'Acts 1:8', scripture:'"But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth." — Acts 1:8 KJV'
   },
   {
     date:'2026-06-05', day:'Fri · Jun 5 — Final Prep', topic:'Consecration — The Day Before',
-    point:'Lord, on this final day of preparation, let every minister, intercessor, and participant sanctify themselves before You. Let us enter tomorrow\'s rally pure, ready, and expectant.',
+    point:'Lord, thank You that we are sanctified and set apart for tomorrow. Every minister, intercessor, and participant is pure, ready, and expectant. We enter tomorrow\'s rally in the fullness of Your anointing. Wonders are coming!',
     ref:'Joshua 3:5', scripture:'"...Sanctify yourselves: for to morrow the LORD will do wonders among you." — Joshua 3:5 KJV'
   },
   {
     date:'2026-06-06', day:'Sat · Jun 6 — RALLY DAY', topic:'The Day of the Lord\'s Move',
-    point:'THIS IS THE DAY! Lord, arise in Your fullness! Let heaven touch earth at this rally. Let every eye behold Your glory, every ear hear Your voice, and every heart surrender to Your lordship. Do what only You can do!',
+    point:'THIS IS THE DAY THE LORD HAS MADE! Thank You, Father, that heaven is touching earth right now! Every eye beholds Your glory, every ear hears Your voice, every heart surrenders to Your lordship. YOU ARE DOING IT!',
     ref:'Psalm 118:24', scripture:'"This is the day which the LORD hath made; we will rejoice and be glad in it." — Psalm 118:24 KJV'
   }
 ];
