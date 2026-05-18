@@ -615,11 +615,15 @@
   min-height: 100svh;
   background: linear-gradient(160deg, #060f10 0%, #091e24 40%, #0b2d33 70%, #060f10 100%);
   display: flex;
-  align-items: center;
+  /* flex-start on mobile: prevents overflow:hidden from clipping tall content */
+  align-items: flex-start;
   justify-content: center;
   position: relative;
   overflow: hidden;
   padding: 96px 20px 60px;
+}
+@media (min-width: 768px) {
+  .rally-hero { align-items: center; }
 }
 .rally-bg-orbs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .rally-bg-orbs span { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(0,192,192,0.07) 0%, transparent 70%); animation: orbFloat 12s ease-in-out infinite; }
@@ -745,6 +749,15 @@
 .prayer-day-card.event-day .prayer-day-scripture { border-left-color: rgba(0,192,192,0.4); color: rgba(255,255,255,0.55); }
 .prayer-sched-end { text-align: center; padding: 24px 20px 0; }
 .prayer-sched-end p { font-size: 12px; color: rgba(255,255,255,0.22); line-height: 1.7; }
+/* Prayer point & scripture ref */
+.prayer-day-point-label { font-family: var(--font-heading); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(0,192,192,0.55); margin-bottom: 5px; margin-top: 10px; }
+.prayer-day-card.today .prayer-day-point-label { color: rgba(237,185,58,0.65); }
+.prayer-day-card.event-day .prayer-day-point-label { color: rgba(0,192,192,0.65); }
+.prayer-day-point { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 12px; font-style: italic; }
+.prayer-day-card.today .prayer-day-point { color: rgba(255,255,255,0.8); }
+.prayer-day-ref { font-family: var(--font-heading); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(0,192,192,0.5); margin-bottom: 4px; }
+.prayer-day-card.today .prayer-day-ref { color: rgba(237,185,58,0.6); }
+.prayer-day-card.event-day .prayer-day-ref { color: rgba(0,192,192,0.6); }
 /* Voice recorder */
 .voice-recorder-wrap { background: rgba(0,0,0,0.25); border: 1px solid rgba(0,192,192,0.15); border-radius: var(--radius); padding: 24px 20px; margin-bottom: 20px; text-align: center; }
 .voice-rec-label { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
@@ -2102,26 +2115,106 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ── Prayer Prep Schedule modal ────────────────────────────────
 var PRAYER_DAYS = [
-  { date:'2026-05-18', day:'Mon · May 18', topic:'Wisdom to Prepare', scripture:'"For which of you, intending to build a tower, sitteth not down first, and counteth the cost, whether he have sufficient to finish it?" — Luke 14:28 KJV' },
-  { date:'2026-05-19', day:'Tue · May 19', topic:'Resources for the Ministry', scripture:'"But my God shall supply all your need according to his riches in glory by Christ Jesus." — Philippians 4:19 KJV' },
-  { date:'2026-05-20', day:'Wed · May 20', topic:'Outreach — The Right People Reached', scripture:'"...Compel them to come in, that my house may be filled." — Luke 14:23 KJV' },
-  { date:'2026-05-21', day:'Thu · May 21', topic:'Technical Stability', scripture:'"Whatsoever thy hand findeth to do, do it with thy might..." — Ecclesiastes 9:10 KJV' },
-  { date:'2026-05-22', day:'Fri · May 22', topic:'Those Who Will Minister', scripture:'"...Let thy priests, O LORD God, be clothed with salvation, and let thy saints rejoice in goodness." — 2 Chronicles 6:41 KJV' },
-  { date:'2026-05-23', day:'Sat · May 23', topic:'Those Who Will Attend', scripture:'"Not forsaking the assembling of ourselves together...but exhorting one another..." — Hebrews 10:25 KJV' },
-  { date:'2026-05-24', day:'Sun · May 24', topic:'Miracles & Life Transformation', scripture:'"Is any sick among you? let him call for the elders of the church; and let them pray over him..." — James 5:14 KJV' },
-  { date:'2026-05-25', day:'Mon · May 25', topic:'A Massive Turnout', scripture:'"And Jesus, when he came out, saw much people, and was moved with compassion toward them..." — Mark 6:34 KJV' },
-  { date:'2026-05-26', day:'Tue · May 26', topic:'Unity Among Believers', scripture:'"Behold, how good and how pleasant it is for brethren to dwell together in unity!" — Psalm 133:1 KJV' },
-  { date:'2026-05-27', day:'Wed · May 27', topic:'The Unsaved to Hear the Gospel', scripture:'"How then shall they call on him in whom they have not believed? and how shall they believe in him of whom they have not heard?" — Romans 10:14 KJV' },
-  { date:'2026-05-28', day:'Thu · May 28', topic:'Open Hearts & Receptive Spirits', scripture:'"Incline your ear, and come unto me: hear, and your soul shall live..." — Isaiah 55:3 KJV' },
-  { date:'2026-05-29', day:'Fri · May 29', topic:'Against Every Spiritual Opposition', scripture:'"For we wrestle not against flesh and blood, but against principalities, against powers..." — Ephesians 6:12 KJV' },
-  { date:'2026-05-30', day:'Sat · May 30', topic:'Prayer for the Nations', scripture:'"...Yea, all kings shall fall down before him: all nations shall serve him." — Psalm 72:11 KJV' },
-  { date:'2026-05-31', day:'Sun · May 31', topic:'Salvations — None to Perish', scripture:'"...Not willing that any should perish, but that all should come to repentance." — 2 Peter 3:9 KJV' },
-  { date:'2026-06-01', day:'Mon · Jun 1', topic:'Healing in Every Form', scripture:'"And the prayer of faith shall save the sick, and the Lord shall raise him up..." — James 5:15 KJV' },
-  { date:'2026-06-02', day:'Tue · Jun 2', topic:'Financial Breakthrough for Attendees', scripture:'"...I will...open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it." — Malachi 3:10 KJV' },
-  { date:'2026-06-03', day:'Wed · Jun 3', topic:'Family Restoration', scripture:'"And he shall turn the heart of the fathers to the children, and the heart of the children to their fathers..." — Malachi 4:6 KJV' },
-  { date:'2026-06-04', day:'Thu · Jun 4', topic:'Fire of the Holy Spirit', scripture:'"But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me..." — Acts 1:8 KJV' },
-  { date:'2026-06-05', day:'Fri · Jun 5 — Final Prep', topic:'Consecration — The Day Before', scripture:'"...Sanctify yourselves: for to morrow the LORD will do wonders among you." — Joshua 3:5 KJV' },
-  { date:'2026-06-06', day:'Sat · Jun 6 — RALLY DAY', topic:'The Day of the Lord\'s Move', scripture:'"This is the day which the LORD hath made; we will rejoice and be glad in it." — Psalm 118:24 KJV' }
+  {
+    date:'2026-05-18', day:'Mon · May 18', topic:'Wisdom to Prepare',
+    point:'Lord, let Your grace and wisdom abound in us, enabling us to diligently do all that is needed to achieve Your purpose for this event.',
+    ref:'Zechariah 4:6', scripture:'"Not by might, nor by power, but by my spirit, saith the LORD of hosts... The hands of Zerubbabel have laid the foundation of this house; his hands shall also finish it." — Zechariah 4:6,9 KJV'
+  },
+  {
+    date:'2026-05-19', day:'Tue · May 19', topic:'Resources for the Ministry',
+    point:'Father, release every resource — financial, material, and human — that is needed to execute this rally to Your glory. Let nothing be lacking.',
+    ref:'Philippians 4:19', scripture:'"But my God shall supply all your need according to his riches in glory by Christ Jesus." — Philippians 4:19 KJV'
+  },
+  {
+    date:'2026-05-20', day:'Wed · May 20', topic:'Outreach & Advertisement',
+    point:'Lord, make our message fly like arrows into the right hearts. Let the right people find this rally at the right time — every soul You intend to reach, let them be reached.',
+    ref:'Luke 14:23', scripture:'"...Go out into the highways and hedges, and compel them to come in, that my house may be filled." — Luke 14:23 KJV'
+  },
+  {
+    date:'2026-05-21', day:'Thu · May 21', topic:'Technical Stability',
+    point:'Lord, command peace over every device, connection, and system involved. Bind every technical failure before it can arise. Let the stream flow without disruption to the glory of Your name.',
+    ref:'Ecclesiastes 9:10', scripture:'"Whatsoever thy hand findeth to do, do it with thy might; for there is no work, nor device, nor knowledge, nor wisdom, in the grave, whither thou goest." — Ecclesiastes 9:10 KJV'
+  },
+  {
+    date:'2026-05-22', day:'Fri · May 22', topic:'Those Who Will Minister',
+    point:'Father, clothe every minister and team member with Your anointing. Purify our hearts, sharpen our spirits, and let Your fire rest on all who will serve in this rally.',
+    ref:'2 Chronicles 6:41', scripture:'"...Let thy priests, O LORD God, be clothed with salvation, and let thy saints rejoice in goodness." — 2 Chronicles 6:41 KJV'
+  },
+  {
+    date:'2026-05-23', day:'Sat · May 23', topic:'Those Who Will Attend',
+    point:'Lord, stir the hearts of every person You have chosen to attend. Remove every excuse, every distraction, and every hindrance. Draw them by Your Spirit.',
+    ref:'Hebrews 10:25', scripture:'"Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another: and so much the more, as ye see the day approaching." — Hebrews 10:25 KJV'
+  },
+  {
+    date:'2026-05-24', day:'Sun · May 24', topic:'Miracles & Life Transformation',
+    point:'God of signs and wonders, arise at this rally. Let the lame walk, the burdened go free, the broken be made whole. Let no one leave the same way they came in.',
+    ref:'James 5:14-15', scripture:'"Is any sick among you? let him call for the elders of the church; and let them pray over him, anointing him with oil in the name of the Lord: And the prayer of faith shall save the sick, and the Lord shall raise him up..." — James 5:14-15 KJV'
+  },
+  {
+    date:'2026-05-25', day:'Mon · May 25', topic:'A Massive Turnout',
+    point:'Lord of the harvest, send labourers and seekers. Let this rally draw multitudes from every nation, tribe, and background. Overflow our expectations with Your abundance.',
+    ref:'Mark 6:34', scripture:'"And Jesus, when he came out, saw much people, and was moved with compassion toward them, because they were as sheep not having a shepherd..." — Mark 6:34 KJV'
+  },
+  {
+    date:'2026-05-26', day:'Tue · May 26', topic:'Unity Among Believers',
+    point:'Father, bring us together as one body — one heart, one voice, one purpose. Remove all strife, competition, and division. Let the world see Your people in one accord.',
+    ref:'Psalm 133:1', scripture:'"Behold, how good and how pleasant it is for brethren to dwell together in unity!" — Psalm 133:1 KJV'
+  },
+  {
+    date:'2026-05-27', day:'Wed · May 27', topic:'The Unsaved to Hear the Gospel',
+    point:'Lord, position this rally to be a moment of divine encounter for those who do not yet know You. Let the Gospel reach every heart that is searching, doubting, and hungry.',
+    ref:'Romans 10:14', scripture:'"How then shall they call on him in whom they have not believed? and how shall they believe in him of whom they have not heard? and how shall they hear without a preacher?" — Romans 10:14 KJV'
+  },
+  {
+    date:'2026-05-28', day:'Thu · May 28', topic:'Open Hearts & Receptive Spirits',
+    point:'Holy Spirit, prepare the soil before the seed falls. Break up every hardened heart. Let pride, doubt, and unbelief crumble before Your Word goes forth on June 6.',
+    ref:'Isaiah 55:3', scripture:'"Incline your ear, and come unto me: hear, and your soul shall live; and I will make an everlasting covenant with you, even the sure mercies of David." — Isaiah 55:3 KJV'
+  },
+  {
+    date:'2026-05-29', day:'Fri · May 29', topic:'Against Every Spiritual Opposition',
+    point:'Lord of Hosts, arise against every principality, power, and spiritual stronghold that would hinder this rally. Let every assignment of the enemy be cancelled in the name of Jesus.',
+    ref:'Ephesians 6:12', scripture:'"For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places." — Ephesians 6:12 KJV'
+  },
+  {
+    date:'2026-05-30', day:'Sat · May 30', topic:'Prayer for the Nations',
+    point:'King of all nations, we pray for every country represented at this rally. Let Your kingdom come and Your will be done in every land, in every government, and in every home.',
+    ref:'Psalm 72:11', scripture:'"Yea, all kings shall fall down before him: all nations shall serve him." — Psalm 72:11 KJV'
+  },
+  {
+    date:'2026-05-31', day:'Sun · May 31', topic:'Salvations — None to Perish',
+    point:'Father, let this rally mark the moment of salvation for souls that have been at the edge of eternity. Let Your mercy triumph over judgment. Save, Lord — save abundantly.',
+    ref:'2 Peter 3:9', scripture:'"The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish, but that all should come to repentance." — 2 Peter 3:9 KJV'
+  },
+  {
+    date:'2026-06-01', day:'Mon · Jun 1', topic:'Healing in Every Form',
+    point:'Jehovah Rapha — our Healer — manifest Your power. Let bodies be healed, minds be restored, emotions be made whole. Send Your word and heal every sickness represented at this rally.',
+    ref:'James 5:15', scripture:'"And the prayer of faith shall save the sick, and the Lord shall raise him up; and if he have committed sins, they shall be forgiven him." — James 5:15 KJV'
+  },
+  {
+    date:'2026-06-02', day:'Tue · Jun 2', topic:'Financial Breakthrough for Attendees',
+    point:'Lord, let this rally be a turning point for every person in financial bondage. Open the windows of heaven over the lives of those who attend. Break the spirit of lack and usher in overflow.',
+    ref:'Malachi 3:10', scripture:'"Bring ye all the tithes into the storehouse...and prove me now herewith, saith the LORD of hosts, if I will not open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it." — Malachi 3:10 KJV'
+  },
+  {
+    date:'2026-06-03', day:'Wed · Jun 3', topic:'Family Restoration',
+    point:'God of all families, restore what the enemy has broken. Turn the hearts of fathers to children and children to fathers. Let this rally set off a wave of healing in homes around the world.',
+    ref:'Malachi 4:6', scripture:'"And he shall turn the heart of the fathers to the children, and the heart of the children to their fathers, lest I come and smite the earth with a curse." — Malachi 4:6 KJV'
+  },
+  {
+    date:'2026-06-04', day:'Thu · Jun 4', topic:'Fire of the Holy Spirit',
+    point:'Holy Spirit, fall afresh on this gathering. Baptise every participant in Your fire. Let there be a fresh outpouring — revival, renewal, and awakening — beginning at this rally.',
+    ref:'Acts 1:8', scripture:'"But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth." — Acts 1:8 KJV'
+  },
+  {
+    date:'2026-06-05', day:'Fri · Jun 5 — Final Prep', topic:'Consecration — The Day Before',
+    point:'Lord, on this final day of preparation, let every minister, intercessor, and participant sanctify themselves before You. Let us enter tomorrow\'s rally pure, ready, and expectant.',
+    ref:'Joshua 3:5', scripture:'"...Sanctify yourselves: for to morrow the LORD will do wonders among you." — Joshua 3:5 KJV'
+  },
+  {
+    date:'2026-06-06', day:'Sat · Jun 6 — RALLY DAY', topic:'The Day of the Lord\'s Move',
+    point:'THIS IS THE DAY! Lord, arise in Your fullness! Let heaven touch earth at this rally. Let every eye behold Your glory, every ear hear Your voice, and every heart surrender to Your lordship. Do what only You can do!',
+    ref:'Psalm 118:24', scripture:'"This is the day which the LORD hath made; we will rejoice and be glad in it." — Psalm 118:24 KJV'
+  }
 ];
 
 function buildPrayerSchedule() {
@@ -2141,12 +2234,19 @@ function buildPrayerSchedule() {
     if (isToday)       badge = '<span class="prayer-today-badge">Today</span>';
     else if (isEvent)  badge = '<span class="prayer-event-badge">Rally Day</span>';
     html += '<div class="' + cls + '" data-date="' + d.date + '">';
+    // Header row: number + date + badge
     html += '<div class="prayer-day-header">';
     html += '<div class="prayer-day-num">' + (i + 1) + '</div>';
     html += '<div class="prayer-day-info"><div class="prayer-day-date-lbl">' + d.day + '</div></div>';
     if (badge) html += badge;
     html += '</div>';
+    // Topic
     html += '<div class="prayer-day-topic">' + d.topic + '</div>';
+    // Prayer Point
+    html += '<div class="prayer-day-point-label">Prayer Point</div>';
+    html += '<div class="prayer-day-point">' + d.point + '</div>';
+    // Scripture reference + quote
+    html += '<div class="prayer-day-ref">' + d.ref + '</div>';
     html += '<div class="prayer-day-scripture">' + d.scripture + '</div>';
     html += '</div>';
   });
