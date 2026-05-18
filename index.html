@@ -718,7 +718,8 @@
 .rally-attend-sticky.visible { pointer-events: auto; }
 .rally-attend-sticky .btn-attend { max-width: 480px; margin: 0 auto; box-shadow: 0 8px 32px rgba(180,110,15,0.6), 0 0 0 1px rgba(237,185,58,0.2); }
 @media (max-width: 767px) {
-  .rally-attend-sticky { display: block; }
+  /* only reveal the sticky bar on events page (JS adds .visible) */
+  .rally-attend-sticky.visible { display: block; }
   /* bottom padding on events page so sticky bar doesn't cover footer */
   #page-events footer { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
 }
@@ -1238,13 +1239,13 @@
  <!-- Schedule cards — the hero content -->
  <div class="schedule-grid" style="max-width: 900px; margin: 0 auto 32px;">
  <div class="schedule-card">
- <div class="day">Every Day</div>
+ <div class="day">Every Weekday</div>
  <h3>Praying for God's People</h3>
  <div class="time">7:00 AM CST · Live on YouTube<br/>All time zones welcome</div>
  <a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener" class="notify-btn" style="display:inline-block; text-decoration:none; text-align:center;">Watch on YouTube</a>
  </div>
  <div class="schedule-card">
- <div class="day">Every Day</div>
+ <div class="day">Every Weekday</div>
  <h3>God Lovers Prayer Circle</h3>
  <div class="time">6:30 AM CST · Live on Google Meet<br/>All time zones welcome</div>
  <a href="https://meet.google.com/nws-rvtg-hwg" target="_blank" rel="noopener" class="notify-btn" style="display:inline-block; text-decoration:none; text-align:center;">Join the Meeting</a>
@@ -1253,7 +1254,7 @@
  <!-- Countdown — sits just at/below fold -->
  <div class="countdown-section" style="margin-bottom: 0;">
  <h3>Next Live Stream In</h3>
- <div class="next-stream">Daily · 7:00 AM CST on YouTube</div>
+ <div class="next-stream">Weekdays · 7:00 AM CST on YouTube</div>
  <div class="countdown-grid">
  <div class="countdown-unit"><div class="countdown-num" id="cd-hours">--</div><div class="countdown-label">Hours</div></div>
  <div class="countdown-colon">:</div>
@@ -1261,7 +1262,7 @@
  <div class="countdown-colon">:</div>
  <div class="countdown-unit"><div class="countdown-num" id="cd-secs">--</div><div class="countdown-label">Seconds</div></div>
  </div>
- <p style="font-size:13px; color: rgba(255,255,255,0.3); margin-top: 16px;">Counting down to today's live stream at 7:00 AM CST</p>
+ <p style="font-size:13px; color: rgba(255,255,255,0.3); margin-top: 16px;">Counting down to the next weekday live stream at 7:00 AM CST</p>
  </div>
  </div>
  <!-- Video embed + CTA -->
