@@ -678,7 +678,7 @@
 /* ============================================================
    ATTEND MODAL
    ============================================================ */
-.attend-modal-overlay { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(6,15,16,0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
+.attend-modal-overlay { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(6,15,16,0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
 .attend-modal-overlay.open { display: flex; }
 .attend-modal-card { background: linear-gradient(145deg, #0e3840, #060f10); border: 1px solid rgba(0,192,192,0.3); border-radius: var(--radius-lg); padding: 40px 36px; width: 100%; max-width: 460px; position: relative; box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,192,192,0.08); animation: modalSlideIn 0.35s cubic-bezier(0.34,1.56,0.64,1); }
 @keyframes modalSlideIn { from{opacity:0;transform:scale(0.88) translateY(24px)} to{opacity:1;transform:scale(1) translateY(0)} }
@@ -689,7 +689,15 @@
 .attend-modal-hdr h2 { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
 .attend-modal-hdr p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 .attend-field-note { font-size: 12px; color: rgba(0,192,192,0.7); margin-bottom: 8px; line-height: 1.5; }
-@media (max-width: 480px) { .attend-modal-card { padding: 32px 24px; } }
+/* Mobile modal fix — anchor to top so close button stays in frame */
+@media (max-width: 600px) {
+  .attend-modal-overlay { align-items: flex-start; padding: 72px 12px 24px; }
+  .attend-modal-card { padding: 28px 20px 24px; border-radius: 16px; }
+  .attend-modal-icon-wrap { width: 48px; height: 48px; margin-bottom: 14px; }
+  .attend-modal-icon-wrap svg { width: 22px; height: 22px; }
+  .attend-modal-hdr { margin-bottom: 20px; }
+  .attend-modal-hdr h2 { font-size: 20px; }
+}
 /* ============================================================
    RALLY FLYER DUAL LAYOUT (PNG + dynamic card coexist)
    ============================================================ */
@@ -702,6 +710,17 @@
   .rally-flyer-dual.has-png { flex-direction: row; align-items: flex-start; }
   .rally-flyer-dual.has-png .rally-flyer-png-wrap { flex: 1; min-width: 0; }
   .rally-flyer-dual.has-png .rally-flyer-card { flex: 1; min-width: 0; }
+}
+/* ============================================================
+   STICKY ATTEND BUTTON (mobile only, events page)
+   ============================================================ */
+.rally-attend-sticky { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 950; background: linear-gradient(0deg, rgba(6,15,16,1) 60%, rgba(6,15,16,0.0) 100%); padding: 20px 20px calc(20px + env(safe-area-inset-bottom)); pointer-events: none; }
+.rally-attend-sticky.visible { pointer-events: auto; }
+.rally-attend-sticky .btn-attend { max-width: 480px; margin: 0 auto; box-shadow: 0 8px 32px rgba(180,110,15,0.6), 0 0 0 1px rgba(237,185,58,0.2); }
+@media (max-width: 767px) {
+  .rally-attend-sticky { display: block; }
+  /* bottom padding on events page so sticky bar doesn't cover footer */
+  #page-events footer { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
 }
 /* ============================================================
    PRAYER PREP SCHEDULE BUTTON
@@ -717,8 +736,8 @@
 .prayer-sched-close { position: fixed; top: 20px; right: 20px; width: 42px; height: 42px; border-radius: 50%; background: rgba(6,15,16,0.85); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; z-index: 10; backdrop-filter: blur(8px); }
 .prayer-sched-close:hover { background: rgba(0,192,192,0.15); border-color: var(--accent); color: var(--accent-light); }
 .prayer-sched-top { background: linear-gradient(180deg, #0b2d33 0%, #060f10 100%); padding: 60px 24px 28px; text-align: center; border-bottom: 1px solid rgba(0,192,192,0.12); }
-.prayer-sched-logo { width: 88px; height: 88px; border-radius: 18px; object-fit: cover; margin: 0 auto 18px; display: block; box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
-.prayer-sched-logo-fb { width: 88px; height: 88px; border-radius: 18px; background: linear-gradient(145deg, #3bb54a, #2d9e3a); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.55); flex-direction: column; gap: 2px; }
+.prayer-sched-logo { width: 200px; height: 130px; border-radius: 18px; object-fit: contain; margin: 0 auto 18px; display: block; box-shadow: 0 8px 32px rgba(0,0,0,0.55); background: transparent; }
+.prayer-sched-logo-fb { width: 200px; height: 130px; border-radius: 18px; background: linear-gradient(145deg, #3bb54a, #2d9e3a); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.55); flex-direction: column; gap: 2px; }
 .prayer-sched-logo-fb span:first-child { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: white; letter-spacing: 1px; text-transform: uppercase; line-height: 1; }
 .prayer-sched-logo-fb span:last-child { font-family: var(--font-heading); font-size: 8px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 2px; text-transform: uppercase; }
 .prayer-sched-eyebrow { font-family: var(--font-heading); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
@@ -1505,8 +1524,8 @@
         <!-- PNG flyer — hidden until image loads successfully -->
         <div class="rally-flyer-png-wrap" id="rallyFlyerPngWrap">
           <img src="rally-flyer.png" class="rally-flyer-png" alt="Kingdom Prayer Rally — June 6, 2026, 12PM CST, Online"
-               onload="document.getElementById('rallyFlyerDual').classList.add('has-png');"
-               onerror="document.getElementById('rallyFlyerPngWrap').style.display='none';" />
+               onload="var w=document.getElementById('rallyFlyerPngWrap'); if(w){w.style.display='block';} document.getElementById('rallyFlyerDual').classList.add('has-png');"
+               onerror="var w=document.getElementById('rallyFlyerPngWrap'); if(w){w.style.display='none';}" />
         </div>
         <!-- Dynamic event card — always visible -->
         <div>
@@ -1660,6 +1679,13 @@
   <div class="ornament-divider"> </div>
   <footer id="eventsFooter"></footer>
 </div>
+<!-- STICKY ATTEND BUTTON (mobile, events page only) -->
+<div class="rally-attend-sticky" id="rallyAttendSticky">
+  <button class="btn-attend" onclick="openAttendModal()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    I Will Attend
+  </button>
+</div>
 <!-- PRAYER PREP SCHEDULE MODAL -->
 <div class="prayer-sched-overlay" id="prayerSchedOverlay">
   <button class="prayer-sched-close" onclick="closePrayerSchedule()" aria-label="Close prayer schedule">
@@ -1788,6 +1814,9 @@ function _showPageInternal(name) {
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
   renderFooters();
+  // Show sticky attend button only on events page (mobile CSS hides it on desktop)
+  var sticky = document.getElementById('rallyAttendSticky');
+  if (sticky) sticky.classList.toggle('visible', name === 'events');
 }
 
 // ── Public showPage: switches + pushes clean path ──────────
