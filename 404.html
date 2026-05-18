@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>PC Lancelot Ministry</title>
+  <script>
+    // GitHub Pages SPA clean-URL redirect
+    // When a user types pclancelot.com/events directly, GitHub Pages serves this 404.html.
+    // We redirect to the root with the original path as a query param (?p=).
+    // index.html reads that param, navigates to the right page, and cleans up the URL.
+    var path = window.location.pathname;
+    window.location.replace('/?p=' + encodeURIComponent(path));
+  </script>
+</head>
+<body></body>
+</html>
