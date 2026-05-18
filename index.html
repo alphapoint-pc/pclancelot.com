@@ -686,8 +686,65 @@
 .attend-modal-hdr p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 .attend-field-note { font-size: 12px; color: rgba(0,192,192,0.7); margin-bottom: 8px; line-height: 1.5; }
 @media (max-width: 480px) { .attend-modal-card { padding: 32px 24px; } }
-.rally-flyer-png-wrap { width: 100%; max-width: 480px; margin: 0 auto 28px; }
+/* ============================================================
+   RALLY FLYER DUAL LAYOUT (PNG + dynamic card coexist)
+   ============================================================ */
+.rally-flyer-dual { width: 100%; max-width: 640px; margin: 0 auto 28px; display: flex; flex-direction: column; gap: 20px; }
+.rally-flyer-png-wrap { width: 100%; display: none; }
+.rally-flyer-dual.has-png .rally-flyer-png-wrap { display: block; }
 .rally-flyer-png { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 20px; border: 1px solid rgba(0,192,192,0.3); box-shadow: 0 16px 60px rgba(0,192,192,0.15), 0 4px 20px rgba(0,0,0,0.6); display: block; }
+.rally-flyer-dual .rally-flyer-card { margin-bottom: 0; }
+@media (min-width: 580px) {
+  .rally-flyer-dual.has-png { flex-direction: row; align-items: flex-start; }
+  .rally-flyer-dual.has-png .rally-flyer-png-wrap { flex: 1; min-width: 0; }
+  .rally-flyer-dual.has-png .rally-flyer-card { flex: 1; min-width: 0; }
+}
+/* ============================================================
+   PRAYER PREP SCHEDULE BUTTON
+   ============================================================ */
+.btn-prayer-sched { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: transparent; color: rgba(255,255,255,0.7); font-family: var(--font-heading); font-weight: 700; font-size: clamp(14px, 3.5vw, 17px); letter-spacing: 1px; text-transform: uppercase; padding: 16px 28px; border-radius: 50px; border: 1.5px solid rgba(0,192,192,0.35); cursor: pointer; transition: all 0.3s ease; margin-bottom: 14px; }
+.btn-prayer-sched:hover { border-color: var(--accent); color: var(--accent-light); background: rgba(0,192,192,0.07); }
+/* ============================================================
+   PRAYER SCHEDULE MODAL
+   ============================================================ */
+.prayer-sched-overlay { display: none; position: fixed; inset: 0; z-index: 2100; background: rgba(6,15,16,0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.prayer-sched-overlay.open { display: block; }
+.prayer-sched-sheet { width: 100%; max-width: 480px; margin: 0 auto; min-height: 100dvh; position: relative; padding-bottom: 60px; }
+.prayer-sched-close { position: fixed; top: 20px; right: 20px; width: 42px; height: 42px; border-radius: 50%; background: rgba(6,15,16,0.85); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; z-index: 10; backdrop-filter: blur(8px); }
+.prayer-sched-close:hover { background: rgba(0,192,192,0.15); border-color: var(--accent); color: var(--accent-light); }
+.prayer-sched-top { background: linear-gradient(180deg, #0b2d33 0%, #060f10 100%); padding: 60px 24px 28px; text-align: center; border-bottom: 1px solid rgba(0,192,192,0.12); }
+.prayer-sched-logo { width: 88px; height: 88px; border-radius: 18px; object-fit: cover; margin: 0 auto 18px; display: block; box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+.prayer-sched-logo-fb { width: 88px; height: 88px; border-radius: 18px; background: linear-gradient(145deg, #3bb54a, #2d9e3a); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.55); flex-direction: column; gap: 2px; }
+.prayer-sched-logo-fb span:first-child { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: white; letter-spacing: 1px; text-transform: uppercase; line-height: 1; }
+.prayer-sched-logo-fb span:last-child { font-family: var(--font-heading); font-size: 8px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 2px; text-transform: uppercase; }
+.prayer-sched-eyebrow { font-family: var(--font-heading); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.prayer-sched-title { font-family: var(--font-heading); font-size: clamp(19px, 5vw, 24px); font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.1; margin-bottom: 6px; }
+.prayer-sched-meta { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+.prayer-sched-tagline { font-family: var(--font-display); font-style: italic; font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.6; }
+.prayer-sched-body { padding: 20px 14px 0; }
+/* Day cards */
+.prayer-day-card { border-radius: 14px; padding: 18px 18px 16px; margin-bottom: 10px; border: 1px solid rgba(0,192,192,0.1); background: rgba(11,45,51,0.25); transition: all 0.3s; }
+.prayer-day-card.past { opacity: 0.38; }
+.prayer-day-card.today { background: linear-gradient(145deg, rgba(180,110,15,0.14), rgba(237,185,58,0.06)); border-color: rgba(237,185,58,0.45); box-shadow: 0 0 0 1px rgba(237,185,58,0.15), 0 6px 28px rgba(180,110,15,0.18); }
+.prayer-day-card.event-day { background: linear-gradient(145deg, rgba(0,192,192,0.12), rgba(0,222,222,0.05)); border-color: rgba(0,192,192,0.45); }
+.prayer-day-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.prayer-day-num { width: 34px; height: 34px; min-width: 34px; border-radius: 9px; background: rgba(0,192,192,0.1); border: 1px solid rgba(0,192,192,0.22); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+.prayer-day-card.today .prayer-day-num { background: linear-gradient(135deg, #b8720f, #d4961e); border-color: #edb93a; color: #1a0d00; }
+.prayer-day-card.event-day .prayer-day-num { background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-color: var(--accent-light); color: var(--dark); }
+.prayer-day-info { flex: 1; min-width: 0; }
+.prayer-day-date-lbl { font-family: var(--font-heading); font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2; }
+.prayer-day-card.today .prayer-day-date-lbl { color: #edb93a; }
+.prayer-day-card.event-day .prayer-day-date-lbl { color: var(--accent-light); }
+.prayer-today-badge { background: linear-gradient(135deg, #b8720f, #edb93a); color: #1a0d00; font-family: var(--font-heading); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
+.prayer-event-badge { background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: var(--dark); font-family: var(--font-heading); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
+.prayer-day-topic { font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; line-height: 1.3; }
+.prayer-day-card.today .prayer-day-topic { color: #edb93a; }
+.prayer-day-card.event-day .prayer-day-topic { color: var(--accent-light); }
+.prayer-day-scripture { font-family: var(--font-display); font-style: italic; font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.65; border-left: 2px solid rgba(0,192,192,0.18); padding-left: 10px; }
+.prayer-day-card.today .prayer-day-scripture { border-left-color: rgba(237,185,58,0.45); color: rgba(255,255,255,0.58); }
+.prayer-day-card.event-day .prayer-day-scripture { border-left-color: rgba(0,192,192,0.4); color: rgba(255,255,255,0.55); }
+.prayer-sched-end { text-align: center; padding: 24px 20px 0; }
+.prayer-sched-end p { font-size: 12px; color: rgba(255,255,255,0.22); line-height: 1.7; }
 /* Voice recorder */
 .voice-recorder-wrap { background: rgba(0,0,0,0.25); border: 1px solid rgba(0,192,192,0.15); border-radius: var(--radius); padding: 24px 20px; margin-bottom: 20px; text-align: center; }
 .voice-rec-label { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
@@ -1426,21 +1483,23 @@
       <div class="rally-badges">
         <div class="rally-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          First Saturday Monthly
+          <span id="rally-date-badge">Next First Saturday</span>
         </div>
         <div class="rally-badge rally-badge-online">
           <span class="rally-live-dot"></span>
           Online &mdash; Join From Anywhere
         </div>
       </div>
-      <!-- Flyer PNG + dynamic card fallback -->
-      <div class="rally-flyer-png-wrap">
-        <!-- Replace rally-flyer.png with your 1080×1080px event flyer (Facebook-ad square format) uploaded to the repo root -->
-        <img src="rally-flyer.png" class="rally-flyer-png" alt="Kingdom Prayer Rally — First Saturday Monthly, 12PM CST, Online"
-             onerror="this.style.display='none';document.getElementById('rallyFlyerPlaceholder').style.display='block';"
-             onload="document.getElementById('rallyFlyerPlaceholder').style.display='none';" />
-        <div id="rallyFlyerPlaceholder" style="display:none;">
-          <!-- dynamic flyer card (shown when no PNG is present) -->
+      <!-- Flyer section: dynamic card always shown; upload rally-flyer.png to repo root to add the event flyer -->
+      <div class="rally-flyer-dual" id="rallyFlyerDual">
+        <!-- PNG flyer — hidden until image loads successfully -->
+        <div class="rally-flyer-png-wrap" id="rallyFlyerPngWrap">
+          <img src="rally-flyer.png" class="rally-flyer-png" alt="Kingdom Prayer Rally — June 6, 2026, 12PM CST, Online"
+               onload="document.getElementById('rallyFlyerDual').classList.add('has-png');"
+               onerror="document.getElementById('rallyFlyerPngWrap').style.display='none';" />
+        </div>
+        <!-- Dynamic event card — always visible -->
+        <div>
           <div class="rally-flyer-card">
             <div class="rally-flyer-topbar"></div>
             <div class="rally-flyer-body">
@@ -1499,6 +1558,10 @@
       <button class="btn-attend" onclick="openAttendModal()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         I Will Attend
+      </button>
+      <button class="btn-prayer-sched" onclick="openPrayerSchedule()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+        Prayer Prep Schedule
       </button>
       <p class="rally-cta-note">Free to attend &middot; Online &middot; All nations welcome</p>
     </div>
@@ -1586,6 +1649,32 @@
 
   <div class="ornament-divider"> </div>
   <footer id="eventsFooter"></footer>
+</div>
+<!-- PRAYER PREP SCHEDULE MODAL -->
+<div class="prayer-sched-overlay" id="prayerSchedOverlay">
+  <button class="prayer-sched-close" onclick="closePrayerSchedule()" aria-label="Close prayer schedule">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="prayer-sched-sheet">
+    <div class="prayer-sched-top">
+      <!-- God Lovers logo — upload god-lovers-logo.png to repo root -->
+      <img src="god-lovers-logo.png" class="prayer-sched-logo" alt="God Lovers Prayer Circle"
+           onerror="this.style.display='none'; document.getElementById('prayerSchedLogoFb').style.display='flex';" />
+      <div class="prayer-sched-logo-fb" id="prayerSchedLogoFb" style="display:none;">
+        <span>God Lovers</span><span>Prayer Circle</span>
+      </div>
+      <div class="prayer-sched-eyebrow">PC Lancelot Prayer Ministry</div>
+      <div class="prayer-sched-title">Kingdom Prayer Rally</div>
+      <div class="prayer-sched-meta">June 6, 2026 &middot; 12:00 PM CST &middot; Online</div>
+      <div class="prayer-sched-tagline">"Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance..." &mdash; Ephesians 6:18 KJV</div>
+    </div>
+    <div class="prayer-sched-body" id="prayerDaysList">
+      <!-- Cards generated by buildPrayerSchedule() on open -->
+    </div>
+    <div class="prayer-sched-end">
+      <p>Pray through this guide daily.<br/>Share it with your prayer partners and believe God for a mighty outpouring on June 6.</p>
+    </div>
+  </div>
 </div>
 <!-- FOOTER TEMPLATE -->
 <template id="footerTemplate">
@@ -1691,11 +1780,11 @@ function _showPageInternal(name) {
   renderFooters();
 }
 
-// ── Public showPage: switches + pushes hash ─────────────────
+// ── Public showPage: switches + pushes clean path ──────────
 function showPage(name) {
   _showPageInternal(name);
-  var newHash = '#' + name;
-  if (window.location.hash !== newHash) history.pushState({ page: name }, '', newHash);
+  var newPath = name === 'home' ? '/' : '/' + name;
+  if (window.location.pathname !== newPath) history.pushState({ page: name }, '', newPath);
 }
 
 function renderFooters() {
@@ -1894,8 +1983,11 @@ function getNextFirstSaturday() {
 function initRallyFlyer() {
   var next = getNextFirstSaturday();
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var shortMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var dateStr = 'Saturday, ' + months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
+  var shortDate = months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
   var el = document.getElementById('rally-date'); if (el) el.textContent = dateStr;
+  var badge = document.getElementById('rally-date-badge'); if (badge) badge.textContent = shortDate;
 }
 
 var _rallyTarget = null;
@@ -1968,26 +2060,123 @@ function updateCountdown() {
   if (el('cd-secs'))  el('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
 }
 
-// ── DOMContentLoaded: hash routing ───────────────────────────
+// ── DOMContentLoaded: clean-path routing ─────────────────────
+// GitHub Pages 404.html redirects /events → /?p=%2Fevents
+// index.html reads ?p=, strips it, and replaces state with clean path
 document.addEventListener('DOMContentLoaded', function() {
   var validPages = ['home','prayer','about','community','livestream','contact','testimony','events'];
-  var hash = (window.location.hash || '').replace('#','').toLowerCase();
-  var startPage = (hash && validPages.indexOf(hash) !== -1) ? hash : 'home';
+
+  function pageFromPath(p) {
+    var name = (p || '').replace(/^\//, '').split('/')[0].toLowerCase() || 'home';
+    return validPages.indexOf(name) !== -1 ? name : 'home';
+  }
+
+  var startPage = 'home';
+  var params = new URLSearchParams(window.location.search);
+  var redirect = params.get('p');   // set by 404.html redirect
+  if (redirect) {
+    startPage = pageFromPath(decodeURIComponent(redirect));
+  } else {
+    startPage = pageFromPath(window.location.pathname);
+  }
+
   _showPageInternal(startPage);
-  history.replaceState({ page: startPage }, '', '#' + startPage);
+  var cleanPath = startPage === 'home' ? '/' : '/' + startPage;
+  history.replaceState({ page: startPage }, '', cleanPath);
+
   window.addEventListener('popstate', function(e) {
-    var pg = (e.state && e.state.page) ? e.state.page : ((window.location.hash || '').replace('#','') || 'home');
-    if (validPages.indexOf(pg) === -1) pg = 'home';
+    var pg = (e.state && e.state.page) ? e.state.page : pageFromPath(window.location.pathname);
     _showPageInternal(pg);
   });
+
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       var overlay = document.getElementById('attendModalOverlay');
       if (overlay && overlay.classList.contains('open')) { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+      closePrayerSchedule();
     }
   });
   initRallyFlyer();
+  buildPrayerSchedule();
 });
+
+// ── Prayer Prep Schedule modal ────────────────────────────────
+var PRAYER_DAYS = [
+  { date:'2026-05-18', day:'Mon · May 18', topic:'Wisdom to Prepare', scripture:'"For which of you, intending to build a tower, sitteth not down first, and counteth the cost, whether he have sufficient to finish it?" — Luke 14:28 KJV' },
+  { date:'2026-05-19', day:'Tue · May 19', topic:'Resources for the Ministry', scripture:'"But my God shall supply all your need according to his riches in glory by Christ Jesus." — Philippians 4:19 KJV' },
+  { date:'2026-05-20', day:'Wed · May 20', topic:'Outreach — The Right People Reached', scripture:'"...Compel them to come in, that my house may be filled." — Luke 14:23 KJV' },
+  { date:'2026-05-21', day:'Thu · May 21', topic:'Technical Stability', scripture:'"Whatsoever thy hand findeth to do, do it with thy might..." — Ecclesiastes 9:10 KJV' },
+  { date:'2026-05-22', day:'Fri · May 22', topic:'Those Who Will Minister', scripture:'"...Let thy priests, O LORD God, be clothed with salvation, and let thy saints rejoice in goodness." — 2 Chronicles 6:41 KJV' },
+  { date:'2026-05-23', day:'Sat · May 23', topic:'Those Who Will Attend', scripture:'"Not forsaking the assembling of ourselves together...but exhorting one another..." — Hebrews 10:25 KJV' },
+  { date:'2026-05-24', day:'Sun · May 24', topic:'Miracles & Life Transformation', scripture:'"Is any sick among you? let him call for the elders of the church; and let them pray over him..." — James 5:14 KJV' },
+  { date:'2026-05-25', day:'Mon · May 25', topic:'A Massive Turnout', scripture:'"And Jesus, when he came out, saw much people, and was moved with compassion toward them..." — Mark 6:34 KJV' },
+  { date:'2026-05-26', day:'Tue · May 26', topic:'Unity Among Believers', scripture:'"Behold, how good and how pleasant it is for brethren to dwell together in unity!" — Psalm 133:1 KJV' },
+  { date:'2026-05-27', day:'Wed · May 27', topic:'The Unsaved to Hear the Gospel', scripture:'"How then shall they call on him in whom they have not believed? and how shall they believe in him of whom they have not heard?" — Romans 10:14 KJV' },
+  { date:'2026-05-28', day:'Thu · May 28', topic:'Open Hearts & Receptive Spirits', scripture:'"Incline your ear, and come unto me: hear, and your soul shall live..." — Isaiah 55:3 KJV' },
+  { date:'2026-05-29', day:'Fri · May 29', topic:'Against Every Spiritual Opposition', scripture:'"For we wrestle not against flesh and blood, but against principalities, against powers..." — Ephesians 6:12 KJV' },
+  { date:'2026-05-30', day:'Sat · May 30', topic:'Prayer for the Nations', scripture:'"...Yea, all kings shall fall down before him: all nations shall serve him." — Psalm 72:11 KJV' },
+  { date:'2026-05-31', day:'Sun · May 31', topic:'Salvations — None to Perish', scripture:'"...Not willing that any should perish, but that all should come to repentance." — 2 Peter 3:9 KJV' },
+  { date:'2026-06-01', day:'Mon · Jun 1', topic:'Healing in Every Form', scripture:'"And the prayer of faith shall save the sick, and the Lord shall raise him up..." — James 5:15 KJV' },
+  { date:'2026-06-02', day:'Tue · Jun 2', topic:'Financial Breakthrough for Attendees', scripture:'"...I will...open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it." — Malachi 3:10 KJV' },
+  { date:'2026-06-03', day:'Wed · Jun 3', topic:'Family Restoration', scripture:'"And he shall turn the heart of the fathers to the children, and the heart of the children to their fathers..." — Malachi 4:6 KJV' },
+  { date:'2026-06-04', day:'Thu · Jun 4', topic:'Fire of the Holy Spirit', scripture:'"But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me..." — Acts 1:8 KJV' },
+  { date:'2026-06-05', day:'Fri · Jun 5 — Final Prep', topic:'Consecration — The Day Before', scripture:'"...Sanctify yourselves: for to morrow the LORD will do wonders among you." — Joshua 3:5 KJV' },
+  { date:'2026-06-06', day:'Sat · Jun 6 — RALLY DAY', topic:'The Day of the Lord\'s Move', scripture:'"This is the day which the LORD hath made; we will rejoice and be glad in it." — Psalm 118:24 KJV' }
+];
+
+function buildPrayerSchedule() {
+  var container = document.getElementById('prayerDaysList');
+  if (!container) return;
+  var todayStr = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+  var html = '';
+  PRAYER_DAYS.forEach(function(d, i) {
+    var isPast  = d.date < todayStr;
+    var isToday = d.date === todayStr;
+    var isEvent = d.date === '2026-06-06';
+    var cls = 'prayer-day-card';
+    if (isPast)  cls += ' past';
+    if (isToday) cls += ' today';
+    if (isEvent && !isToday) cls += ' event-day';
+    var badge = '';
+    if (isToday)       badge = '<span class="prayer-today-badge">Today</span>';
+    else if (isEvent)  badge = '<span class="prayer-event-badge">Rally Day</span>';
+    html += '<div class="' + cls + '" data-date="' + d.date + '">';
+    html += '<div class="prayer-day-header">';
+    html += '<div class="prayer-day-num">' + (i + 1) + '</div>';
+    html += '<div class="prayer-day-info"><div class="prayer-day-date-lbl">' + d.day + '</div></div>';
+    if (badge) html += badge;
+    html += '</div>';
+    html += '<div class="prayer-day-topic">' + d.topic + '</div>';
+    html += '<div class="prayer-day-scripture">' + d.scripture + '</div>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function openPrayerSchedule() {
+  var overlay = document.getElementById('prayerSchedOverlay');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Scroll to today's card (or first future card) after render
+  setTimeout(function() {
+    var todayCard = overlay.querySelector('.prayer-day-card.today');
+    var firstFuture = overlay.querySelector('.prayer-day-card:not(.past)');
+    var target = todayCard || firstFuture;
+    if (target) {
+      var topOffset = target.getBoundingClientRect().top + overlay.scrollTop - 80;
+      overlay.scrollTo({ top: topOffset, behavior: 'smooth' });
+    }
+  }, 80);
+}
+
+function closePrayerSchedule() {
+  var overlay = document.getElementById('prayerSchedOverlay');
+  if (overlay && overlay.classList.contains('open')) {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
 
 // ── Countdown intervals ───────────────────────────────────────
 setInterval(updateCountdown, 1000);
