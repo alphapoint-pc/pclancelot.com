@@ -186,7 +186,7 @@
  }
  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: blink 1.5s infinite; box-shadow: 0 0 8px #ef4444; flex-shrink: 0; }
  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
- /* Flyer image */
+ /* Flyer image / carousel */
  .hero-flyer {
  width: 100%; max-width: 700px;
  border-radius: 16px; overflow: hidden;
@@ -195,6 +195,14 @@
  margin-bottom: 28px;
  }
  .hero-flyer img { width: 100%; height: auto; display: block; }
+ /* Carousel */
+ .carousel { position: relative; overflow: hidden; width: 100%; }
+ .carousel-track { display: flex; transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
+ .carousel-slide { flex: 0 0 100%; }
+ .carousel-slide img { width: 100%; height: auto; display: block; }
+ .carousel-dots { display: flex; justify-content: center; align-items: center; gap: 7px; padding: 10px 0 4px; }
+ .carousel-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); border: none; padding: 0; cursor: pointer; transition: all 0.35s ease; flex-shrink: 0; }
+ .carousel-dot.active { background: var(--accent); width: 22px; border-radius: 4px; }
  /* fallback when no image */
  .hero-flyer-placeholder {
  background: linear-gradient(135deg, #0b2d33, #0f3c44);
@@ -889,10 +897,17 @@
 <div class="page active" id="page-home">
  <section class="hero">
  <div class="hero-inner">
- <!-- FLYER IMAGE (replace flyer.png with your actual filename after uploading to GitHub) -->
- <div class="hero-flyer">
- <img src="flyer.png" alt="Bring Your Prayer Request — PC Lancelot, Every Day 7:00AM CST"
- onerror="if(this.src.includes('.png')){this.src='flyer.jpg'}else{this.parentElement.innerHTML='<div class=\'hero-flyer-placeholder\'><div class=\'flyer-title\'><span>BRING</span><span>YOUR PRAYER</span><span>REQUEST</span></div><p class=\'flyer-sub\'>Every Day · 7:00AM CST</p></div>'}" />
+ <!-- HERO CAROUSEL — add images named flyer.png, flyer2.png, flyer3.png to repo root -->
+ <div class="hero-flyer" id="heroFlyerWrap">
+   <div class="carousel" id="heroCarousel">
+     <div class="carousel-track" id="carouselTrack"></div>
+     <div class="carousel-dots" id="carouselDots"></div>
+   </div>
+   <!-- Fallback shown only when no images load -->
+   <div class="hero-flyer-placeholder" id="carouselPlaceholder" style="display:none;">
+     <div class="flyer-title"><span>BRING</span><span>YOUR PRAYER</span><span>REQUEST</span></div>
+     <p class="flyer-sub">Every Weekday · 7:00AM CST</p>
+   </div>
  </div>
  <!-- RIGHT SIDE: badge + text + buttons -->
  <div class="hero-right">
@@ -2138,6 +2153,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   initRallyFlyer();
   buildPrayerSchedule();
+  initCarousel();
 });
 
 // ── Prayer Prep Schedule modal ────────────────────────────────
@@ -2247,7 +2263,8 @@ var PRAYER_DAYS = [
 function buildPrayerSchedule() {
   var container = document.getElementById('prayerDaysList');
   if (!container) return;
-  var todayStr = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+  // Use user's local date so "today" matches their clock, not UTC
+  var todayStr = new Date().toLocaleDateString('en-CA'); // 'YYYY-MM-DD' in local timezone
   var html = '';
   PRAYER_DAYS.forEach(function(d, i) {
     var isPast  = d.date < todayStr;
@@ -2303,6 +2320,82 @@ function closePrayerSchedule() {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
   }
+}
+
+// ── Hero image carousel ──────────────────────────────────────
+var CAROUSEL_SRCS = ['flyer.png', 'flyer2.png', 'flyer3.png'];
+var _carouselSlideCount = 0;
+var _carouselIdx = 0;
+var _carouselTimer = null;
+
+function initCarousel() {
+  var track = document.getElementById('carouselTrack');
+  if (!track) return;
+  var total = CAROUSEL_SRCS.length;
+  var pending = total;
+  var results = new Array(total).fill(null);
+
+  CAROUSEL_SRCS.forEach(function(src, i) {
+    var img = new Image();
+    img.onload  = function() { results[i] = src; finish(); };
+    img.onerror = function() { finish(); };
+    img.src = src;
+  });
+
+  function finish() {
+    pending--;
+    if (pending > 0) return;
+    var valid = results.filter(Boolean);
+    if (valid.length === 0) {
+      var ph = document.getElementById('carouselPlaceholder');
+      if (ph) ph.style.display = '';
+      return;
+    }
+    // Build slides
+    track.innerHTML = '';
+    valid.forEach(function(src) {
+      var slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = 'PC Lancelot Prayer Ministry';
+      slide.appendChild(img);
+      track.appendChild(slide);
+    });
+    _carouselSlideCount = valid.length;
+    // Build dots (only if more than one image)
+    var dotsEl = document.getElementById('carouselDots');
+    if (dotsEl) {
+      dotsEl.innerHTML = '';
+      if (valid.length > 1) {
+        valid.forEach(function(_, i) {
+          var dot = document.createElement('button');
+          dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+          (function(idx){ dot.addEventListener('click', function() { carouselGoTo(idx); resetCarouselTimer(); }); })(i);
+          dotsEl.appendChild(dot);
+        });
+        startCarouselTimer();
+      }
+    }
+  }
+}
+
+function carouselGoTo(idx) {
+  _carouselIdx = (idx + _carouselSlideCount) % _carouselSlideCount;
+  var track = document.getElementById('carouselTrack');
+  if (track) track.style.transform = 'translateX(-' + (_carouselIdx * 100) + '%)';
+  document.querySelectorAll('#carouselDots .carousel-dot').forEach(function(d, i) {
+    d.classList.toggle('active', i === _carouselIdx);
+  });
+}
+
+function startCarouselTimer() {
+  _carouselTimer = setInterval(function() { carouselGoTo(_carouselIdx + 1); }, 4500);
+}
+
+function resetCarouselTimer() {
+  if (_carouselTimer) { clearInterval(_carouselTimer); startCarouselTimer(); }
 }
 
 // ── Countdown intervals ───────────────────────────────────────
