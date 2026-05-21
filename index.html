@@ -202,20 +202,24 @@
  .carousel-track { display: flex; transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
  .carousel-slide { flex: 0 0 100%; }
  .carousel-slide img { width: 100%; height: auto; display: block; }
- .carousel-dots { display: flex; justify-content: center; align-items: center; gap: 7px; padding: 10px 0 4px; }
- .carousel-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); border: none; padding: 0; cursor: pointer; transition: all 0.35s ease; flex-shrink: 0; }
- .carousel-dot.active { background: var(--accent); width: 22px; border-radius: 4px; }
- /* Shimmer shown while images load */
- @keyframes carouselShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
- .carousel-slide { position: relative; aspect-ratio: 16/9; background: linear-gradient(135deg, #091e24, #0b2d33); overflow: hidden; }
- .carousel-slide img { opacity: 0; transition: opacity 0.45s ease; display: block; }
+ /* Story progress bars (WhatsApp-style) */
+ .carousel-story-bars { position: absolute; top: 8px; left: 8px; right: 8px; z-index: 10; display: flex; gap: 4px; pointer-events: none; }
+ .csb-track { flex: 1; height: 3px; border-radius: 3px; background: rgba(255,255,255,0.28); overflow: hidden; }
+ .csb-fill { height: 100%; width: 0%; background: rgba(255,255,255,0.92); border-radius: 3px; will-change: width; }
+ /* Scripture placeholder shown while image loads */
+ .carousel-slide { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+ .carousel-slide img { opacity: 0; transition: opacity 0.5s ease; display: block; position: relative; z-index: 2; }
  .carousel-slide.slide-ready img { opacity: 1; }
- .carousel-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(0,192,192,0.07) 50%, transparent 100%); background-size: 200% 100%; animation: carouselShimmer 1.6s ease-in-out infinite; pointer-events: none; transition: opacity 0.45s; }
- .carousel-slide.slide-ready::after { opacity: 0; }
+ /* Scripture placeholder card */
+ .carousel-scripture-ph { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #060f10 0%, #0b2d33 45%, #091e24 70%, #060f10 100%); transition: opacity 0.5s ease; }
+ .carousel-slide.slide-ready .carousel-scripture-ph { opacity: 0; pointer-events: none; }
+ .csp-inner { text-align: center; padding: 20px 28px; max-width: 520px; }
+ .csp-tag { font-family: var(--font-heading); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+ .csp-divider { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,192,192,0.5), transparent); margin: 0 auto 18px; }
+ .csp-quote { font-family: var(--font-display); font-style: italic; font-size: clamp(16px, 3.5vw, 26px); color: var(--white); line-height: 1.5; margin-bottom: 14px; }
+ .csp-ref { font-family: var(--font-heading); font-size: clamp(11px, 2vw, 13px); color: rgba(255,255,255,0.35); letter-spacing: 1.5px; text-transform: uppercase; }
  /* Carousel pause badge */
  #heroFlyerWrap { position: relative; }
- .carousel-pause-badge { position: absolute; top: 10px; right: 10px; z-index: 10; background: rgba(0,0,0,0.58); border: 1px solid rgba(255,255,255,0.18); border-radius: 50px; padding: 5px 11px 5px 8px; display: flex; align-items: center; gap: 6px; font-family: var(--font-heading); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.7); backdrop-filter: blur(6px); pointer-events: none; opacity: 0; transition: opacity 0.25s; }
- #heroFlyerWrap.carousel-paused .carousel-pause-badge { opacity: 1; }
  .carousel { cursor: grab; user-select: none; }
  .carousel.dragging { cursor: grabbing; }
  /* fallback when no image */
@@ -915,13 +919,9 @@
  <!-- HERO CAROUSEL — add images named flyer.png, flyer2.png, flyer3.png to repo root -->
  <div class="hero-flyer" id="heroFlyerWrap">
    <div class="carousel" id="heroCarousel">
+     <!-- WhatsApp-style story progress bars -->
+     <div class="carousel-story-bars" id="carouselBars"></div>
      <div class="carousel-track" id="carouselTrack"></div>
-     <!-- Pause badge — shown when user taps to pause -->
-     <div class="carousel-pause-badge">
-       <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
-       Paused &mdash; tap to resume
-     </div>
-     <div class="carousel-dots" id="carouselDots"></div>
    </div>
    <!-- Fallback shown only when no images load -->
    <div class="hero-flyer-placeholder" id="carouselPlaceholder" style="display:none;">
@@ -1853,8 +1853,8 @@ function _showPageInternal(name) {
   // Show sticky attend button only on events page (mobile CSS hides it on desktop)
   var sticky = document.getElementById('rallyAttendSticky');
   if (sticky) sticky.classList.toggle('visible', name === 'events');
-  // Resume carousel auto-slide when leaving home page
-  if (name !== 'home') _carouselResume();
+  // Release carousel hold when leaving home page
+  if (name !== 'home' && typeof _carouselRelease === 'function') _carouselRelease();
 }
 
 // ── Public showPage: switches + pushes clean path ──────────
@@ -2176,6 +2176,8 @@ document.addEventListener('DOMContentLoaded', function() {
   initRallyFlyer();
   buildPrayerSchedule();
   initCarousel();
+  // Start carousel RAF loop after a brief tick so slide 1 is in the DOM
+  setTimeout(_carouselKickstart, 0);
 });
 
 // ── Prayer Prep Schedule modal ────────────────────────────────
@@ -2344,52 +2346,52 @@ function closePrayerSchedule() {
   }
 }
 
-// ── Hero image carousel ──────────────────────────────────────
-// ── Hero image carousel (progressive build — no blocking wait) ─
-// Slides are injected immediately; each fades in as its image loads.
-// Extra images (flyer2, flyer3) are probed in the background and
-// appended only if they actually exist.
+// ── Hero carousel — WhatsApp-status style ────────────────────
+// • Progressive build (no blocking wait for extra images)
+// • requestAnimationFrame progress bars per slide
+// • Hold (touchstart / mousedown) → pause + dim
+// • Release (touchend / mouseup) → resume exactly where it left off
+// • Swipe left/right → navigate slides + resume
+// • Scroll past fold or navigate away → resume
 var CAROUSEL_SRCS = ['flyer.png', 'flyer2.png', 'flyer3.png'];
 var _carouselSlideCount = 0;
 var _carouselIdx = 0;
-var _carouselTimer = null;
 var _carouselPaused = false;
+var _carouselRAF = null;
+var _carouselLastTS = null;   // last rAF timestamp
+var _carouselProgress = 0;    // 0..1 within current slide
+var _SLIDE_DURATION = 5000;   // ms per slide
 
+// ── Build ─────────────────────────────────────────────────────
 function initCarousel() {
   var track = document.getElementById('carouselTrack');
   if (!track) return;
 
-  // ── Build slide 1 immediately (no waiting) ───────────────
+  // Slide 1 — injected immediately, no wait
   var firstSlide = _makeSlide('flyer.png');
   var firstImg = firstSlide.querySelector('img');
   firstImg.onload  = function() { firstSlide.classList.add('slide-ready'); };
   firstImg.onerror = function() {
-    // flyer.png missing — show text placeholder
     track.innerHTML = '';
-    var ph = document.getElementById('carouselPlaceholder');
-    if (ph) ph.style.display = '';
+    var ph = document.getElementById('carouselPlaceholder'); if (ph) ph.style.display = '';
   };
   track.appendChild(firstSlide);
   _carouselSlideCount = 1;
 
-  // ── Probe extra images in background — add if they load ──
-  var extraSrcs = CAROUSEL_SRCS.slice(1);
-  extraSrcs.forEach(function(src) {
+  // Extra slides — probed in background, added when confirmed
+  CAROUSEL_SRCS.slice(1).forEach(function(src) {
     var probe = new Image();
     probe.onload = function() {
       var slide = _makeSlide(src);
       slide.querySelector('img').onload = function() { slide.classList.add('slide-ready'); };
       track.appendChild(slide);
       _carouselSlideCount++;
-      _rebuildDots();
+      _rebuildBars();
       if (_carouselSlideCount === 2) {
-        // Now we have multiple slides — wire up gestures & timer
         _bindCarouselGestures(track);
         _carouselObserveScroll();
-        _carouselStartTimer();
       }
     };
-    // On error: image doesn't exist, silently skip — no action needed
     probe.src = src;
   });
 }
@@ -2397,75 +2399,104 @@ function initCarousel() {
 function _makeSlide(src) {
   var slide = document.createElement('div');
   slide.className = 'carousel-slide';
+  var ph = document.createElement('div');
+  ph.className = 'carousel-scripture-ph';
+  ph.innerHTML =
+    '<div class="csp-inner">' +
+      '<div class="csp-tag">PC Lancelot Prayer Ministry</div>' +
+      '<div class="csp-divider"></div>' +
+      '<div class="csp-quote">&ldquo;Loose them, and bring them unto me.&rdquo;</div>' +
+      '<div class="csp-ref">Matthew 21:2 &mdash; KJV</div>' +
+    '</div>';
+  slide.appendChild(ph);
   var img = document.createElement('img');
-  img.src = src;
-  img.alt = 'PC Lancelot Prayer Ministry';
-  img.draggable = false;
+  img.src = src; img.alt = 'PC Lancelot Prayer Ministry'; img.draggable = false;
   slide.appendChild(img);
   return slide;
 }
 
-function _rebuildDots() {
-  var dotsEl = document.getElementById('carouselDots');
-  if (!dotsEl) return;
-  dotsEl.innerHTML = '';
-  if (_carouselSlideCount < 2) return;
+// ── Story bars ────────────────────────────────────────────────
+function _rebuildBars() {
+  var el = document.getElementById('carouselBars');
+  if (!el) return;
+  el.innerHTML = '';
   for (var i = 0; i < _carouselSlideCount; i++) {
-    var dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === _carouselIdx ? ' active' : '');
-    dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-    (function(idx) {
-      dot.addEventListener('click', function(e) { e.stopPropagation(); carouselGoTo(idx); _carouselResume(); });
-    })(i);
-    dotsEl.appendChild(dot);
+    var track = document.createElement('div'); track.className = 'csb-track';
+    var fill  = document.createElement('div'); fill.className  = 'csb-fill';
+    track.appendChild(fill); el.appendChild(track);
   }
 }
 
-function _buildCarousel() {} // kept as no-op for safety
+function _updateBars() {
+  var fills = document.querySelectorAll('#carouselBars .csb-fill');
+  fills.forEach(function(fill, i) {
+    if      (i < _carouselIdx)  fill.style.width = '100%';
+    else if (i === _carouselIdx) fill.style.width = (_carouselProgress * 100).toFixed(2) + '%';
+    else                         fill.style.width = '0%';
+  });
+}
 
+// ── RAF progress loop ─────────────────────────────────────────
+function _carouselStartRAF() {
+  if (_carouselRAF) cancelAnimationFrame(_carouselRAF);
+  _carouselLastTS = null;
+  _carouselRAF = requestAnimationFrame(_carouselTick);
+}
+
+function _carouselTick(ts) {
+  if (!_carouselLastTS) _carouselLastTS = ts;
+  if (!_carouselPaused) {
+    _carouselProgress += (ts - _carouselLastTS) / _SLIDE_DURATION;
+    if (_carouselProgress >= 1) {
+      _carouselProgress = 0;
+      _carouselLastTS = null;
+      carouselGoTo(_carouselIdx + 1);
+      _carouselRAF = requestAnimationFrame(_carouselTick);
+      return;
+    }
+    _updateBars();
+  }
+  _carouselLastTS = ts; // always advance so paused time is absorbed on resume
+  _carouselRAF = requestAnimationFrame(_carouselTick);
+}
+
+// ── Navigation ───────────────────────────────────────────────
 function carouselGoTo(idx) {
   if (!_carouselSlideCount) return;
   _carouselIdx = ((idx % _carouselSlideCount) + _carouselSlideCount) % _carouselSlideCount;
   var track = document.getElementById('carouselTrack');
   if (track) {
-    track.style.transition = 'transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)';
-    track.style.transform = 'translateX(-' + (_carouselIdx * 100) + '%)';
+    track.style.transition = 'transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94)';
+    track.style.transform  = 'translateX(-' + (_carouselIdx * 100) + '%)';
   }
-  document.querySelectorAll('#carouselDots .carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === _carouselIdx); });
+  _carouselProgress = 0;
+  _carouselLastTS   = null;
+  _updateBars();
 }
 
-function _carouselStartTimer() {
-  if (_carouselTimer) clearInterval(_carouselTimer);
-  _carouselTimer = setInterval(function() { if (!_carouselPaused) carouselGoTo(_carouselIdx + 1); }, 4500);
-}
+// ── Pause / Resume ────────────────────────────────────────────
+function _carouselHold()    { _carouselPaused = true;  }
+function _carouselRelease() { _carouselPaused = false; }
+function _carouselResume()  { _carouselPaused = false; } // called on page leave / scroll past
 
-function _carouselPause() {
-  _carouselPaused = true;
-  var w = document.getElementById('heroFlyerWrap'); if (w) w.classList.add('carousel-paused');
-}
-
-function _carouselResume() {
-  if (!_carouselPaused && _carouselTimer) return;
-  _carouselPaused = false;
-  var w = document.getElementById('heroFlyerWrap'); if (w) w.classList.remove('carousel-paused');
-  if (_carouselSlideCount > 1) _carouselStartTimer();
-}
-
+// ── IntersectionObserver: resume when scrolled out of view ───
 function _carouselObserveScroll() {
-  // Resume auto-slide when user scrolls past the carousel (out of view)
   var el = document.getElementById('heroCarousel');
   if (!el || !window.IntersectionObserver) return;
   new IntersectionObserver(function(entries) {
-    if (!entries[0].isIntersecting && _carouselPaused) _carouselResume();
+    if (!entries[0].isIntersecting) _carouselRelease();
   }, { threshold: 0 }).observe(el);
 }
 
+// ── Gestures ──────────────────────────────────────────────────
 function _bindCarouselGestures(track) {
   var carousel = document.getElementById('heroCarousel');
-  // ── Touch swipe ───────────────────────────────────────────
+
+  // Touch
   var tsX = 0, tsY = 0, tdX = 0, touching = false;
   track.addEventListener('touchstart', function(e) {
     tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; tdX = 0; touching = true;
+    _carouselHold(); // pause immediately on press
   }, { passive: true });
   track.addEventListener('touchmove', function(e) {
     if (!touching) return;
@@ -2473,25 +2504,28 @@ function _bindCarouselGestures(track) {
     var dY = e.touches[0].clientY - tsY;
     if (Math.abs(tdX) > Math.abs(dY) && Math.abs(tdX) > 6) {
       track.style.transition = 'none';
-      track.style.transform = 'translateX(' + ((_carouselIdx * -100) + (tdX / track.offsetWidth * 100)) + '%)';
+      track.style.transform  = 'translateX(' + ((_carouselIdx * -100) + (tdX / track.offsetWidth * 100)) + '%)';
     }
   }, { passive: true });
   track.addEventListener('touchend', function(e) {
     if (!touching) return; touching = false;
     var dY = e.changedTouches[0].clientY - tsY;
     track.style.transition = '';
-    var isSwipe = Math.abs(tdX) > Math.abs(dY) && Math.abs(tdX) > 52;
-    var isTap   = Math.abs(tdX) < 12 && Math.abs(dY) < 12;
-    if (isSwipe)      { carouselGoTo(tdX < 0 ? _carouselIdx + 1 : _carouselIdx - 1); _carouselResume(); }
-    else if (isTap)   { _carouselPaused ? _carouselResume() : _carouselPause(); }
-    else              { carouselGoTo(_carouselIdx); } // snap back
+    _carouselRelease(); // resume on release
+    if (Math.abs(tdX) > Math.abs(dY) && Math.abs(tdX) > 52) {
+      carouselGoTo(tdX < 0 ? _carouselIdx + 1 : _carouselIdx - 1); // swipe
+    } else if (Math.abs(tdX) >= 6) {
+      carouselGoTo(_carouselIdx); // partial drag → snap back
+    }
+    // pure hold-release: no navigation, bar resumes from exact position
   }, { passive: true });
 
-  // ── Mouse drag (desktop) ──────────────────────────────────
+  // Mouse (desktop)
   var msX = 0, mDrag = false, mMoved = false;
   track.addEventListener('mousedown', function(e) {
     msX = e.clientX; mDrag = true; mMoved = false;
-    if (carousel) carousel.classList.add('dragging'); e.preventDefault();
+    if (carousel) carousel.classList.add('dragging');
+    _carouselHold(); e.preventDefault();
   });
   document.addEventListener('mousemove', function(e) {
     if (!mDrag) return;
@@ -2499,18 +2533,30 @@ function _bindCarouselGestures(track) {
     if (Math.abs(d) > 5) {
       mMoved = true;
       track.style.transition = 'none';
-      track.style.transform = 'translateX(' + ((_carouselIdx * -100) + (d / track.offsetWidth * 100)) + '%)';
+      track.style.transform  = 'translateX(' + ((_carouselIdx * -100) + (d / track.offsetWidth * 100)) + '%)';
     }
   });
   document.addEventListener('mouseup', function(e) {
     if (!mDrag) return; mDrag = false;
     if (carousel) carousel.classList.remove('dragging');
     track.style.transition = '';
+    _carouselRelease(); // resume on release
     var d = e.clientX - msX;
-    if (mMoved && Math.abs(d) > 52)  { carouselGoTo(d < 0 ? _carouselIdx + 1 : _carouselIdx - 1); _carouselResume(); }
-    else if (!mMoved)                 { _carouselPaused ? _carouselResume() : _carouselPause(); }
-    else                              { carouselGoTo(_carouselIdx); }
+    if (mMoved && Math.abs(d) > 52) carouselGoTo(d < 0 ? _carouselIdx + 1 : _carouselIdx - 1);
+    else if (mMoved)                carouselGoTo(_carouselIdx);
   });
+}
+
+// Called from DOMContentLoaded after initCarousel + from _showPageInternal
+function _carouselKickstart() {
+  // Start the RAF loop once we have at least 1 slide
+  // (bars are rebuilt when extra slides arrive, loop keeps running)
+  if (_carouselSlideCount >= 1) {
+    _rebuildBars();
+    _bindCarouselGestures(document.getElementById('carouselTrack'));
+    _carouselObserveScroll();
+    _carouselStartRAF();
+  }
 }
 
 // ── Countdown intervals ───────────────────────────────────────
