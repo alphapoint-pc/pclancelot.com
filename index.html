@@ -203,6 +203,12 @@
  .carousel-dots { display: flex; justify-content: center; align-items: center; gap: 7px; padding: 10px 0 4px; }
  .carousel-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); border: none; padding: 0; cursor: pointer; transition: all 0.35s ease; flex-shrink: 0; }
  .carousel-dot.active { background: var(--accent); width: 22px; border-radius: 4px; }
+ /* Carousel pause badge */
+ #heroFlyerWrap { position: relative; }
+ .carousel-pause-badge { position: absolute; top: 10px; right: 10px; z-index: 10; background: rgba(0,0,0,0.58); border: 1px solid rgba(255,255,255,0.18); border-radius: 50px; padding: 5px 11px 5px 8px; display: flex; align-items: center; gap: 6px; font-family: var(--font-heading); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.7); backdrop-filter: blur(6px); pointer-events: none; opacity: 0; transition: opacity 0.25s; }
+ #heroFlyerWrap.carousel-paused .carousel-pause-badge { opacity: 1; }
+ .carousel { cursor: grab; user-select: none; }
+ .carousel.dragging { cursor: grabbing; }
  /* fallback when no image */
  .hero-flyer-placeholder {
  background: linear-gradient(135deg, #0b2d33, #0f3c44);
@@ -901,6 +907,11 @@
  <div class="hero-flyer" id="heroFlyerWrap">
    <div class="carousel" id="heroCarousel">
      <div class="carousel-track" id="carouselTrack"></div>
+     <!-- Pause badge — shown when user taps to pause -->
+     <div class="carousel-pause-badge">
+       <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
+       Paused &mdash; tap to resume
+     </div>
      <div class="carousel-dots" id="carouselDots"></div>
    </div>
    <!-- Fallback shown only when no images load -->
@@ -1833,6 +1844,8 @@ function _showPageInternal(name) {
   // Show sticky attend button only on events page (mobile CSS hides it on desktop)
   var sticky = document.getElementById('rallyAttendSticky');
   if (sticky) sticky.classList.toggle('visible', name === 'events');
+  // Resume carousel auto-slide when leaving home page
+  if (name !== 'home') _carouselResume();
 }
 
 // ── Public showPage: switches + pushes clean path ──────────
@@ -2323,10 +2336,12 @@ function closePrayerSchedule() {
 }
 
 // ── Hero image carousel ──────────────────────────────────────
+// ── Hero image carousel (swipe / tap-to-pause / auto-resume) ─
 var CAROUSEL_SRCS = ['flyer.png', 'flyer2.png', 'flyer3.png'];
 var _carouselSlideCount = 0;
 var _carouselIdx = 0;
 var _carouselTimer = null;
+var _carouselPaused = false;
 
 function initCarousel() {
   var track = document.getElementById('carouselTrack');
@@ -2334,68 +2349,137 @@ function initCarousel() {
   var total = CAROUSEL_SRCS.length;
   var pending = total;
   var results = new Array(total).fill(null);
-
   CAROUSEL_SRCS.forEach(function(src, i) {
     var img = new Image();
-    img.onload  = function() { results[i] = src; finish(); };
-    img.onerror = function() { finish(); };
+    img.onload  = function() { results[i] = src; if (!--pending) _buildCarousel(results.filter(Boolean)); };
+    img.onerror = function() {                    if (!--pending) _buildCarousel(results.filter(Boolean)); };
     img.src = src;
   });
+}
 
-  function finish() {
-    pending--;
-    if (pending > 0) return;
-    var valid = results.filter(Boolean);
-    if (valid.length === 0) {
-      var ph = document.getElementById('carouselPlaceholder');
-      if (ph) ph.style.display = '';
-      return;
+function _buildCarousel(valid) {
+  var track = document.getElementById('carouselTrack');
+  var dotsEl = document.getElementById('carouselDots');
+  if (!track) return;
+  if (valid.length === 0) { var ph = document.getElementById('carouselPlaceholder'); if (ph) ph.style.display = ''; return; }
+
+  track.innerHTML = '';
+  valid.forEach(function(src) {
+    var slide = document.createElement('div'); slide.className = 'carousel-slide';
+    var img = document.createElement('img'); img.src = src; img.alt = 'PC Lancelot Prayer Ministry'; img.draggable = false;
+    slide.appendChild(img); track.appendChild(slide);
+  });
+  _carouselSlideCount = valid.length;
+
+  if (dotsEl) {
+    dotsEl.innerHTML = '';
+    if (valid.length > 1) {
+      valid.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        (function(idx) {
+          dot.addEventListener('click', function(e) { e.stopPropagation(); carouselGoTo(idx); _carouselResume(); });
+        })(i);
+        dotsEl.appendChild(dot);
+      });
     }
-    // Build slides
-    track.innerHTML = '';
-    valid.forEach(function(src) {
-      var slide = document.createElement('div');
-      slide.className = 'carousel-slide';
-      var img = document.createElement('img');
-      img.src = src;
-      img.alt = 'PC Lancelot Prayer Ministry';
-      slide.appendChild(img);
-      track.appendChild(slide);
-    });
-    _carouselSlideCount = valid.length;
-    // Build dots (only if more than one image)
-    var dotsEl = document.getElementById('carouselDots');
-    if (dotsEl) {
-      dotsEl.innerHTML = '';
-      if (valid.length > 1) {
-        valid.forEach(function(_, i) {
-          var dot = document.createElement('button');
-          dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-          dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-          (function(idx){ dot.addEventListener('click', function() { carouselGoTo(idx); resetCarouselTimer(); }); })(i);
-          dotsEl.appendChild(dot);
-        });
-        startCarouselTimer();
-      }
-    }
+  }
+  if (valid.length > 1) {
+    _bindCarouselGestures(track);
+    _carouselObserveScroll();
+    _carouselStartTimer();
   }
 }
 
 function carouselGoTo(idx) {
-  _carouselIdx = (idx + _carouselSlideCount) % _carouselSlideCount;
+  if (!_carouselSlideCount) return;
+  _carouselIdx = ((idx % _carouselSlideCount) + _carouselSlideCount) % _carouselSlideCount;
   var track = document.getElementById('carouselTrack');
-  if (track) track.style.transform = 'translateX(-' + (_carouselIdx * 100) + '%)';
-  document.querySelectorAll('#carouselDots .carousel-dot').forEach(function(d, i) {
-    d.classList.toggle('active', i === _carouselIdx);
+  if (track) {
+    track.style.transition = 'transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)';
+    track.style.transform = 'translateX(-' + (_carouselIdx * 100) + '%)';
+  }
+  document.querySelectorAll('#carouselDots .carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === _carouselIdx); });
+}
+
+function _carouselStartTimer() {
+  if (_carouselTimer) clearInterval(_carouselTimer);
+  _carouselTimer = setInterval(function() { if (!_carouselPaused) carouselGoTo(_carouselIdx + 1); }, 4500);
+}
+
+function _carouselPause() {
+  _carouselPaused = true;
+  var w = document.getElementById('heroFlyerWrap'); if (w) w.classList.add('carousel-paused');
+}
+
+function _carouselResume() {
+  if (!_carouselPaused && _carouselTimer) return;
+  _carouselPaused = false;
+  var w = document.getElementById('heroFlyerWrap'); if (w) w.classList.remove('carousel-paused');
+  if (_carouselSlideCount > 1) _carouselStartTimer();
+}
+
+function _carouselObserveScroll() {
+  // Resume auto-slide when user scrolls past the carousel (out of view)
+  var el = document.getElementById('heroCarousel');
+  if (!el || !window.IntersectionObserver) return;
+  new IntersectionObserver(function(entries) {
+    if (!entries[0].isIntersecting && _carouselPaused) _carouselResume();
+  }, { threshold: 0 }).observe(el);
+}
+
+function _bindCarouselGestures(track) {
+  var carousel = document.getElementById('heroCarousel');
+  // ── Touch swipe ───────────────────────────────────────────
+  var tsX = 0, tsY = 0, tdX = 0, touching = false;
+  track.addEventListener('touchstart', function(e) {
+    tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; tdX = 0; touching = true;
+  }, { passive: true });
+  track.addEventListener('touchmove', function(e) {
+    if (!touching) return;
+    tdX = e.touches[0].clientX - tsX;
+    var dY = e.touches[0].clientY - tsY;
+    if (Math.abs(tdX) > Math.abs(dY) && Math.abs(tdX) > 6) {
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(' + ((_carouselIdx * -100) + (tdX / track.offsetWidth * 100)) + '%)';
+    }
+  }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    if (!touching) return; touching = false;
+    var dY = e.changedTouches[0].clientY - tsY;
+    track.style.transition = '';
+    var isSwipe = Math.abs(tdX) > Math.abs(dY) && Math.abs(tdX) > 52;
+    var isTap   = Math.abs(tdX) < 12 && Math.abs(dY) < 12;
+    if (isSwipe)      { carouselGoTo(tdX < 0 ? _carouselIdx + 1 : _carouselIdx - 1); _carouselResume(); }
+    else if (isTap)   { _carouselPaused ? _carouselResume() : _carouselPause(); }
+    else              { carouselGoTo(_carouselIdx); } // snap back
+  }, { passive: true });
+
+  // ── Mouse drag (desktop) ──────────────────────────────────
+  var msX = 0, mDrag = false, mMoved = false;
+  track.addEventListener('mousedown', function(e) {
+    msX = e.clientX; mDrag = true; mMoved = false;
+    if (carousel) carousel.classList.add('dragging'); e.preventDefault();
   });
-}
-
-function startCarouselTimer() {
-  _carouselTimer = setInterval(function() { carouselGoTo(_carouselIdx + 1); }, 4500);
-}
-
-function resetCarouselTimer() {
-  if (_carouselTimer) { clearInterval(_carouselTimer); startCarouselTimer(); }
+  document.addEventListener('mousemove', function(e) {
+    if (!mDrag) return;
+    var d = e.clientX - msX;
+    if (Math.abs(d) > 5) {
+      mMoved = true;
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(' + ((_carouselIdx * -100) + (d / track.offsetWidth * 100)) + '%)';
+    }
+  });
+  document.addEventListener('mouseup', function(e) {
+    if (!mDrag) return; mDrag = false;
+    if (carousel) carousel.classList.remove('dragging');
+    track.style.transition = '';
+    var d = e.clientX - msX;
+    if (mMoved && Math.abs(d) > 52)  { carouselGoTo(d < 0 ? _carouselIdx + 1 : _carouselIdx - 1); _carouselResume(); }
+    else if (!mMoved)                 { _carouselPaused ? _carouselResume() : _carouselPause(); }
+    else                              { carouselGoTo(_carouselIdx); }
+  });
 }
 
 // ── Countdown intervals ───────────────────────────────────────
