@@ -624,7 +624,7 @@
  transition: background 0.2s;
  }
  .yt-sub-btn:hover { background: #cc0000; }
- /* MOBILE HERO: ensure all 3 buttons visible in fold */
+ /* MOBILE HERO: ensure all 4 buttons visible in fold */
  @media (max-width: 767px) {
  .hero { padding: 76px 16px 24px; }
  .hero-inner { gap: 0; }
@@ -633,8 +633,54 @@
  .hero-right-text { margin-bottom: 10px; }
  .hero-right-text p { font-size: 12px; line-height: 1.5; }
  .hero-cta-group { gap: 10px; }
- .btn-hero-primary, .btn-hero-secondary, .btn-hero-tertiary { padding: 12px 20px; font-size: clamp(13px, 3.8vw, 15px); }
+ .btn-hero-primary, .btn-hero-secondary, .btn-hero-tertiary, .btn-hero-christ { padding: 12px 20px; font-size: clamp(13px, 3.8vw, 15px); }
  }
+/* FLAG + TIME ZONE ROW */
+.t-flag { vertical-align: middle; border-radius: 2px; width: 16px; height: 12px; margin-right: 4px; display: inline-block; }
+.hero-times-row {
+  display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: center;
+  font-size: 11px; color: rgba(255,255,255,0.55); margin-bottom: 14px;
+  order: 11; letter-spacing: 0.3px;
+}
+@media (min-width: 768px) { .hero-times-row { justify-content: flex-start; order: unset; margin-bottom: 16px; font-size: 12px; } }
+/* HERO — I GAVE MY LIFE TO CHRIST BUTTON */
+.btn-hero-christ {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: linear-gradient(135deg, #b8720f, #d4961e, #edb93a);
+  color: #1a0d00; font-family: var(--font-heading); font-weight: 700;
+  font-size: clamp(14px, 3.5vw, 18px); letter-spacing: 1px; text-transform: uppercase;
+  padding: 16px 28px; border-radius: 50px; border: none;
+  box-shadow: 0 6px 24px rgba(180,110,15,0.4);
+  transition: all 0.3s ease; width: 100%;
+}
+.btn-hero-christ:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(180,110,15,0.6); }
+/* ============================================================
+   DISCIPLESHIP PAGE
+   ============================================================ */
+.discipleship-hero {
+  background: linear-gradient(160deg, #1a0d00 0%, #2d1600 40%, #3d2000 70%, #1a0d00 100%);
+  padding: 120px 24px 72px; text-align: center; position: relative; overflow: hidden;
+}
+.discipleship-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(237,185,58,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.discipleship-hero .section-tag { color: #edb93a; }
+.discipleship-hero h1 { font-family: var(--font-heading); font-size: clamp(28px, 5vw, 52px); font-weight: 700; color: var(--white); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; }
+.discipleship-hero p { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 580px; margin: 0 auto; line-height: 1.85; }
+.discipleship-form-card {
+  background: linear-gradient(145deg, rgba(45,22,0,0.5), rgba(6,15,16,0.85));
+  border: 1px solid rgba(237,185,58,0.2); border-radius: var(--radius-lg); padding: 48px 40px;
+}
+@media (max-width: 640px) { .discipleship-form-card { padding: 28px 20px; } }
+.disc-success-times {
+  background: rgba(237,185,58,0.06); border: 1px solid rgba(237,185,58,0.2);
+  border-radius: var(--radius-lg); padding: 20px 24px; margin: 20px 0; text-align: left;
+}
+.disc-success-times h4 { font-family: var(--font-heading); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #edb93a; margin-bottom: 12px; }
+.disc-time-row { display: flex; align-items: center; gap: 8px; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+.disc-time-row:last-child { margin-bottom: 0; }
 /* ============================================================
    RALLY PAGE
    ============================================================ */
@@ -898,6 +944,7 @@
  <li><button onclick="showPage('testimony')" id="nav-testimony">Testimony</button></li>
  <li><button onclick="showPage('contact')" id="nav-contact">Contact</button></li>
  <li><button onclick="showPage('events')" id="nav-events">Events</button></li>
+ <li><button onclick="showPage('discipleship')" id="nav-discipleship">New Believer</button></li>
  <li><button onclick="showPage('prayer')" class="nav-cta"> Submit Prayer</button></li>
  </ul>
  <div class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
@@ -910,6 +957,7 @@
  <button onclick="showPage('testimony'); toggleMobileMenu()">Share Testimony</button>
  <button onclick="showPage('contact'); toggleMobileMenu()">Contact</button>
  <button onclick="showPage('events'); toggleMobileMenu()">Events</button>
+ <button onclick="showPage('discipleship'); toggleMobileMenu()">I Gave My Life to Christ</button>
  <button onclick="showPage('prayer'); toggleMobileMenu()" class="mobile-cta">Submit Prayer Request</button>
 </div>
 <!-- HOME PAGE -->
@@ -926,14 +974,15 @@
    <!-- Fallback shown only when no images load -->
    <div class="hero-flyer-placeholder" id="carouselPlaceholder" style="display:none;">
      <div class="flyer-title"><span>BRING</span><span>YOUR PRAYER</span><span>REQUEST</span></div>
-     <p class="flyer-sub">Every Weekday · 7:00AM CST</p>
+     <p class="flyer-sub">Every Weekday · 7:00am Houston · 1:00pm Nigeria</p>
    </div>
  </div>
  <!-- RIGHT SIDE: badge + text + buttons -->
  <div class="hero-right">
- <div class="hero-live-badge"><span class="live-dot"></span> Every Day · 7:00AM CST · Live on YouTube</div>
+ <div class="hero-live-badge"><span class="live-dot"></span> Every Weekday &nbsp;&middot;&nbsp; Live on YouTube</div>
+ <div class="hero-times-row">Loading stream times&hellip;</div>
  <div class="hero-right-text">
- <p>"Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God." — Philippians 4:6 KJV</p>
+ <p>&ldquo;And if any man ask you, Why do ye loose him? thus shall ye say unto him, Because the Lord hath need of him.&rdquo; &mdash; Luke 19:31 KJV</p>
  </div>
  <div class="hero-cta-group">
  <button class="btn-hero-primary" onclick="showPage('prayer')">
@@ -941,6 +990,9 @@
  </button>
  <button class="btn-hero-secondary" onclick="showPage('testimony')">
  Share Your Testimony
+ </button>
+ <button class="btn-hero-christ" onclick="showPage('discipleship')">
+ I Gave My Life to Christ
  </button>
  <button class="btn-hero-tertiary" onclick="showPage('community')">
  Join My Prayer Circle
@@ -950,7 +1002,7 @@
  </div>
  </section>
  <div class="stream-banner">
- <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><strong>Every Day</strong> <span>– 7:00 AM CST</span></div></div>
+ <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><strong>Every Weekday</strong> <span id="bannerTimesSpan" style="display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:2px;font-size:13px;color:rgba(255,255,255,0.65);">Loading times&hellip;</span></div></div>
  <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span><div><strong>YouTube</strong> <span>– PC Lancelot</span></div></div>
  <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><strong>All Are Welcome</strong> <span>– Every Nation, Every Need</span></div></div>
  <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>No Request Too Big</strong> <span>– God Hears Them All</span></div></div>
@@ -993,7 +1045,7 @@
      </div>
    </div>
    <div class="calling-banner">
-     <p class="calling-banner-text">This is not just a prayer meeting. This is a <span>war room</span> — and every day at 7:00AM CST, the gates of heaven are opened for your breakthrough.</p>
+     <p class="calling-banner-text">This is not just a prayer meeting. This is a <span>war room</span> — and every weekday at 7:00AM Houston &middot; 8:00AM Toronto &middot; 1:00PM London &middot; 1:00PM Nigeria, the gates of heaven are opened for your breakthrough.</p>
      <button class="btn-primary" onclick="showPage('prayer')" style="margin-top: 28px; padding: 16px 40px; font-size: 16px;">Bring Your Request Before God</button>
    </div>
  </div>
@@ -1071,7 +1123,7 @@
  <span class="section-tag" style="margin-bottom:14px;">Prayer Received</span>
  <h2 style="margin-bottom:20px;">We Have Your Request, <span id="successName"></span></h2>
  <p class="success-personal-msg">
-   Your prayer request has been received and <strong>will be printed out</strong> and physically laid before the Lord. Every day at <strong>7:00AM CST</strong>, we gather to pray and fast — holding each request up before God in faith and agreement. We will be standing with you.
+   Your prayer request has been received and <strong>will be printed out</strong> and physically laid before the Lord. Every weekday we gather to pray — <strong>7:00am Houston &middot; 8:00am Toronto &middot; 1:00pm London &middot; 1:00pm Nigeria</strong> — holding each request up before God in faith and agreement. We will be standing with you.
  </p>
  <p class="success-scripture">
    &ldquo;Again I say unto you, That if two of you shall agree on earth as touching any thing that they shall ask, it shall be done for them of my Father which is in heaven.&rdquo;
@@ -1104,10 +1156,11 @@
  <p class="form-section-label"> Your Information</p>
  <div class="form-row two-col">
  <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="pFirstName" placeholder="Your first name" required /></div>
- <div class="form-group"><label>Last Name</label><input type="text" id="pLastName" placeholder="Optional" /></div>
+ <div class="form-group"><label>Last Name <span class="req">*</span></label><input type="text" id="pLastName" placeholder="Your last name" /></div>
  </div>
+ <div class="form-group" style="margin-bottom:20px;"><label>Email Address <span class="req">*</span></label><input type="email" id="pEmail" placeholder="your@email.com" required /></div>
  <div class="form-row two-col">
- <div class="form-group"><label>Email Address <span class="req">*</span></label><input type="email" id="pEmail" placeholder="your@email.com" required /></div>
+ <div class="form-group"><label>Phone / WhatsApp <span class="req">*</span></label><input type="tel" id="pPhone" placeholder="e.g. +1 234 567 8900" /></div>
  <div class="form-group">
  <label>Country <span class="req">*</span></label>
  <select id="pCountry" required>
@@ -1141,7 +1194,7 @@
  <div class="about-text">
  <span class="section-tag">About the Ministry</span>
  <h1>Meet <span style="color: var(--accent-light);">PC Lancelot</span></h1>
- <p>PC Lancelot is a dedicated servant of God, called to intercede for people across the nations. Through the daily "Bring Your Prayer Request" live stream on YouTube at 7:00AM CST, this ministry has become a place of miracles, healing, and breakthrough for thousands of believers around the world.</p>
+ <p>PC Lancelot is a dedicated servant of God, called to intercede for people across the nations. Through the daily "Bring Your Prayer Request" live stream on YouTube — every weekday at 7:00AM Houston / 8:00AM Toronto / 1:00PM London &amp; Nigeria — this ministry has become a place of miracles, healing, and breakthrough for thousands of believers around the world.</p>
  <p>What began as a simple desire to pray for people in the comment section of a YouTube video has grown into a global prayer movement — touching hearts from Nigeria to the United States, from the United Kingdom to the Philippines, and everywhere in between.</p>
  <div class="scripture-pull"><p>"The effectual fervent prayer of a righteous man availeth much."</p><cite>— James 5:16 KJV</cite></div>
  <p>This ministry believes in the power of agreement in prayer. When two or more gather in His name, He is there. Every request submitted is treated with reverence, confidentiality, and genuine faith.</p>
@@ -1210,21 +1263,23 @@
  <div id="joinFormWrap">
  <div class="form-row two-col">
  <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="jFirstName" placeholder="First name" /></div>
- <div class="form-group"><label>Last Name</label><input type="text" id="jLastName" placeholder="Last name" /></div>
+ <div class="form-group"><label>Last Name <span class="req">*</span></label><input type="text" id="jLastName" placeholder="Your last name" /></div>
  </div>
- <div class="form-group" style="margin-bottom:20px;"><label>Email Address <span class="req">*</span></label><input type="email" id="jEmail" placeholder="your@email.com" /></div>
+ <div class="form-row two-col" style="margin-bottom:20px;">
+ <div class="form-group"><label>Email Address <span class="req">*</span></label><input type="email" id="jEmail" placeholder="your@email.com" /></div>
+ <div class="form-group"><label>Phone / WhatsApp <span class="req">*</span></label><input type="tel" id="jPhone" placeholder="e.g. +1 234 567 8900" /></div>
+ </div>
  <div class="form-group" style="margin-bottom:20px;">
  <label>Country <span class="req">*</span></label>
  <select id="jCountry">
  <option value="" disabled selected>Select your country</option>
- <option>Australia</option><option>Brazil</option><option>Canada</option><option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option><option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option><option>South Africa</option><option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option><option>United States</option><option>Zimbabwe</option><option>Other</option>
+ <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Angola</option><option>Argentina</option><option>Australia</option><option>Austria</option><option>Bangladesh</option><option>Belgium</option><option>Bolivia</option><option>Botswana</option><option>Brazil</option><option>Cameroon</option><option>Canada</option><option>Chile</option><option>China</option><option>Colombia</option><option>Congo (DRC)</option><option>Côte d'Ivoire</option><option>Cuba</option><option>Denmark</option><option>Ecuador</option><option>Egypt</option><option>Ethiopia</option><option>Finland</option><option>France</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Guatemala</option><option>Haiti</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jordan</option><option>Kenya</option><option>Lebanon</option><option>Liberia</option><option>Libya</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Mali</option><option>Mexico</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nepal</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Norway</option><option>Pakistan</option><option>Panama</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Russia</option><option>Rwanda</option><option>Saudi Arabia</option><option>Senegal</option><option>Sierra Leone</option><option>Singapore</option><option>Somalia</option><option>South Africa</option><option>South Korea</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Sweden</option><option>Switzerland</option><option>Syria</option><option>Tanzania</option><option>Thailand</option><option>Togo</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Uruguay</option><option>Venezuela</option><option>Vietnam</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option><option>Other</option>
  </select>
  </div>
  <div class="form-group" style="margin-bottom:20px;">
  <label>What draws you to prayer? <span style="font-size:12px; color: rgba(255,255,255,0.35); font-weight:400;">(Optional — helps us personalise your welcome)</span></label>
  <textarea id="jMotivation" placeholder="Tell us about your prayer journey..." style="width:100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); color: var(--white); font-family: var(--font-body); font-size:15px; padding: 14px 16px; resize: vertical; min-height: 90px; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
  </div>
- <div class="form-group" style="margin-bottom:24px;"><label class="form-checkbox"><input type="checkbox" id="jNotify" checked /><span>Notify me before every daily live stream</span></label></div>
  <button class="submit-btn" onclick="joinCommunity()">Submit</button>
   </div>
  </div>
@@ -1276,20 +1331,27 @@
  <div class="schedule-card">
  <div class="day">Every Weekday</div>
  <h3>Praying for God's People</h3>
- <div class="time">7:00 AM CST · Live on YouTube<br/>All time zones welcome</div>
+ <div class="time dst-times" style="line-height:1.9;display:flex;flex-wrap:wrap;gap:6px 14px;">
+   Loading times&hellip;
+ </div>
  <a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener" class="notify-btn" style="display:inline-block; text-decoration:none; text-align:center;">Watch on YouTube</a>
  </div>
  <div class="schedule-card">
  <div class="day">Every Weekday</div>
  <h3>God Lovers Prayer Circle</h3>
- <div class="time">6:30 AM CST · Live on Google Meet<br/>All time zones welcome</div>
+ <div class="time" style="line-height:1.9;">
+   <span style="display:flex;align-items:center;gap:6px;"><img class="t-flag" src="https://flagcdn.com/16x12/us.png" alt="US"> 6:30am Houston (CT)</span>
+   <span style="display:flex;align-items:center;gap:6px;"><img class="t-flag" src="https://flagcdn.com/16x12/ca.png" alt="CA"> 7:30am Toronto (ET)</span>
+   <span style="display:flex;align-items:center;gap:6px;"><img class="t-flag" src="https://flagcdn.com/16x12/gb.png" alt="UK"> 12:30pm London (BST)</span>
+   <span style="display:flex;align-items:center;gap:6px;"><img class="t-flag" src="https://flagcdn.com/16x12/ng.png" alt="NG"> 12:30pm Nigeria (WAT)</span>
+ </div>
  <a href="https://meet.google.com/nws-rvtg-hwg" target="_blank" rel="noopener" class="notify-btn" style="display:inline-block; text-decoration:none; text-align:center;">Join the Meeting</a>
  </div>
  </div>
  <!-- Countdown — sits just at/below fold -->
  <div class="countdown-section" style="margin-bottom: 0;">
  <h3>Next Live Stream In</h3>
- <div class="next-stream">Weekdays · 7:00 AM CST on YouTube</div>
+ <div class="next-stream" id="countdownCityLabel">Loading&hellip;</div>
  <div class="countdown-grid">
  <div class="countdown-unit"><div class="countdown-num" id="cd-hours">--</div><div class="countdown-label">Hours</div></div>
  <div class="countdown-colon">:</div>
@@ -1297,7 +1359,7 @@
  <div class="countdown-colon">:</div>
  <div class="countdown-unit"><div class="countdown-num" id="cd-secs">--</div><div class="countdown-label">Seconds</div></div>
  </div>
- <p style="font-size:13px; color: rgba(255,255,255,0.3); margin-top: 16px;">Counting down to the next weekday live stream at 7:00 AM CST</p>
+ <p style="font-size:13px; color: rgba(255,255,255,0.3); margin-top: 16px;">Counting down to the next weekday live stream &mdash; 7:00am Houston / 8:00am Toronto / 1:00pm London &amp; Nigeria</p>
  </div>
  </div>
  <!-- Video embed + CTA -->
@@ -1362,8 +1424,20 @@
  </div>
  <div id="contactFormWrap">
  <div class="form-row two-col">
- <div class="form-group"><label>Name <span class="req">*</span></label><input type="text" id="cName" placeholder="Your full name" /></div>
+ <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="cFirstName" placeholder="Your first name" /></div>
+ <div class="form-group"><label>Last Name <span class="req">*</span></label><input type="text" id="cLastName" placeholder="Your last name" /></div>
+ </div>
+ <div class="form-row two-col">
  <div class="form-group"><label>Email <span class="req">*</span></label><input type="email" id="cEmail" placeholder="your@email.com" /></div>
+ <div class="form-group"><label>Phone / WhatsApp <span class="req">*</span></label><input type="tel" id="cPhone" placeholder="e.g. +1 234 567 8900" /></div>
+ </div>
+ <div class="form-group" style="margin-bottom:20px;">
+ <label>Country <span class="req">*</span></label>
+ <select id="cCountry">
+ <option value="" disabled selected>Select your country</option>
+ <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Angola</option><option>Argentina</option><option>Australia</option><option>Austria</option><option>Bangladesh</option><option>Belgium</option><option>Bolivia</option><option>Botswana</option><option>Brazil</option><option>Cameroon</option><option>Canada</option><option>Chile</option><option>China</option><option>Colombia</option><option>Congo (DRC)</option><option>Côte d'Ivoire</option><option>Cuba</option><option>Denmark</option><option>Ecuador</option><option>Egypt</option><option>Ethiopia</option><option>Finland</option><option>France</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Guatemala</option><option>Haiti</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jordan</option><option>Kenya</option><option>Lebanon</option><option>Liberia</option><option>Libya</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Mali</option><option>Mexico</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nepal</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Norway</option><option>Pakistan</option><option>Panama</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Russia</option><option>Rwanda</option><option>Saudi Arabia</option><option>Senegal</option><option>Sierra Leone</option><option>Singapore</option><option>Somalia</option><option>South Africa</option><option>South Korea</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Sweden</option><option>Switzerland</option><option>Syria</option><option>Tanzania</option><option>Thailand</option><option>Togo</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Uruguay</option><option>Venezuela</option><option>Vietnam</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option><option>Other</option>
+ 
+ </select>
  </div>
  <div class="form-group" style="margin-bottom:20px;">
  <label>Subject</label>
@@ -1433,17 +1507,19 @@
             <p class="form-section-label">Your Information</p>
             <div class="form-row two-col">
               <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="tFirstName" placeholder="Your first name" /></div>
-              <div class="form-group"><label>Last Name</label><input type="text" id="tLastName" placeholder="Optional" /></div>
+              <div class="form-group"><label>Last Name <span class="req">*</span></label><input type="text" id="tLastName" placeholder="Your last name" /></div>
             </div>
             <div class="form-row two-col">
-              <div class="form-group"><label>Email Address</label><input type="email" id="tEmail" placeholder="your@email.com (optional)" /></div>
-              <div class="form-group">
-                <label>Country <span class="req">*</span></label>
-                <select id="tCountry">
-                  <option value="" disabled selected>Select your country</option>
-                  <option>Australia</option><option>Brazil</option><option>Canada</option><option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option><option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option><option>South Africa</option><option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option><option>United States</option><option>Zimbabwe</option><option>Other</option>
-                </select>
-              </div>
+              <div class="form-group"><label>Email Address <span class="req">*</span></label><input type="email" id="tEmail" placeholder="your@email.com" /></div>
+              <div class="form-group"><label>Phone / WhatsApp <span class="req">*</span></label><input type="tel" id="tPhone" placeholder="e.g. +1 234 567 8900" /></div>
+            </div>
+            <div class="form-group" style="margin-bottom:20px;">
+              <label>Country <span class="req">*</span></label>
+              <select id="tCountry">
+                <option value="" disabled selected>Select your country</option>
+ <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Angola</option><option>Argentina</option><option>Australia</option><option>Austria</option><option>Bangladesh</option><option>Belgium</option><option>Bolivia</option><option>Botswana</option><option>Brazil</option><option>Cameroon</option><option>Canada</option><option>Chile</option><option>China</option><option>Colombia</option><option>Congo (DRC)</option><option>Côte d'Ivoire</option><option>Cuba</option><option>Denmark</option><option>Ecuador</option><option>Egypt</option><option>Ethiopia</option><option>Finland</option><option>France</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Guatemala</option><option>Haiti</option><option>Honduras</option><option>Hong Kong</option><option>Hungary</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Jamaica</option><option>Japan</option><option>Jordan</option><option>Kenya</option><option>Lebanon</option><option>Liberia</option><option>Libya</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Mali</option><option>Mexico</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nepal</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Norway</option><option>Pakistan</option><option>Panama</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Russia</option><option>Rwanda</option><option>Saudi Arabia</option><option>Senegal</option><option>Sierra Leone</option><option>Singapore</option><option>Somalia</option><option>South Africa</option><option>South Korea</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Sweden</option><option>Switzerland</option><option>Syria</option><option>Tanzania</option><option>Thailand</option><option>Togo</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Uruguay</option><option>Venezuela</option><option>Vietnam</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option><option>Other</option>
+ 
+              </select>
             </div>
             <div class="form-divider"></div>
             <p class="form-section-label">Your Testimony</p>
@@ -1534,6 +1610,143 @@
 
   <div class="ornament-divider"> </div>
   <footer id="testimonyFooter"></footer>
+</div>
+<!-- DISCIPLESHIP PAGE -->
+<div class="page" id="page-discipleship">
+
+  <!-- Full-screen success overlay -->
+  <div class="form-success" id="discipleshipSuccess">
+    <div class="form-success-inner">
+      <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#b8720f,#edb93a);margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <span class="section-tag" style="color:#edb93a;margin-bottom:14px;">Welcome to the Family!</span>
+      <h2 style="margin-bottom:16px;color:#edb93a;">Welcome, <span id="discSuccessName"></span>!</h2>
+      <p class="success-personal-msg">
+        We are so glad you took this step. Making Jesus the Lord of your life is the most important decision you will ever make — and heaven is celebrating right now. You are not alone in this journey. We will be reaching out to you personally to walk alongside you, share resources, and pray with you as you grow.
+      </p>
+      <!-- Dynamic resources section — populated by JS -->
+      <div id="discResourcesSection" style="display:none; width:100%; max-width:520px; margin: 0 auto 20px;">
+        <div style="background:rgba(237,185,58,0.07);border:1px solid rgba(237,185,58,0.2);border-radius:var(--radius-lg);padding:20px 24px;text-align:left;">
+          <p style="font-family:var(--font-heading);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#edb93a;margin-bottom:12px;">Resources to Get You Started</p>
+          <div id="discResourcesList"></div>
+        </div>
+      </div>
+      <!-- Stream times -->
+      <div class="disc-success-times" style="max-width:520px;width:100%;">
+        <h4>Join Our Daily Prayer Stream</h4>
+        <div class="disc-time-row"><img class="t-flag" src="https://flagcdn.com/16x12/us.png" alt="US"> <strong style="color:var(--accent-light);">7:00am Houston</strong> <span style="color:rgba(255,255,255,0.4);">(Central Time)</span></div>
+        <div class="disc-time-row"><img class="t-flag" src="https://flagcdn.com/16x12/ca.png" alt="CA"> <strong style="color:var(--accent-light);">8:00am Toronto</strong> <span style="color:rgba(255,255,255,0.4);">(Eastern Time)</span></div>
+        <div class="disc-time-row"><img class="t-flag" src="https://flagcdn.com/16x12/gb.png" alt="UK"> <strong style="color:var(--accent-light);">1:00pm London</strong> <span style="color:rgba(255,255,255,0.4);">(BST)</span></div>
+        <div class="disc-time-row"><img class="t-flag" src="https://flagcdn.com/16x12/ng.png" alt="NG"> <strong style="color:var(--accent-light);">1:00pm Nigeria</strong> <span style="color:rgba(255,255,255,0.4);">(WAT)</span></div>
+      </div>
+      <!-- YouTube subscribe -->
+      <div class="yt-sub-box" style="max-width:480px;width:100%;">
+        <div class="yt-sub-tag">Subscribe &amp; Stay Connected</div>
+        <p>Subscribe to the YouTube channel and click the <strong style="color:#fff;">notification bell</strong> &mdash; you&rsquo;ll be notified whenever we go live so you can join us in prayer.</p>
+        <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
+          <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
+          Subscribe on YouTube
+        </a>
+      </div>
+      <p class="success-scripture">&ldquo;Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new.&rdquo;<cite>— 2 Corinthians 5:17 KJV</cite></p>
+      <div style="margin-top:20px;">
+        <button onclick="resetDiscipleshipForm()" style="background:none;border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:10px 24px;border-radius:50px;font-size:14px;cursor:pointer;transition:all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'">Submit for Another Person</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="discipleship-hero" id="discipleshipHero">
+    <span class="section-tag" style="font-size:12px;letter-spacing:3px;position:relative;z-index:1;">A New Beginning</span>
+    <h1 style="position:relative;z-index:1;">I Gave My Life<br/>to <span style="background:linear-gradient(135deg,#b8720f,#edb93a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Christ</span></h1>
+    <p style="position:relative;z-index:1;">This is the most important decision you will ever make. We are here to walk alongside you every step of the way — with prayer, resources, and a community that truly cares.</p>
+  </div>
+
+  <!-- Form section -->
+  <div class="form-section" style="background:var(--dark);">
+    <div class="form-container">
+      <div class="discipleship-form-card" id="discipleshipFormWrap">
+        <p class="form-section-label">Tell Us About You</p>
+        <div class="form-row two-col">
+          <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="dFirstName" placeholder="Your first name" /></div>
+          <div class="form-group"><label>Last Name <span class="req">*</span></label><input type="text" id="dLastName" placeholder="Your last name" /></div>
+        </div>
+        <div class="form-row two-col">
+          <div class="form-group"><label>Email Address <span class="req">*</span></label><input type="email" id="dEmail" placeholder="your@email.com" /></div>
+          <div class="form-group"><label>Phone / WhatsApp <span class="req">*</span></label><input type="tel" id="dPhone" placeholder="e.g. +1 234 567 8900" /></div>
+        </div>
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label>Country <span class="req">*</span></label>
+            <select id="dCountry">
+              <option value="" disabled selected>Select your country</option>
+              <option>Australia</option><option>Brazil</option><option>Canada</option><option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option><option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option><option>South Africa</option><option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option><option>United States</option><option>Zimbabwe</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>How did you receive Christ?</label>
+            <select id="dHow">
+              <option value="" disabled selected>Choose one</option>
+              <option>At a church service or event</option>
+              <option>During personal prayer</option>
+              <option>Through someone sharing with me</option>
+              <option>Watching online / social media</option>
+              <option>Through this ministry</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-divider"></div>
+        <p class="form-section-label">How Can We Help You Grow?</p>
+        <div class="form-group" style="margin-bottom:20px;">
+          <label>What area do you most need support in? <span style="font-size:12px;color:rgba(255,255,255,0.3);font-weight:400;">(Optional)</span></label>
+          <textarea id="dNeeds" placeholder="e.g. understanding the Bible, prayer, finding a church, overcoming habits..." style="min-height:100px;"></textarea>
+        </div>
+        <button class="submit-btn" id="discSubmitBtn" onclick="submitDiscipleship()" style="background:linear-gradient(135deg,#b8720f,#d4961e,#edb93a);color:#1a0d00;box-shadow:0 6px 24px rgba(180,110,15,0.4);">I&rsquo;m Ready to Grow in Faith</button>
+        <p class="form-note" style="margin-top:14px;">We will reach out to you personally. Your details are private and will never be shared.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Encouragement cards -->
+  <section style="background:linear-gradient(135deg,var(--primary-mid) 0%,var(--dark) 100%);padding:64px 24px 80px;">
+    <div class="section-inner">
+      <div style="text-align:center;margin-bottom:40px;">
+        <span class="section-tag">Your New Life Starts Now</span>
+        <h2 class="section-title">What Happens <span class="gold">Next</span></h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="calling-card-accent"></div>
+          <h3>We Will Reach Out</h3>
+          <p>Someone from this ministry will contact you personally to welcome you, answer your questions, and point you to the resources you need for this season of your life.</p>
+          <div class="calling-verse">"The steps of a good man are ordered by the LORD: and he delighteth in his way." — Psalm 37:23 KJV</div>
+        </div>
+        <div class="feature-card">
+          <div class="calling-card-accent"></div>
+          <h3>Join Our Daily Prayer Stream</h3>
+          <p>Every weekday we go live in prayer. You don&rsquo;t need to know anything — just show up with your heart open and let God do the rest. Prayer is how you grow.</p>
+          <div class="calling-verse">"Draw nigh to God, and he will draw nigh to you." — James 4:8 KJV</div>
+        </div>
+        <div class="feature-card">
+          <div class="calling-card-accent"></div>
+          <h3>Resources for New Believers</h3>
+          <p>We are preparing guides, devotionals, and video content specifically for people at the beginning of their journey with Christ. When ready, they will be shared with you directly.</p>
+          <div class="calling-verse">"As newborn babes, desire the sincere milk of the word, that ye may grow thereby." — 1 Peter 2:2 KJV</div>
+        </div>
+        <div class="feature-card">
+          <div class="calling-card-accent"></div>
+          <h3>Join the Prayer Circle</h3>
+          <p>When you&rsquo;re ready, you can join a close community of believers who pray together daily. You will be surrounded by people who will carry you and grow with you.</p>
+          <div class="calling-verse">"Two are better than one; because they have a good reward for their labour." — Ecclesiastes 4:9 KJV</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament-divider"> </div>
+  <footer id="discipleshipFooter"></footer>
 </div>
 <!-- RALLY PAGE -->
 <div class="page" id="page-events">
@@ -1757,7 +1970,7 @@
  <div class="nav-logo-icon">PC</div>
  <div class="nav-logo-text"><span class="name">PC Lancelot</span><span class="tagline">Prayer Ministry</span></div>
  </div>
- <p>A global prayer ministry dedicated to interceding for every need. Bringing your prayer requests before God — live every day at 7:00AM CST.</p>
+ <p>A global prayer ministry dedicated to interceding for every need. Live every weekday &mdash; 7:00am Houston &middot; 8:00am Toronto &middot; 1:00pm London &middot; 1:00pm Nigeria.</p>
  </div>
  <div class="footer-col"><h4>Ministry</h4><ul><li><button onclick="showPage('home')">Home</button></li><li><button onclick="showPage('about')">About</button></li><li><button onclick="showPage('livestream')">Live Stream</button></li><li><button onclick="showPage('community')">Prayer Circle</button></li><li><button onclick="showPage('events')">Events</button></li></ul></div>
  <div class="footer-col"><h4>Prayer</h4><ul><li><button onclick="showPage('prayer')">Submit a Request</button></li><li><button onclick="showPage('testimony')">Share Testimony</button></li><li><button onclick="showPage('prayer')">Family Prayer</button></li><li><button onclick="showPage('community')">Join Prayer Circle</button></li></ul></div>
@@ -1788,13 +2001,26 @@
         <p class="attend-field-note">We need your email to send you the meeting link before the rally.</p>
         <input type="email" id="aEmail" placeholder="your@email.com" />
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+        <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="aFirstName" placeholder="First name" /></div>
+        <div class="form-group"><label>Last Name <span class="req">*</span></label><input type="text" id="aLastName" placeholder="Last name" /></div>
+      </div>
       <div class="form-group" style="margin-bottom:18px;">
-        <label>First Name <span class="req">*</span></label>
-        <input type="text" id="aFirstName" placeholder="Your first name" />
+        <label>Phone / WhatsApp <span class="req">*</span></label>
+        <input type="tel" id="aPhone" placeholder="e.g. +1 234 567 8900" />
       </div>
       <div class="form-group" style="margin-bottom:28px;">
-        <label>Country or Location <span class="req">*</span></label>
-        <input type="text" id="aLocation" placeholder="e.g. Nigeria, Texas USA, London..." />
+        <label>Country <span class="req">*</span></label>
+        <select id="aCountry" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:14px 16px;font-size:15px;color:var(--white);font-family:var(--font-body);width:100%;outline:none;transition:var(--transition);" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+          <option value="" disabled selected>Select your country</option>
+          <option>Australia</option><option>Brazil</option><option>Cameroon</option><option>Canada</option>
+          <option>Congo (DRC)</option><option>Ethiopia</option><option>France</option><option>Germany</option>
+          <option>Ghana</option><option>India</option><option>Indonesia</option><option>Jamaica</option>
+          <option>Kenya</option><option>Mexico</option><option>Nigeria</option><option>Philippines</option>
+          <option>Rwanda</option><option>Sierra Leone</option><option>South Africa</option>
+          <option>Trinidad and Tobago</option><option>Uganda</option><option>United Kingdom</option>
+          <option>United States</option><option>Zimbabwe</option><option>Other</option>
+        </select>
       </div>
       <button class="submit-btn" id="attendSubmitBtn" onclick="submitAttendance()">Send Me the Link</button>
       <p class="form-note" style="margin-top:14px;">Your information is private and will not be shared with anyone.</p>
@@ -1811,9 +2037,28 @@
   </div>
 </div>
 <script>
+// ── Google Sheet endpoints (one per form) ────────────────────
+var ENDPOINTS = {
+  prayer:       'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec',
+  community:    'COMMUNITY_SHEET_ENDPOINT',    // replace with your new Apps Script URL
+  testimony:    'TESTIMONY_SHEET_ENDPOINT',    // replace with your new Apps Script URL
+  contact:      'CONTACT_SHEET_ENDPOINT',      // replace with your new Apps Script URL
+  discipleship: 'DISCIPLESHIP_SHEET_ENDPOINT', // replace with your new Apps Script URL
+  events:       'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec'
+};
+// ── Dynamic discipleship resources (fetched from GitHub) ─────
+var _discResources = null;
+function loadDiscipleshipResources() {
+  if (_discResources !== null) return;
+  _discResources = {};
+  fetch('https://raw.githubusercontent.com/alphapoint-pc/pclancelot.com/main/discipleship-resources.json')
+    .then(function(r){ return r.json(); })
+    .then(function(data){ _discResources = data; })
+    .catch(function(){ _discResources = {}; });
+}
 // ── Internal page switch (no URL push) ──────────────────────
 function _showPageInternal(name) {
-  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events'];
+  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events','discipleship'];
   if (validPages.indexOf(name) === -1) name = 'home';
 
   // Reset fullscreen success overlays
@@ -1831,6 +2076,17 @@ function _showPageInternal(name) {
   var cSuccess = document.getElementById('contactSuccess');
   var cWrap    = document.getElementById('contactFormWrap');
   if (cSuccess && name !== 'contact') { cSuccess.style.display = 'none'; if (cWrap) cWrap.style.display = ''; }
+  // Reset discipleship success when leaving
+  if (name !== 'discipleship') {
+    var dSuccess = document.getElementById('discipleshipSuccess');
+    var dHero    = document.getElementById('discipleshipHero');
+    var dWrap    = document.getElementById('discipleshipFormWrap');
+    if (dSuccess) dSuccess.classList.remove('show');
+    if (dHero)   dHero.style.display = '';
+    if (dWrap)   dWrap.style.display = '';
+  }
+  // Pre-load discipleship resources when navigating to that page
+  if (name === 'discipleship') loadDiscipleshipResources();
 
   // When leaving testimony: close all accordion cards
   if (name !== 'testimony') {
@@ -1866,7 +2122,7 @@ function showPage(name) {
 
 function renderFooters() {
   var tpl = document.getElementById('footerTemplate').innerHTML;
-  ['homeFooter','prayerFooter','aboutFooter','communityFooter','livestreamFooter','contactFooter','testimonyFooter','eventsFooter'].forEach(function(id){
+  ['homeFooter','prayerFooter','aboutFooter','communityFooter','livestreamFooter','contactFooter','testimonyFooter','eventsFooter','discipleshipFooter'].forEach(function(id){
     var el = document.getElementById(id); if (el) el.innerHTML = tpl;
   });
 }
@@ -1901,16 +2157,19 @@ function submitPrayerRequest() {
   var firstName = document.getElementById('pFirstName').value.trim();
   var lastName  = document.getElementById('pLastName').value.trim();
   var email     = document.getElementById('pEmail').value.trim();
+  var phone     = document.getElementById('pPhone').value.trim();
   var country   = document.getElementById('pCountry').value;
   var request   = document.getElementById('pRequest').value.trim();
   if (!firstName) { alert('Please enter your first name.'); return; }
+  if (!lastName)  { alert('Please enter your last name.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  if (!phone)     { alert('Please enter your phone or WhatsApp number.'); return; }
   if (!country)   { alert('Please select your country.'); return; }
   if (!request)   { alert('Please write your prayer request.'); return; }
   var btn = document.querySelector('#prayerFormWrap .submit-btn');
   btn.textContent = 'Sending…'; btn.disabled = true;
-  var fullName = firstName + (lastName ? ' ' + lastName : '');
-  var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, country: country, prayer_request: request };
+  var fullName = firstName + ' ' + lastName;
+  var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, prayer_request: request };
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec';
   fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
     .then(function(){
@@ -1929,7 +2188,7 @@ function resetPrayerForm() {
   document.getElementById('prayerFormWrap').style.display = 'block';
   document.querySelector('#page-prayer .form-page-hero').style.display = '';
   document.getElementById('prayerSuccess').classList.remove('show');
-  ['pFirstName','pLastName','pEmail','pRequest'].forEach(function(id){ document.getElementById(id).value = ''; });
+  ['pFirstName','pLastName','pEmail','pPhone','pRequest'].forEach(function(id){ document.getElementById(id).value = ''; });
   document.getElementById('pCountry').value = '';
   var btn = document.querySelector('#prayerFormWrap .submit-btn');
   if (btn) { btn.textContent = 'Submit My Prayer Request'; btn.disabled = false; }
@@ -1938,35 +2197,76 @@ function resetPrayerForm() {
 // ── Community form ───────────────────────────────────────────
 function joinCommunity() {
   var firstName = document.getElementById('jFirstName').value.trim();
+  var lastName  = document.getElementById('jLastName').value.trim();
   var email     = document.getElementById('jEmail').value.trim();
+  var phone     = document.getElementById('jPhone').value.trim();
   var country   = document.getElementById('jCountry').value;
+  var motivation= document.getElementById('jMotivation').value.trim();
   if (!firstName) { alert('Please enter your first name.'); return; }
+  if (!lastName)  { alert('Please enter your last name.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  if (!phone)     { alert('Please enter your phone or WhatsApp number.'); return; }
   if (!country)   { alert('Please select your country.'); return; }
-  document.getElementById('joinFormWrap').style.display = 'none';
-  document.getElementById('joinSuccess').classList.add('show');
-  showToast('Welcome to the Family!', 'You\'ve joined the prayer community, ' + firstName + '!');
+  var btn = document.querySelector('#joinFormWrap .submit-btn');
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+  var payload = { _subject: 'Prayer Circle Interest — ' + firstName + ' (' + country + ')', type: 'prayer_circle', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, motivation: motivation };
+  var ep = ENDPOINTS.community;
+  if (!ep || ep.indexOf('ENDPOINT') !== -1) {
+    // Endpoint not yet configured — show success immediately
+    document.getElementById('joinFormWrap').style.display = 'none';
+    document.getElementById('joinSuccess').classList.add('show');
+    showToast('Welcome to the Family!', 'Your interest has been received, ' + firstName + '!');
+    return;
+  }
+  fetch(ep, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
+    .then(function(){
+      document.getElementById('joinFormWrap').style.display = 'none';
+      document.getElementById('joinSuccess').classList.add('show');
+      showToast('Welcome to the Family!', 'Your interest has been received, ' + firstName + '!');
+    })
+    .catch(function(){ if (btn) { btn.textContent = 'Submit'; btn.disabled = false; } alert('Connection error. Please check your internet and try again.'); });
 }
 
 function resetCommunityForm() {
   document.getElementById('joinFormWrap').style.display = 'block';
   document.getElementById('joinSuccess').classList.remove('show');
-  ['jFirstName','jLastName','jEmail','jMotivation'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
+  ['jFirstName','jLastName','jEmail','jPhone','jMotivation'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
   var jCountry = document.getElementById('jCountry'); if (jCountry) jCountry.value = '';
-  var jNotify  = document.getElementById('jNotify');  if (jNotify)  jNotify.checked = true;
 }
 
 // ── Contact form ─────────────────────────────────────────────
 function submitContact() {
-  var name    = document.getElementById('cName').value.trim();
-  var email   = document.getElementById('cEmail').value.trim();
-  var message = document.getElementById('cMessage').value.trim();
-  if (!name)    { alert('Please enter your name.'); return; }
+  var firstName = document.getElementById('cFirstName').value.trim();
+  var lastName  = document.getElementById('cLastName').value.trim();
+  var email     = document.getElementById('cEmail').value.trim();
+  var phone     = document.getElementById('cPhone').value.trim();
+  var country   = document.getElementById('cCountry').value;
+  var subject   = document.getElementById('cSubject').value;
+  var message   = document.getElementById('cMessage').value.trim();
+  var fullName  = firstName + (lastName ? ' ' + lastName : '');
+  if (!firstName) { alert('Please enter your first name.'); return; }
+  if (!lastName)  { alert('Please enter your last name.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email.'); return; }
-  if (!message) { alert('Please write your message.'); return; }
-  document.getElementById('contactFormWrap').style.display = 'none';
-  document.getElementById('contactSuccess').style.display = 'block';
-  showToast('Message Sent!', 'Thank you, ' + name + '. We\'ll be in touch soon.');
+  if (!phone)     { alert('Please enter your phone or WhatsApp number.'); return; }
+  if (!country)   { alert('Please select your country.'); return; }
+  if (!message)   { alert('Please write your message.'); return; }
+  var btn = document.querySelector('#contactFormWrap .submit-btn');
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+  var payload = { _subject: 'Contact — ' + (subject || 'General') + ' from ' + fullName + ' (' + country + ')', type: 'contact', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, subject: subject, message: message };
+  var ep = ENDPOINTS.contact;
+  if (!ep || ep.indexOf('ENDPOINT') !== -1) {
+    document.getElementById('contactFormWrap').style.display = 'none';
+    document.getElementById('contactSuccess').style.display = 'block';
+    showToast('Message Sent!', 'Thank you, ' + firstName + '. We\'ll be in touch soon.');
+    return;
+  }
+  fetch(ep, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
+    .then(function(){
+      document.getElementById('contactFormWrap').style.display = 'none';
+      document.getElementById('contactSuccess').style.display = 'block';
+      showToast('Message Sent!', 'Thank you, ' + firstName + '. We\'ll be in touch soon.');
+    })
+    .catch(function(){ if (btn) { btn.textContent = 'Send Message'; btn.disabled = false; } alert('Connection error. Please try again.'); });
 }
 
 // ── Testimony: accordion choice ──────────────────────────────
@@ -1990,15 +2290,22 @@ function openTestimonyChoice(type) {
 // ── Testimony: text ──────────────────────────────────────────
 function submitTestimony() {
   var firstName = document.getElementById('tFirstName').value.trim();
+  var lastName  = document.getElementById('tLastName').value.trim();
+  var email     = document.getElementById('tEmail').value.trim();
+  var phone     = document.getElementById('tPhone').value.trim();
   var testimony = document.getElementById('tTestimony').value.trim();
   var country   = document.getElementById('tCountry').value;
   if (!firstName) { alert('Please enter your first name.'); return; }
+  if (!lastName)  { alert('Please enter your last name.'); return; }
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  if (!phone)     { alert('Please enter your phone or WhatsApp number.'); return; }
   if (!country)   { alert('Please select your country.'); return; }
   if (!testimony) { alert('Please share your testimony.'); return; }
-  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec';
+  var ep = ENDPOINTS.testimony;
+  var ENDPOINT = (ep && ep.indexOf('ENDPOINT') === -1) ? ep : ENDPOINTS.prayer;
   var contactMethod = document.getElementById('tContactMethod').value;
   var contactDetail = document.getElementById('tContactDetail').value.trim();
-  var payload = { _subject: 'Text Testimony — ' + firstName + ' (' + country + ')', type: 'testimony_text', first_name: firstName, country: country, testimony: testimony, email: document.getElementById('tEmail').value.trim(), contact_method: contactMethod, contact_detail: contactDetail };
+  var payload = { _subject: 'Text Testimony — ' + firstName + ' ' + lastName + ' (' + country + ')', type: 'testimony_text', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, testimony: testimony, contact_method: contactMethod, contact_detail: contactDetail };
   var btn = document.querySelector('#testimonyFormWrap .submit-btn');
   if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
   fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
@@ -2033,11 +2340,77 @@ function resetAllTestimonyForms() {
   // Close all accordion cards
   document.querySelectorAll('.testimony-choice-card').forEach(function(c){ c.classList.remove('open'); });
   // Reset text form
-  ['tFirstName','tLastName','tEmail','tTestimony','tContactDetail'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
+  ['tFirstName','tLastName','tEmail','tPhone','tTestimony','tContactDetail'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
   var tc = document.getElementById('tCountry'); if (tc) tc.value = '';
   var tm = document.getElementById('tContactMethod'); if (tm) tm.value = '';
   var tb = document.querySelector('#testimonyFormWrap .submit-btn');
   if (tb) { tb.textContent = 'Submit My Testimony'; tb.disabled = false; }
+}
+
+// ── Discipleship form ────────────────────────────────────────
+function submitDiscipleship() {
+  var firstName = document.getElementById('dFirstName').value.trim();
+  var lastName  = document.getElementById('dLastName').value.trim();
+  var email     = document.getElementById('dEmail').value.trim();
+  var phone     = document.getElementById('dPhone').value.trim();
+  var country   = document.getElementById('dCountry').value;
+  var how       = document.getElementById('dHow').value;
+  var needs     = document.getElementById('dNeeds').value.trim();
+  if (!firstName) { alert('Please enter your first name.'); return; }
+  if (!lastName)  { alert('Please enter your last name.'); return; }
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  if (!phone)     { alert('Please enter your phone or WhatsApp number.'); return; }
+  if (!country)   { alert('Please select your country.'); return; }
+  var btn = document.getElementById('discSubmitBtn');
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+  var payload = { _subject: 'New Believer — ' + firstName + ' (' + country + ')', type: 'discipleship', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, how_received_christ: how, growth_needs: needs, notify_streams: notify };
+  var ep = ENDPOINTS.discipleship;
+  var doSend = ep && ep.indexOf('ENDPOINT') === -1;
+
+  function showDiscSuccess() {
+    document.getElementById('discipleshipFormWrap').style.display = 'none';
+    document.getElementById('discipleshipHero').style.display = 'none';
+    document.getElementById('discSuccessName').textContent = firstName;
+    // Populate dynamic resources if available
+    var res = _discResources || {};
+    var rSection = document.getElementById('discResourcesSection');
+    var rList    = document.getElementById('discResourcesList');
+    var hasVideo = res.welcome_video && res.welcome_video.length > 5;
+    var hasResources = res.resources && res.resources.length > 0;
+    if ((hasVideo || hasResources) && rSection && rList) {
+      var html = '';
+      if (hasVideo) html += '<div style="margin-bottom:12px;"><a href="' + res.welcome_video + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:var(--accent-light);font-weight:700;font-size:14px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>Watch Welcome Video</a></div>';
+      if (hasResources) {
+        res.resources.forEach(function(r){ html += '<div style="margin-bottom:8px;"><a href="' + r.url + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,0.75);font-size:14px;text-decoration:none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' + r.title + '</a></div>'; });
+      }
+      rList.innerHTML = html;
+      rSection.style.display = '';
+    }
+    document.getElementById('discipleshipSuccess').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showToast('Welcome to the Family!', 'We are so glad you are here, ' + firstName + '!');
+  }
+
+  if (doSend) {
+    fetch(ep, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
+      .then(function(){ showDiscSuccess(); })
+      .catch(function(){ if (btn) { btn.textContent = "I'm Ready to Grow in Faith"; btn.disabled = false; } alert('Connection error. Please check your internet and try again.'); });
+  } else {
+    showDiscSuccess();
+  }
+}
+
+function resetDiscipleshipForm() {
+  document.getElementById('discipleshipSuccess').classList.remove('show');
+  document.getElementById('discipleshipHero').style.display = '';
+  document.getElementById('discipleshipFormWrap').style.display = '';
+  ['dFirstName','dLastName','dEmail','dPhone','dNeeds'].forEach(function(id){ var el = document.getElementById(id); if(el) el.value = ''; });
+  var dc = document.getElementById('dCountry'); if(dc) dc.value = '';
+  var dh = document.getElementById('dHow');    if(dh) dh.value = '';
+  var btn = document.getElementById('discSubmitBtn');
+  if(btn){ btn.textContent = "I'm Ready to Grow in Faith"; btn.disabled = false; }
+  var rs = document.getElementById('discResourcesSection'); if(rs) rs.style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── Events page: first Saturday calculator ───────────────────
@@ -2087,7 +2460,8 @@ function openAttendModal() {
   document.body.style.overflow = 'hidden';
   document.getElementById('attendForm').style.display = '';
   document.getElementById('attendSuccess').style.display = 'none';
-  ['aEmail','aFirstName','aLocation'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
+  ['aEmail','aFirstName','aLastName','aPhone'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
+  var ac = document.getElementById('aCountry'); if (ac) ac.value = '';
   var btn = document.getElementById('attendSubmitBtn');
   if (btn) { btn.textContent = 'Send Me the Link'; btn.disabled = false; }
 }
@@ -2101,15 +2475,19 @@ function closeAttendModal(e) {
 function submitAttendance() {
   var email     = document.getElementById('aEmail').value.trim();
   var firstName = document.getElementById('aFirstName').value.trim();
-  var location  = document.getElementById('aLocation').value.trim();
+  var lastName  = document.getElementById('aLastName').value.trim();
+  var phone     = document.getElementById('aPhone').value.trim();
+  var country   = document.getElementById('aCountry').value;
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
   if (!firstName) { alert('Please enter your first name.'); return; }
-  if (!location)  { alert('Please enter your country or location.'); return; }
+  if (!lastName)  { alert('Please enter your last name.'); return; }
+  if (!phone)     { alert('Please enter your phone or WhatsApp number.'); return; }
+  if (!country)   { alert('Please select your country.'); return; }
   var next = getNextFirstSaturday();
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var dateStr = months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
-  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbywAqBMTJjPb_y62IpZg-KecgMwo3s_KtT5jkOV_ZjoHNrdm2s0_-oXI-CGJN1TJRR2/exec';
-  var payload = { _subject: 'Prayer Rally RSVP — ' + firstName + ' (' + location + ')', type: 'rally_rsvp', first_name: firstName, email: email, location: location, rally_date: dateStr };
+  var ENDPOINT = ENDPOINTS.events;
+  var payload = { _subject: 'Prayer Rally RSVP — ' + firstName + ' ' + lastName + ' (' + country + ')', type: 'rally_rsvp', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, rally_date: dateStr };
   var btn = document.getElementById('attendSubmitBtn');
   if (btn) { btn.textContent = 'Registering…'; btn.disabled = true; }
   fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
@@ -2122,26 +2500,116 @@ function submitAttendance() {
     .catch(function(){ if (btn) { btn.textContent = 'Send Me the Link'; btn.disabled = false; } alert('Connection error. Please try again.'); });
 }
 
-// ── Live stream countdown (7AM CST = 13:00 UTC) ──────────────
-function updateCountdown() {
-  var now    = new Date();
-  var target = new Date();
-  target.setUTCHours(13, 0, 0, 0);
-  if (target <= now) target.setDate(target.getDate() + 1);
-  var diff = target - now;
-  if (diff <= 0) return;
-  var pad = function(n){ return String(n).padStart(2,'0'); };
-  var el  = function(id){ return document.getElementById(id); };
-  if (el('cd-hours')) el('cd-hours').textContent = pad(Math.floor(diff / 3600000));
-  if (el('cd-mins'))  el('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
-  if (el('cd-secs'))  el('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+
+// ── DST-aware stream time engine ─────────────────────────────
+// Stream is always 7:00 AM America/Chicago (Houston).
+// All displayed times + the countdown auto-adjust for daylight saving.
+
+var STREAM_CITIES = [
+  { tz: 'America/Chicago', label: 'Houston', flag: 'us' },
+  { tz: 'America/Toronto', label: 'Toronto', flag: 'ca' },
+  { tz: 'Europe/London',   label: 'London',  flag: 'gb' },
+  { tz: 'Africa/Lagos',    label: 'Nigeria', flag: 'ng' }
+];
+
+function _tzOffsetMs(tz, date) {
+  // Returns (TZ local time) - (UTC) in milliseconds.
+  var d = date || new Date();
+  var fmt = { timeZone: tz, year:'numeric', month:'numeric', day:'numeric',
+              hour:'numeric', minute:'numeric', second:'numeric', hour12: false };
+  var parts = {};
+  new Intl.DateTimeFormat('en-US', fmt).formatToParts(d)
+    .forEach(function(p){ if (p.type !== 'literal') parts[p.type] = parseInt(p.value); });
+  var localMs = Date.UTC(parts.year, parts.month - 1, parts.day,
+                         parts.hour % 24, parts.minute, parts.second);
+  return localMs - d.getTime(); // positive = ahead of UTC
 }
+
+function getNextStreamUTC(fromDate) {
+  // Returns next weekday 7:00 AM Houston as a UTC Date object.
+  var now  = fromDate || new Date();
+  var attempt = new Date(now);
+  for (var i = 0; i < 10; i++) {
+    var offset = _tzOffsetMs('America/Chicago', attempt);
+    // Get Chicago date parts for 'attempt'
+    var p = {}; new Intl.DateTimeFormat('en-US', {
+      timeZone:'America/Chicago', year:'numeric', month:'numeric',
+      day:'numeric', weekday:'short', hour12:false
+    }).formatToParts(attempt).forEach(function(x){ if(x.type!=='literal') p[x.type]=x.value; });
+    // 7am Houston today in UTC
+    var midnightUTC = Date.UTC(parseInt(p.year), parseInt(p.month)-1, parseInt(p.day));
+    var streamUTC   = new Date(midnightUTC + 7 * 3600000 - offset);
+    // Valid if it's a future weekday in Chicago
+    if (streamUTC > now && p.weekday !== 'Sat' && p.weekday !== 'Sun') return streamUTC;
+    attempt.setUTCDate(attempt.getUTCDate() + 1);
+  }
+  return new Date(now.getTime() + 86400000); // fallback
+}
+
+function formatStreamInCity(streamUTC, tz) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, hour: 'numeric', minute: '2-digit', hour12: true
+  }).format(streamUTC);
+}
+
+function buildTimesHTML(streamUTC) {
+  var src = getNextStreamUTC();
+  return STREAM_CITIES.map(function(c) {
+    return '<span style="display:inline-flex;align-items:center;gap:4px;">' +
+      '<img class="t-flag" src="https://flagcdn.com/16x12/' + c.flag + '.png" alt="' + c.flag.toUpperCase() + '"> ' +
+      formatStreamInCity(src, c.tz) + ' ' + c.label + '</span>';
+  }).join('<span style="color:rgba(255,255,255,0.3);margin:0 4px;">&#183;</span>');
+}
+
+function updateAllStreamTimes() {
+  var streamUTC = getNextStreamUTC();
+  var html = buildTimesHTML(streamUTC);
+  // Hero times row
+  var hero = document.querySelector('.hero-times-row');
+  if (hero) hero.innerHTML = html;
+  // Stream banner (element with id bannerTimesSpan)
+  var banner = document.getElementById('bannerTimesSpan');
+  if (banner) banner.innerHTML = html;
+  var cdLabel = document.getElementById('countdownCityLabel');
+  if (cdLabel) {
+    var parts = STREAM_CITIES.map(function(c){ return formatStreamInCity(streamUTC, c.tz) + ' ' + c.label; });
+    cdLabel.textContent = 'Weekdays · ' + parts.join(' · ');
+  }
+  // Livestream page: elements with class dst-times
+  document.querySelectorAll('.dst-times').forEach(function(el){ el.innerHTML = html; });
+  // Success screen inside prayer form
+  var ps = document.getElementById('streamTimesDynamic');
+  if (ps) ps.innerHTML = html;
+  // Also update any static text that mentions times
+  document.querySelectorAll('[data-dst-label]').forEach(function(el){
+    var tz = el.getAttribute('data-dst-tz');
+    if (tz) el.textContent = formatStreamInCity(streamUTC, tz);
+  });
+}
+
+// Override countdown to use DST-aware target
+var _streamTarget = null;
+function updateCountdown() {
+  var now = new Date();
+  if (!_streamTarget || _streamTarget <= now) {
+    _streamTarget = getNextStreamUTC(now);
+  }
+  var diff = _streamTarget - now;
+  if (diff <= 0) { _streamTarget = getNextStreamUTC(now); diff = _streamTarget - now; }
+  var pad = function(n){ return String(Math.max(0,Math.floor(n))).padStart(2,'0'); };
+  var el  = function(id){ return document.getElementById(id); };
+  if (el('cd-hours')) el('cd-hours').textContent = pad(diff / 3600000);
+  if (el('cd-mins'))  el('cd-mins').textContent  = pad((diff % 3600000) / 60000);
+  if (el('cd-secs'))  el('cd-secs').textContent  = pad((diff % 60000) / 1000);
+}
+
+
 
 // ── DOMContentLoaded: clean-path routing ─────────────────────
 // GitHub Pages 404.html redirects /events → /?p=%2Fevents
 // index.html reads ?p=, strips it, and replaces state with clean path
 document.addEventListener('DOMContentLoaded', function() {
-  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events'];
+  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events','discipleship'];
 
   function pageFromPath(p) {
     var name = (p || '').replace(/^\//, '').split('/')[0].toLowerCase() || 'home';
@@ -2178,6 +2646,11 @@ document.addEventListener('DOMContentLoaded', function() {
   initCarousel();
   // Start carousel RAF loop after a brief tick so slide 1 is in the DOM
   setTimeout(_carouselKickstart, 0);
+  // Pre-fetch discipleship resources in background
+  setTimeout(loadDiscipleshipResources, 2000);
+  // Init DST-aware stream times
+  updateAllStreamTimes();
+  setInterval(updateAllStreamTimes, 60000); // refresh every minute
 });
 
 // ── Prayer Prep Schedule modal ────────────────────────────────
