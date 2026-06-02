@@ -428,7 +428,7 @@
  .form-success.show {
    display: flex; flex-direction: column; align-items: center;
    /* justify-content:center removed — breaks mobile scroll when content overflows */
-   position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1001;
+   position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999;
    background: var(--dark); overflow-y: auto;
    padding: 96px 24px 64px; /* 96px = nav height + breathing room */
  }
@@ -916,6 +916,59 @@
   .testimony-choice-ico { width: 44px; height: 44px; min-width: 44px; border-radius: 11px; }
   .testimony-choice-title { font-size: 15px; }
 }
+
+
+/* ── YouTube channel CTA (success pages) ────────────────────── */
+.yt-cta-block {
+  background: rgba(220,38,38,0.07); border: 1px solid rgba(220,38,38,0.22);
+  border-radius: var(--radius-lg); padding: 20px 22px;
+  max-width: 480px; width: 100%; text-align: center; margin: 20px 0;
+}
+.yt-cta-headline {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; color: #ffffff;
+  margin-bottom: 8px;
+}
+.yt-cta-body {
+  font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 14px;
+}
+.yt-cta-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #ff0000; color: #ffffff;
+  font-family: var(--font-heading); font-weight: 700;
+  font-size: 14px; letter-spacing: 0.5px;
+  padding: 11px 26px; border-radius: 50px;
+  text-decoration: none; margin-bottom: 10px;
+  transition: background 0.2s;
+}
+.yt-cta-link:hover { background: #cc0000; }
+.yt-cta-note { font-size: 12px; color: rgba(255,255,255,0.38); margin: 0; line-height: 1.6; }
+
+/* ── Success screen close button ────────────────────────────── */
+.success-close-btn {
+  position: fixed; top: 80px; right: 16px; z-index: 1000;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.65); font-size: 20px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; -webkit-tap-highlight-color: transparent;
+}
+.success-close-btn:hover, .success-close-btn:active {
+  background: rgba(255,255,255,0.18); color: #fff;
+  border-color: rgba(255,255,255,0.35);
+}
+/* Inline success nav row (community, contact) */
+.success-nav-row {
+  display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+  margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.success-nav-btn {
+  background: none; border: 1.5px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.55); padding: 9px 20px; border-radius: 50px;
+  font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
+}
+.success-nav-btn:hover { border-color: var(--accent); color: var(--accent-light); }
  </style>
 </head>
 <body>
@@ -1116,6 +1169,7 @@
  <div class="form-section">
  <div class="form-container">
  <div class="form-success" id="prayerSuccess">
+ <button class="success-close-btn" onclick="showPage('home')" aria-label="Go to home">&#10005;</button>
  <div class="form-success-inner">
  <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1123,22 +1177,23 @@
  <span class="section-tag" style="margin-bottom:14px;">Prayer Received</span>
  <h2 style="margin-bottom:20px;">We Have Your Request, <span id="successName"></span></h2>
  <p class="success-personal-msg">
-   Your prayer request has been received and will be printed and placed before the Lord. Every weekday we pray over every request by name — yours included. We will be standing with you.
+   Your prayer request has been received and will be printed and placed before the Lord. Every weekday we pray over every request . We will be standing with you.
  </p>
  <div id="prayerSuccessTimes" style="background:rgba(0,192,192,0.08);border:1px solid rgba(0,192,192,0.25);border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:rgba(255,255,255,0.65);line-height:1.9;text-align:left;max-width:460px;width:100%;">
    <strong style="color:var(--accent-light);font-size:11px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;">Daily Live Prayer — Every Weekday</strong>
    <span class="dst-times">Loading times&hellip;</span>
  </div>
- <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:28px;">A confirmation has been sent to <strong style="color:rgba(255,255,255,0.5);" id="successEmail"></strong></p>
- <!-- YouTube subscribe -->
- <div class="yt-sub-box">
-   <div class="yt-sub-tag">Stay Connected</div>
-   <p>Subscribe to the YouTube channel so you know when we are live each weekday. Click the <strong style="color:#fff;">notification bell</strong> — you will not miss a stream.</p>
-   <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
-     <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
-     Subscribe on YouTube
-   </a>
- </div>
+
+ <div class="yt-cta-block">
+  <p class="yt-cta-headline">Help us reach more people for Jesus</p>
+  <p class="yt-cta-body">Subscribe to our YouTube channel to join our daily live prayer streams &mdash; and share it with someone who needs prayer today.</p>
+  <a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener" class="yt-cta-link">
+    <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg> Visit Our YouTube Channel
+  </a>
+  <p class="yt-cta-note">Click &ldquo;Subscribe&rdquo; once you get there &mdash; it helps us reach more people.</p>
+</div>
+ <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:20px;">A confirmation has been sent to <strong style="color:rgba(255,255,255,0.5);" id="successEmail"></strong></p>
+
  <!-- Prayer Circle invite -->
  <div class="kpc-invite-banner" style="margin-top:20px;">
    <div class="kpc-banner-tag">A Personal Invitation</div>
@@ -1240,6 +1295,7 @@
  </div>
  <div class="community-join-form" style="background: rgba(6,15,16,0.7); border: 1px solid rgba(0,192,192,0.18); border-radius: var(--radius-lg); padding: 36px 32px;">
  <div class="join-success" id="joinSuccess">
+
  <div style="width:64px; height:64px; border-radius:50%; background: linear-gradient(135deg, var(--accent), var(--accent-light)); margin: 0 auto 20px; display:flex; align-items:center; justify-content:center;">
  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
  </div>
@@ -1247,17 +1303,23 @@
  <p style="font-size:15px; color: rgba(255,255,255,0.65); line-height:1.8; max-width: 480px; margin: 0 auto 20px;">Thank you for reaching out. I will personally review what you've shared and get back to you directly. When I do, I will walk you through everything — including the foundational course and how to step into the circle.</p>
  <p style="font-size:13px; color: rgba(255,255,255,0.35); margin-bottom: 20px;">Please check your inbox. We do not share your information with anyone.</p>
  <!-- YouTube subscribe -->
- <div class="yt-sub-box" style="margin: 0 auto 20px;">
-   <div class="yt-sub-tag">Stay Connected</div>
-   <p>Subscribe to the YouTube channel and click the <strong style="color:#fff;">notification bell</strong> — you'll be notified whenever we go live.</p>
-   <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
-     <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
-     Subscribe on YouTube
-   </a>
- </div>
+
+ <div class="yt-cta-block">
+  <p class="yt-cta-headline">Help us reach more people for Jesus</p>
+  <p class="yt-cta-body">Subscribe to our YouTube channel to join our daily live prayer streams &mdash; and share it with someone who needs prayer today.</p>
+  <a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener" class="yt-cta-link">
+    <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg> Visit Our YouTube Channel
+  </a>
+  <p class="yt-cta-note">Click &ldquo;Subscribe&rdquo; once you get there &mdash; it helps us reach more people.</p>
+</div>
  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
  <button class="btn-primary" onclick="showPage('prayer')" style="font-size:14px; padding: 12px 28px;">Submit a Prayer Request</button>
  <button onclick="resetCommunityForm()" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 12px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">Submit for Another Person</button>
+ <div class="success-nav-row">
+ <button class="success-nav-btn" onclick="showPage('home')">Home</button>
+ <button class="success-nav-btn" onclick="showPage('prayer')">Submit Prayer</button>
+ <button class="success-nav-btn" onclick="showPage('livestream')">Live Stream</button>
+</div>
  </div>
  </div>
  <div id="joinFormWrap">
@@ -1412,15 +1474,21 @@
  </div>
  <h3 style="font-family: var(--font-heading); font-size:20px; color: var(--accent-light); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Message Sent!</h3>
  <p style="font-size:15px; color: rgba(255,255,255,0.6); max-width:400px; margin: 0 auto 20px;">Thank you for reaching out. We will get back to you as soon as possible. God bless you.</p>
- <div class="yt-sub-box" style="margin: 0 auto 20px;">
-   <div class="yt-sub-tag">Stay Connected</div>
-   <p>Subscribe to the YouTube channel and click the <strong style="color:#fff;">notification bell</strong> — you'll be notified whenever we go live.</p>
-   <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
-     <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
-     Subscribe on YouTube
-   </a>
- </div>
+
+ <div class="yt-cta-block">
+  <p class="yt-cta-headline">Help us reach more people for Jesus</p>
+  <p class="yt-cta-body">Subscribe to our YouTube channel to join our daily live prayer streams &mdash; and share it with someone who needs prayer today.</p>
+  <a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener" class="yt-cta-link">
+    <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg> Visit Our YouTube Channel
+  </a>
+  <p class="yt-cta-note">Click &ldquo;Subscribe&rdquo; once you get there &mdash; it helps us reach more people.</p>
+</div>
  <button onclick="showPage('prayer')" style="background:none; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); padding: 10px 24px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">Submit a Prayer Request</button>
+ <div class="success-nav-row">
+  <button class="success-nav-btn" onclick="showPage('home')">Home</button>
+  <button class="success-nav-btn" onclick="showPage('livestream')">Live Stream</button>
+  <button class="success-nav-btn" onclick="showPage('testimony')">Share Testimony</button>
+ </div>
  </div>
  <div id="contactFormWrap">
  <div class="form-row two-col">
@@ -1456,6 +1524,7 @@
 
   <!-- Shared full-screen success overlay (used by all 3 paths) -->
   <div class="form-success" id="testimonySuccess">
+  <button class="success-close-btn" onclick="showPage('home')" aria-label="Go to home">&#10005;</button>
     <div class="form-success-inner">
       <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1464,14 +1533,14 @@
       <h2 id="testimonySuccessHeading" style="margin-bottom:20px;">Thank You for Sharing!</h2>
       <p class="success-personal-msg" id="testimonySuccessMsg">Your testimony has been received. Stories like yours build faith in others who are still waiting for their breakthrough. <strong>God is still moving.</strong></p>
       
-      <div class="yt-sub-box">
-        <div class="yt-sub-tag">Stay Connected</div>
-        <p>Subscribe to the YouTube channel and click the <strong style="color:#fff;">notification bell</strong> — you'll be notified whenever we go live.</p>
-        <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
-          <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
-          Subscribe on YouTube
-        </a>
-      </div>
+<div class="yt-cta-block">
+  <p class="yt-cta-headline">Help us reach more people for Jesus</p>
+  <p class="yt-cta-body">Subscribe to our YouTube channel to join our daily live prayer streams &mdash; and share it with someone who needs prayer today.</p>
+  <a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener" class="yt-cta-link">
+    <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg> Visit Our YouTube Channel
+  </a>
+  <p class="yt-cta-note">Click &ldquo;Subscribe&rdquo; once you get there &mdash; it helps us reach more people.</p>
+</div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
         <button class="btn-primary" onclick="showPage('prayer')" style="font-size:14px;padding:12px 28px;">Submit a Prayer Request</button>
         <button onclick="resetAllTestimonyForms()" style="background:none;border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:12px 24px;border-radius:50px;font-size:14px;cursor:pointer;transition:all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'">Share Another</button>
@@ -1616,6 +1685,7 @@
 
   <!-- Full-screen success overlay -->
   <div class="form-success" id="discipleshipSuccess">
+  <button class="success-close-btn" onclick="showPage('home')" aria-label="Go to home">&#10005;</button>
     <div class="form-success-inner">
       <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#b8720f,#edb93a);margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1640,14 +1710,14 @@
         <div class="disc-time-row"><img class="t-flag" src="https://flagcdn.com/16x12/gb.png" alt="UK"> <strong style="color:var(--accent-light);">1:00pm London</strong> <span style="color:rgba(255,255,255,0.4);">(BST)</span></div>
       </div>
       <!-- YouTube subscribe -->
-      <div class="yt-sub-box" style="max-width:480px;width:100%;">
-        <div class="yt-sub-tag">Subscribe &amp; Stay Connected</div>
-        <p>Subscribe to the YouTube channel and click the <strong style="color:#fff;">notification bell</strong> &mdash; you&rsquo;ll be notified whenever we go live so you can join us in prayer.</p>
-        <a class="yt-sub-btn" href="https://www.youtube.com/@pclancelot?sub_confirmation=1" target="_blank" rel="noopener">
-          <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg>
-          Subscribe on YouTube
-        </a>
-      </div>
+<div class="yt-cta-block">
+  <p class="yt-cta-headline">Help us reach more people for Jesus</p>
+  <p class="yt-cta-body">Subscribe to our YouTube channel to join our daily live prayer streams &mdash; and share it with someone who needs prayer today.</p>
+  <a href="https://www.youtube.com/@pclancelot" target="_blank" rel="noopener" class="yt-cta-link">
+    <svg width="18" height="13" viewBox="0 0 18 13" fill="white"><path d="M17.6 2C17.4 1.2 16.8.6 16 .4 14.6 0 9 0 9 0S3.4 0 2 .4C1.2.6.6 1.2.4 2 0 3.4 0 6.5 0 6.5S0 9.6.4 11C.6 11.8 1.2 12.4 2 12.6 3.4 13 9 13 9 13s5.6 0 7-.4c.8-.2 1.4-.8 1.6-1.6C18 9.6 18 6.5 18 6.5S18 3.4 17.6 2zM7.2 9.3V3.7l4.7 2.8-4.7 2.8z"/></svg> Visit Our YouTube Channel
+  </a>
+  <p class="yt-cta-note">Click &ldquo;Subscribe&rdquo; once you get there &mdash; it helps us reach more people.</p>
+</div>
       
       <div style="margin-top:20px;">
         <button onclick="resetDiscipleshipForm()" style="background:none;border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:10px 24px;border-radius:50px;font-size:14px;cursor:pointer;transition:all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'">Submit for Another Person</button>
