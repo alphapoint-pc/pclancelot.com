@@ -1,0 +1,19 @@
+{
+  "rally": {
+    "active": true,
+    "title": "Kingdom Prayer Rally",
+    "date": "June 6, 2026",
+    "times": "6:00pm Nigeria  ·  12:00pm Houston  ·  6:00pm London",
+    "rsvp_url": "https://pclancelot.com/events",
+    "image_url": "https://alphapoint-pc.github.io/pclancelot.com/rally-flyer.png"
+  },
+  "prayer_email": {
+    "body": "Your prayer request has been received. It will be printed and physically placed before the Lord. Every weekday the requests are lifted before God in prayer. We will be standing with you."
+  },
+  "prayer_circle_email": {
+    "body": "Thank you for reaching out. I have received your interest in the Prayer Circle and will be in touch personally with the next steps."
+  },
+  "discipleship_email": {
+    "body": "Making Jesus Lord is the greatest decision you will ever make — heaven is celebrating right now. We will reach out personally to walk alongside you in this journey."
+  }
+}
