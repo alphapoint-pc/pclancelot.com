@@ -969,7 +969,23 @@
   font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
 }
 .success-nav-btn:hover { border-color: var(--accent); color: var(--accent-light); }
- </style>
+ /* ===== DAY OF VISITATION FUNNEL ===== */
+.dov-video-block{width:100%;max-width:680px;margin:0 auto 28px;text-align:center}
+.dov-video-eyebrow{font-family:var(--font-heading);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-light);margin-bottom:10px}
+.dov-video-title{font-size:clamp(24px,5vw,34px);line-height:1.2;margin-bottom:10px}
+.dov-video-sub{font-size:16px;color:rgba(255,255,255,.72);line-height:1.6;margin-bottom:18px}
+.dov-video-frame{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.dov-video-frame iframe,.dov-video-frame #dovPlayer{position:absolute;inset:0;width:100%;height:100%;border:0}
+.dov-unmute{position:absolute;inset:0;z-index:5;display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:rgba(0,0,0,.35);border:0;cursor:pointer;color:#fff;width:100%}
+.dov-unmute.show{display:flex}
+.dov-unmute-pill{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#111;font-weight:900;font-size:clamp(16px,4.2vw,22px);letter-spacing:1px;text-transform:uppercase;padding:14px 26px;border-radius:50px;box-shadow:0 6px 24px rgba(0,0,0,.5);animation:dovPulse 1.4s ease-in-out infinite}
+@keyframes dovPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.dov-cta{display:none;margin-top:20px}
+.dov-cta.show{display:block;animation:dovFade .6s ease}
+@keyframes dovFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.dov-cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:420px;background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;font-weight:800;font-size:17px;padding:16px 24px;border-radius:50px;text-decoration:none}
+.dov-cta-note{font-size:13px;color:rgba(255,255,255,.5);margin-top:10px}
+</style>
 </head>
 <body>
 <!-- TOAST -->
@@ -996,7 +1012,7 @@
  <li><button onclick="showPage('community')" id="nav-community">Prayer Circle</button></li>
  <li><button onclick="showPage('testimony')" id="nav-testimony">Testimony</button></li>
  <li><button onclick="showPage('contact')" id="nav-contact">Contact</button></li>
- <li><button onclick="showPage('events')" id="nav-events">Events</button></li>
+ <li><button onclick="showPage('events')" id="nav-events">Day of Visitation</button></li>
  <li><button onclick="showPage('discipleship')" id="nav-discipleship">New Believer</button></li>
  <li><button onclick="showPage('prayer')" class="nav-cta"> Submit Prayer</button></li>
  </ul>
@@ -1009,7 +1025,7 @@
  <button onclick="showPage('community'); toggleMobileMenu()">Prayer Circle</button>
  <button onclick="showPage('testimony'); toggleMobileMenu()">Share Testimony</button>
  <button onclick="showPage('contact'); toggleMobileMenu()">Contact</button>
- <button onclick="showPage('events'); toggleMobileMenu()">Events</button>
+ <button onclick="showPage('events'); toggleMobileMenu()">Day of Visitation</button>
  <button onclick="showPage('discipleship'); toggleMobileMenu()">I Gave My Life to Christ</button>
  <button onclick="showPage('prayer'); toggleMobileMenu()" class="mobile-cta">Submit Prayer Request</button>
 </div>
@@ -1171,6 +1187,22 @@
  <div class="form-success" id="prayerSuccess">
  <button class="success-close-btn" onclick="showPage('home')" aria-label="Go to home">&#10005;</button>
  <div class="form-success-inner">
+ <!-- DAY OF VISITATION VIDEO (shown only when DOV_CONFIG.thankYouVideoId is set) -->
+ <div class="dov-video-block" id="dovVideoBlock" style="display:none;">
+   <div class="dov-video-eyebrow">Day of Visitation</div>
+   <h2 class="dov-video-title">Submitting your prayer request was your first step of faith.</h2>
+   <p class="dov-video-sub">Watch this short message &mdash; the final step is to be present for the Day of Visitation.</p>
+   <div class="dov-video-frame">
+     <div id="dovPlayer"></div>
+     <button type="button" class="dov-unmute" id="dovUnmute" onclick="dovUnmute()" aria-label="Tap to unmute">
+       <span class="dov-unmute-pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</span>
+     </button>
+   </div>
+   <div class="dov-cta" id="dovCta">
+     <a class="dov-cta-btn" id="dovCtaBtn" href="#" target="_blank" rel="noopener">Watch This Testimony</a>
+     <p class="dov-cta-note">Then scroll down &mdash; we are praying with you.</p>
+   </div>
+ </div>
  <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
  </div>
@@ -1817,7 +1849,7 @@
   <div class="ornament-divider"> </div>
   <footer id="discipleshipFooter"></footer>
 </div>
-<!-- RALLY PAGE -->
+<!-- DAY OF VISITATION PAGE -->
 <div class="page" id="page-events">
   <div class="rally-hero">
     <div class="rally-bg-orbs">
@@ -1841,7 +1873,7 @@
       <div class="rally-flyer-dual" id="rallyFlyerDual">
         <!-- PNG flyer — hidden until image loads successfully -->
         <div class="rally-flyer-png-wrap" id="rallyFlyerPngWrap">
-          <img src="rally-flyer.png" class="rally-flyer-png" alt="Kingdom Prayer Rally — June 6, 2026, 12PM CST, Online"
+          <img src="rally-flyer.png" class="rally-flyer-png" alt="Day of Visitation — Saturday, November 28, 2026, 12PM CT, Online"
                onload="var w=document.getElementById('rallyFlyerPngWrap'); if(w){w.style.display='block';} document.getElementById('rallyFlyerDual').classList.add('has-png');"
                onerror="var w=document.getElementById('rallyFlyerPngWrap'); if(w){w.style.display='none';}" />
         </div>
@@ -1851,14 +1883,14 @@
             <div class="rally-flyer-topbar"></div>
             <div class="rally-flyer-body">
               <div class="rally-ministry-tag">PC Lancelot Prayer Ministry</div>
-              <h1 class="rally-title">Kingdom<br/><span>Prayer</span><br/>Rally</h1>
+              <h1 class="rally-title">Day of<br/><span>Visitation</span></h1>
               <div class="rally-scripture-text">"...Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance..." &mdash; Ephesians 6:18 KJV</div>
               <div class="rally-divider"></div>
               <div class="rally-event-details">
                 <div class="rally-detail-item">
                   <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
                   <div>
-                    <div class="rally-detail-label">Next Date</div>
+                    <div class="rally-detail-label">Date</div>
                     <div class="rally-detail-value" id="rally-date">Loading...</div>
                   </div>
                 </div>
@@ -1866,7 +1898,7 @@
                   <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
                   <div>
                     <div class="rally-detail-label">Time</div>
-                    <div class="rally-detail-value" style="line-height:1.7;">6:00 PM Nigeria &nbsp;&middot;&nbsp; 12:00 PM Houston &nbsp;&middot;&nbsp; 6:00 PM London</div>
+                    <div class="rally-detail-value" style="line-height:1.7;">7:00 PM Nigeria &nbsp;&middot;&nbsp; 12:00 PM Houston (CT) &nbsp;&middot;&nbsp; 6:00 PM London</div>
                   </div>
                 </div>
                 <div class="rally-detail-item">
@@ -1879,8 +1911,8 @@
                 <div class="rally-detail-item">
                   <div class="rally-detail-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
                   <div>
-                    <div class="rally-detail-label">Frequency</div>
-                    <div class="rally-detail-value">Monthly &middot; 1st Saturday</div>
+                    <div class="rally-detail-label">Event</div>
+                    <div class="rally-detail-value">One Day &middot; Online</div>
                   </div>
                 </div>
               </div>
@@ -1890,7 +1922,7 @@
       </div>
       <!-- Countdown -->
       <div class="rally-countdown">
-        <div class="rally-cd-label">Next Rally Begins In</div>
+        <div class="rally-cd-label">Day of Visitation Begins In</div>
         <div class="rally-cd-grid">
           <div class="rally-cd-unit"><div class="rally-cd-num" id="rally-cd-days">--</div><div class="rally-cd-lbl">Days</div></div>
           <div class="rally-cd-colon">:</div>
@@ -1966,14 +1998,14 @@
           <div class="rally-step-num">2</div>
           <div class="rally-step-text">
             <h4>Check Your Inbox</h4>
-            <p>We will email you the meeting link before the rally begins. Check your spam folder if you don't see it. You cannot miss it.</p>
+            <p>We will email you the meeting link before the Day of Visitation begins. Check your spam folder if you don't see it. You cannot miss it.</p>
           </div>
         </div>
         <div class="rally-step">
           <div class="rally-step-num">3</div>
           <div class="rally-step-text">
             <h4>Join Online on the Day</h4>
-            <p>On the first Saturday of the month — 6:00 PM Nigeria &middot; 12:00 PM Houston &middot; 6:00 PM London — click the link in your email and join from wherever you are.</p>
+            <p>On the Day of Visitation — 7:00 PM Nigeria &middot; 12:00 PM Houston (CT) &middot; 6:00 PM London — click the link in your email and join from wherever you are.</p>
           </div>
         </div>
         <div class="rally-step">
@@ -2018,15 +2050,15 @@
         <span>God Lovers</span><span>Prayer Circle</span>
       </div>
       <div class="prayer-sched-eyebrow">PC Lancelot Prayer Ministry</div>
-      <div class="prayer-sched-title">Kingdom Prayer Rally</div>
-      <div class="prayer-sched-meta">June 6, 2026 &middot; 6pm Nigeria &middot; 12pm Houston &middot; 6pm London &middot; Online</div>
+      <div class="prayer-sched-title">Day of Visitation</div>
+      <div class="prayer-sched-meta" id="prayerSchedMeta">Saturday, November 28, 2026 &middot; 7pm Nigeria &middot; 12pm Houston (CT) &middot; 6pm London &middot; Online</div>
       <div class="prayer-sched-tagline">"Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance..." &mdash; Ephesians 6:18 KJV</div>
     </div>
     <div class="prayer-sched-body" id="prayerDaysList">
       <!-- Cards generated by buildPrayerSchedule() on open -->
     </div>
     <div class="prayer-sched-end">
-      <p>Pray through this guide daily.<br/>Share it with your prayer partners and believe God for a mighty outpouring on June 6.</p>
+      <p>Pray through this guide daily.<br/>Share it with your prayer partners and believe God for a mighty outpouring on the Day of Visitation.</p>
     </div>
   </div>
 </div>
@@ -2062,12 +2094,12 @@
     </div>
     <div class="attend-modal-hdr">
       <h2>Reserve Your Spot</h2>
-      <p>Join us online for the Kingdom Prayer Rally &mdash; first Saturday of every month.<br><span style="font-size:13px;color:rgba(255,255,255,0.5);">6:00 PM Nigeria &middot; 12:00 PM Houston &middot; 6:00 PM London</span></p>
+      <p>Join us online for the Day of Visitation.<br><span style="font-size:13px;color:rgba(255,255,255,0.5);">7:00 PM Nigeria &middot; 12:00 PM Houston (CT) &middot; 6:00 PM London</span></p>
     </div>
     <div id="attendForm">
       <div class="form-group" style="margin-bottom:18px;">
         <label>Email Address <span class="req">*</span></label>
-        <p class="attend-field-note">We need your email to send you the meeting link before the rally.</p>
+        <p class="attend-field-note">We need your email to send you the meeting link before the Day of Visitation.</p>
         <input type="email" id="aEmail" placeholder="your@email.com" />
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
@@ -2099,7 +2131,7 @@
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
       </div>
       <h3 style="font-family: var(--font-heading); font-size:22px; color: var(--accent-light); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">You're Registered!</h3>
-      <p style="font-size:15px; color:rgba(255,255,255,0.7); line-height:1.8; margin-bottom:8px;">The meeting link will be sent to your inbox before the rally on <strong id="attendConfirmDate"></strong>.</p>
+      <p style="font-size:15px; color:rgba(255,255,255,0.7); line-height:1.8; margin-bottom:8px;">The meeting link will be sent to your inbox before the Day of Visitation on <strong id="attendConfirmDate"></strong>.</p>
       <p style="font-size:13px; color:rgba(255,255,255,0.4); line-height:1.7; margin-bottom:28px;">Can't find the email? Check your spam folder. We look forward to praying with you!</p>
       <button onclick="document.getElementById('attendModalOverlay').classList.remove('open'); document.body.style.overflow='';" style="background:none; border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); padding: 10px 28px; border-radius: 50px; font-size:14px; cursor:pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent-light)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.color='rgba(255,255,255,0.6)'">Close</button>
     </div>
@@ -2238,7 +2270,7 @@ function submitPrayerRequest() {
   var btn = document.querySelector('#prayerFormWrap .submit-btn');
   btn.textContent = 'Sending…'; btn.disabled = true;
   var fullName = firstName + ' ' + lastName;
-  var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, prayer_request: request };
+  var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, prayer_request: request, src: DOV_SRC, page_url: location.href.split('#')[0] };
   fetch(ENDPOINTS.prayer, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
     .then(function(){
       document.getElementById('successName').textContent = firstName;
@@ -2246,13 +2278,85 @@ function submitPrayerRequest() {
       document.getElementById('prayerFormWrap').style.display = 'none';
       document.querySelector('#page-prayer .form-page-hero').style.display = 'none';
       document.getElementById('prayerSuccess').classList.add('show');
+      dovOnPrayerSuccess();
       window.scrollTo({ top: 0, behavior: 'smooth' });
       showToast('Prayer Received!', 'God hears you, ' + firstName + '. We\'ll be praying.');
     })
     .catch(function(){ btn.textContent = 'Submit'; btn.disabled = false; alert('Connection error. Please check your internet and try again.'); });
 }
 
+// ── Day of Visitation funnel: source tracking + thank-you video ──────────
+var DOV_SRC = '';
+(function(){
+  try {
+    var q = new URLSearchParams(location.search);
+    var src = q.get('src') || q.get('utm_source') || '';
+    if (src) sessionStorage.setItem('dov_src', src);
+    DOV_SRC = sessionStorage.getItem('dov_src') || '';
+  } catch(e) { DOV_SRC = ''; }
+})();
+
+var _dovPlayer = null, _dovApiLoading = false;
+function dovStartVideo() {
+  var cfg = DOV_CONFIG;
+  if (!cfg.thankYouVideoId) return;
+  if (cfg.videoOnlyForAdTraffic && !DOV_SRC) return;
+  var wrap = document.getElementById('dovVideoBlock'); if (!wrap) return;
+  wrap.style.display = 'block';
+  var cta = document.getElementById('dovCtaBtn');
+  if (cta && cfg.ctaUrl) { cta.href = cfg.ctaUrl; cta.textContent = cfg.ctaLabel; }
+  if (window.YT && YT.Player) { dovMakePlayer(); return; }
+  if (_dovApiLoading) return;
+  _dovApiLoading = true;
+  var prev = window.onYouTubeIframeAPIReady;
+  window.onYouTubeIframeAPIReady = function(){ if (prev) try{prev();}catch(e){} dovMakePlayer(); };
+  var t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(t);
+}
+function dovShowCta() {
+  if (!DOV_CONFIG.ctaUrl) return;
+  var c = document.getElementById('dovCta'); if (c) c.classList.add('show');
+}
+function dovMakePlayer() {
+  if (_dovPlayer) return;
+  _dovPlayer = new YT.Player('dovPlayer', {
+    videoId: DOV_CONFIG.thankYouVideoId,
+    host: 'https://www.youtube-nocookie.com',
+    playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
+    events: {
+      onReady: function(e){
+        try { e.target.unMute(); e.target.setVolume(100); e.target.playVideo(); } catch(x){}
+        // If the browser blocked sound, fall back to muted autoplay + bold tap-to-unmute
+        setTimeout(function(){
+          try {
+            if (e.target.getPlayerState() !== 1) { e.target.mute(); e.target.playVideo(); }
+            setTimeout(function(){ if (e.target.isMuted() || e.target.getPlayerState() !== 1) dovShowUnmute(); }, 600);
+          } catch(x){ dovShowUnmute(); }
+        }, 1200);
+      },
+      onStateChange: function(e){
+        if (e.data === 0) dovShowCta();          // ended
+        if (e.data === 1) { try { if (!e.target.isMuted()) document.getElementById('dovUnmute').classList.remove('show'); } catch(x){} }
+      },
+      onAutoplayBlocked: function(){ dovShowUnmute(); }
+    }
+  });
+  // Show the CTA button after 20s even if the video is still running (never trap the visitor)
+  setTimeout(dovShowCta, 20000);
+}
+function dovShowUnmute() { var u = document.getElementById('dovUnmute'); if (u) u.classList.add('show'); }
+function dovUnmute() {
+  try { _dovPlayer.unMute(); _dovPlayer.setVolume(100); _dovPlayer.seekTo(0, true); _dovPlayer.playVideo(); } catch(x){}
+  var u = document.getElementById('dovUnmute'); if (u) u.classList.remove('show');
+}
+function dovOnPrayerSuccess() {
+  try { history.replaceState(null, '', location.pathname + location.search + '#' + DOV_CONFIG.hash); } catch(e){}
+  try { if (window.gtag) gtag('event', 'day_of_visitation_prayer_submit', { src: DOV_SRC }); } catch(e){}
+  try { if (window.dataLayer) dataLayer.push({ event: 'day_of_visitation_prayer_submit', src: DOV_SRC }); } catch(e){}
+  dovStartVideo();
+}
+
 function resetPrayerForm() {
+  try { if (_dovPlayer) { _dovPlayer.destroy(); _dovPlayer = null; } } catch(e){}
   document.getElementById('prayerFormWrap').style.display = 'block';
   document.querySelector('#page-prayer .form-page-hero').style.display = '';
   document.getElementById('prayerSuccess').classList.remove('show');
@@ -2482,27 +2586,17 @@ function resetDiscipleshipForm() {
 }
 
 // ── Events page: first Saturday calculator ───────────────────
-function getNextFirstSaturday() {
-  var now = new Date();
-  function firstSatOfMonth(y, m) {
-    var d = new Date(y, m, 1);
-    var offset = (6 - d.getDay() + 7) % 7;
-    return new Date(Date.UTC(y, m, 1 + offset, 18, 0, 0, 0));
-  }
-  var candidate = firstSatOfMonth(now.getFullYear(), now.getMonth());
-  if (candidate <= now) {
-    var nm = now.getMonth() === 11 ? 0 : now.getMonth() + 1;
-    var ny = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
-    candidate = firstSatOfMonth(ny, nm);
-  }
-  return candidate;
+function getNextFirstSaturday() { // kept name for compatibility: returns the Day of Visitation start (UTC Date)
+  var d = DOV_CONFIG.eventOverride || DOV_CONFIG.eventDate;
+  var p = d.split('-');
+  return new Date(Date.UTC(+p[0], +p[1]-1, +p[2], DOV_CONFIG.eventHourUTC, 0, 0));
 }
 
 function initRallyFlyer() {
   var next = getNextFirstSaturday();
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var shortMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var dateStr = 'Saturday, ' + months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
+  var dateStr = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][next.getUTCDay()] + ', ' + months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
   var shortDate = months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
   var el = document.getElementById('rally-date'); if (el) el.textContent = dateStr;
   var badge = document.getElementById('rally-date-badge'); if (badge) badge.textContent = shortDate;
@@ -2513,7 +2607,7 @@ function updateRallyCountdown() {
   if (!_rallyTarget) _rallyTarget = getNextFirstSaturday();
   var now  = new Date();
   var diff = _rallyTarget - now;
-  if (diff <= 0) { _rallyTarget = getNextFirstSaturday(); diff = _rallyTarget - now; initRallyFlyer(); }
+  if (diff <= 0) { diff = 0; }
   var pad = function(n){ return String(Math.max(0, Math.floor(n))).padStart(2,'0'); };
   var el  = function(id){ return document.getElementById(id); };
   if (el('rally-cd-days'))  el('rally-cd-days').textContent  = pad(diff / 86400000);
@@ -2555,7 +2649,7 @@ function submitAttendance() {
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var dateStr = months[next.getUTCMonth()] + ' ' + next.getUTCDate() + ', ' + next.getUTCFullYear();
   var ENDPOINT = ENDPOINTS.events;
-  var payload = { _subject: 'Prayer Rally RSVP — ' + firstName + ' ' + lastName + ' (' + country + ')', type: 'rally_rsvp', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, rally_date: dateStr };
+  var payload = { _subject: 'Day of Visitation RSVP — ' + firstName + ' ' + lastName + ' (' + country + ')', type: 'rally_rsvp', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, rally_date: dateStr };
   var btn = document.getElementById('attendSubmitBtn');
   if (btn) { btn.textContent = 'Registering…'; btn.disabled = true; }
   fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
@@ -2563,7 +2657,7 @@ function submitAttendance() {
       document.getElementById('attendConfirmDate').textContent = dateStr;
       document.getElementById('attendForm').style.display = 'none';
       document.getElementById('attendSuccess').style.display = 'block';
-      showToast('You are Registered!', 'See you at the rally, ' + firstName + '!');
+      showToast('You are Registered!', 'See you at the Day of Visitation, ' + firstName + '!');
     })
     .catch(function(){ if (btn) { btn.textContent = 'Submit'; btn.disabled = false; } alert('Connection error. Please try again.'); });
 }
@@ -2721,108 +2815,180 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ── Prayer Prep Schedule modal ────────────────────────────────
+// =====================================================================
+// DAY OF VISITATION — EDIT THESE VALUES (no other code changes needed)
+// =====================================================================
+var DOV_CONFIG = {
+  startDate: '2026-11-01',        // first day of the prayer schedule (YYYY-MM-DD)
+  // eventDate is auto-set to the last prayer-schedule day (28 cards: Nov 1 -> Sat Nov 28, 2026).
+  // To use a different date, set DOV_EVENT_OVERRIDE below.
+  eventOverride: '',              // e.g. '2026-11-21' (optional)
+  eventHourUTC: 18,               // 18 = 12:00 PM Houston (CT) / 7:00 PM Nigeria / 6:00 PM London
+  thankYouVideoId: 'JKE0pbKTuqo',            // YouTube video ID of the message shown after a prayer request (e.g. 'dQw4w9WgXcQ'). Empty = video hidden.
+  ctaUrl: '',                     // YouTube link for the button under the video (testimony). Empty = button hidden.
+  ctaLabel: 'Watch This Testimony',
+  videoOnlyForAdTraffic: false,   // true = show video only when URL has ?src=...
+  hash: 'day-of-visitation'       // thank-you URL hash used for tracking
+};
+
 var PRAYER_DAYS = [
   {
-    date:'2026-05-18', day:'Mon · May 18', topic:'Wisdom to Prepare',
+    topic:'Wisdom to Prepare',
     point:'Lord, thank You that Your grace and wisdom abound in us, enabling us to diligently do all that is needed to achieve Your purpose for this event. We lack no wisdom — You have given it generously!',
     ref:'Zechariah 4:6,9', scripture:'"Not by might, nor by power, but by my spirit, saith the LORD of hosts... The hands of Zerubbabel have laid the foundation of this house; his hands shall also finish it." — Zechariah 4:6,9 KJV'
   },
   {
-    date:'2026-05-19', day:'Tue · May 19', topic:'Resources for the Ministry',
-    point:'Father, thank You for the release of every resource — financial, material, and human — needed to execute this rally to Your glory. We lack nothing! You are our Provider and every need is already met in You.',
+    topic:'Resources for the Ministry',
+    point:'Father, thank You for the release of every resource — financial, material, and human — needed to execute this Day of Visitation to Your glory. We lack nothing! You are our Provider and every need is already met in You.',
     ref:'Philippians 4:19', scripture:'"But my God shall supply all your need according to his riches in glory by Christ Jesus." — Philippians 4:19 KJV'
   },
   {
-    date:'2026-05-20', day:'Wed · May 20', topic:'Outreach & Advertisement',
-    point:'Lord, thank You that our message is already flying like arrows into the right hearts. The right people are finding this rally at the right time — every soul You intend to reach is being reached now!',
+    topic:'Outreach & Advertisement',
+    point:'Lord, thank You that our message is already flying like arrows into the right hearts. The right people are finding this Day of Visitation at the right time — every soul You intend to reach is being reached now!',
     ref:'Luke 14:23', scripture:'"...Go out into the highways and hedges, and compel them to come in, that my house may be filled." — Luke 14:23 KJV'
   },
   {
-    date:'2026-05-21', day:'Thu · May 21', topic:'Technical Stability',
+    topic:'Technical Stability',
     point:'Thank You, Lord, that Your peace already rests on every device, connection, and system involved. Every technical failure is bound before it arises. The stream flows without disruption to the glory of Your name!',
     ref:'Ecclesiastes 9:10', scripture:'"Whatsoever thy hand findeth to do, do it with thy might; for there is no work, nor device, nor knowledge, nor wisdom, in the grave, whither thou goest." — Ecclesiastes 9:10 KJV'
   },
   {
-    date:'2026-05-22', day:'Fri · May 22', topic:'Those Who Will Minister',
-    point:'Father, thank You for clothing every minister and team member with Your anointing. Our hearts are purified, our spirits sharpened, and Your fire rests upon all who will serve in this rally!',
+    topic:'Those Who Will Minister',
+    point:'Father, thank You for clothing every minister and team member with Your anointing. Our hearts are purified, our spirits sharpened, and Your fire rests upon all who will serve in this Day of Visitation!',
     ref:'2 Chronicles 6:41', scripture:'"...Let thy priests, O LORD God, be clothed with salvation, and let thy saints rejoice in goodness." — 2 Chronicles 6:41 KJV'
   },
   {
-    date:'2026-05-23', day:'Sat · May 23', topic:'Those Who Will Attend',
+    topic:'Those Who Will Attend',
     point:'Lord, thank You that the hearts of every person You have chosen are already stirred! Every excuse, every distraction, every hindrance is removed. They are coming — drawn irresistibly by Your Spirit!',
     ref:'Hebrews 10:25', scripture:'"Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another: and so much the more, as ye see the day approaching." — Hebrews 10:25 KJV'
   },
   {
-    date:'2026-05-24', day:'Sun · May 24', topic:'Miracles & Life Transformation',
-    point:'Thank You, God of signs and wonders! We declare that no one will leave this rally the same way they came in. The lame walk, the burdened go free, the broken are made whole — it is already done!',
+    topic:'Miracles & Life Transformation',
+    point:'Thank You, God of signs and wonders! We declare that no one will leave this Day of Visitation the same way they came in. The lame walk, the burdened go free, the broken are made whole — it is already done!',
     ref:'James 5:14-15', scripture:'"Is any sick among you? let him call for the elders of the church; and let them pray over him, anointing him with oil in the name of the Lord: And the prayer of faith shall save the sick, and the Lord shall raise him up..." — James 5:14-15 KJV'
   },
   {
-    date:'2026-05-25', day:'Mon · May 25', topic:'A Massive Turnout',
+    topic:'A Massive Turnout',
     point:'Lord of the harvest, thank You for the multitudes You are drawing from every nation, tribe, and background! Our expectations are already exceeded by Your abundance. The house will be filled!',
     ref:'Mark 6:34', scripture:'"And Jesus, when he came out, saw much people, and was moved with compassion toward them, because they were as sheep not having a shepherd..." — Mark 6:34 KJV'
   },
   {
-    date:'2026-05-26', day:'Tue · May 26', topic:'Unity Among Believers',
+    topic:'Unity Among Believers',
     point:'Father, thank You that we are one body — one heart, one voice, one purpose! All strife and division are gone. The world already sees Your people in one glorious accord. We are better together!',
     ref:'Psalm 133:1', scripture:'"Behold, how good and how pleasant it is for brethren to dwell together in unity!" — Psalm 133:1 KJV'
   },
   {
-    date:'2026-05-27', day:'Wed · May 27', topic:'The Unsaved to Hear the Gospel',
-    point:'Lord, thank You that this rally is already a moment of divine encounter for those who do not yet know You. The Gospel is reaching every hungry, searching, doubting heart — and none shall leave untouched!',
+    topic:'The Unsaved to Hear the Gospel',
+    point:'Lord, thank You that this Day of Visitation is already a moment of divine encounter for those who do not yet know You. The Gospel is reaching every hungry, searching, doubting heart — and none shall leave untouched!',
     ref:'Romans 10:14', scripture:'"How then shall they call on him in whom they have not believed? and how shall they believe in him of whom they have not heard? and how shall they hear without a preacher?" — Romans 10:14 KJV'
   },
   {
-    date:'2026-05-28', day:'Thu · May 28', topic:'Open Hearts & Receptive Spirits',
-    point:'Holy Spirit, thank You for preparing the soil before the seed falls! Every hardened heart is already softened. Pride, doubt, and unbelief crumble before Your Word — the ground is ready for June 6!',
+    topic:'Open Hearts & Receptive Spirits',
+    point:'Holy Spirit, thank You for preparing the soil before the seed falls! Every hardened heart is already softened. Pride, doubt, and unbelief crumble before Your Word — the ground is ready for the Day of Visitation!',
     ref:'Isaiah 55:3', scripture:'"Incline your ear, and come unto me: hear, and your soul shall live; and I will make an everlasting covenant with you, even the sure mercies of David." — Isaiah 55:3 KJV'
   },
   {
-    date:'2026-05-29', day:'Fri · May 29', topic:'Against Every Spiritual Opposition',
-    point:'Lord of Hosts, thank You that every principality, power, and spiritual stronghold that would hinder this rally is already cancelled! Greater is He that is in us than he that is in the world. We are more than conquerors!',
+    topic:'Against Every Spiritual Opposition',
+    point:'Lord of Hosts, thank You that every principality, power, and spiritual stronghold that would hinder this Day of Visitation is already cancelled! Greater is He that is in us than he that is in the world. We are more than conquerors!',
     ref:'Ephesians 6:12', scripture:'"For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places." — Ephesians 6:12 KJV'
   },
   {
-    date:'2026-05-30', day:'Sat · May 30', topic:'Prayer for the Nations',
-    point:'King of all nations, thank You that every country represented at this rally will encounter Your glory! Your kingdom is coming and Your will is being done in every land, every government, and every home. All nations shall serve Him!',
+    topic:'Prayer for the Nations',
+    point:'King of all nations, thank You that every country represented at this Day of Visitation will encounter Your glory! Your kingdom is coming and Your will is being done in every land, every government, and every home. All nations shall serve Him!',
     ref:'Psalm 72:11', scripture:'"Yea, all kings shall fall down before him: all nations shall serve him." — Psalm 72:11 KJV'
   },
   {
-    date:'2026-05-31', day:'Sun · May 31', topic:'Salvations — None to Perish',
-    point:'Father, thank You that this rally is already a moment of salvation for souls at the edge of eternity! Your mercy triumphs over judgment — we declare that souls will be saved abundantly on June 6. None shall perish!',
+    topic:'Salvations — None to Perish',
+    point:'Father, thank You that this Day of Visitation is already a moment of salvation for souls at the edge of eternity! Your mercy triumphs over judgment — we declare that souls will be saved abundantly on the Day of Visitation. None shall perish!',
     ref:'2 Peter 3:9', scripture:'"The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish, but that all should come to repentance." — 2 Peter 3:9 KJV'
   },
   {
-    date:'2026-06-01', day:'Mon · Jun 1', topic:'Healing in Every Form',
-    point:'Jehovah Rapha — thank You for healing that is already flowing! Bodies are healed, minds are restored, emotions are made whole. Your word is sent and healing is accomplished. Every sickness at this rally meets its end!',
+    topic:'Fasting & Consecration',
+    point:'Father, thank You that we are set apart in prayer and fasting! As we humble ourselves, You are drawing near. Every hunger of the flesh becomes hunger for Your presence, and Your power is being released over every prayer request!',
+    ref:'Joel 2:12', scripture:'"Therefore also now, saith the LORD, turn ye even to me with all your heart, and with fasting, and with weeping, and with mourning." — Joel 2:12 KJV'
+  },
+  {
+    topic:'Every Prayer Request Answered',
+    point:'Lord, thank You that no prayer request is overlooked! Every petition placed before You is heard and answered. We stand in faith, believing that we receive what we have asked according to Your will!',
+    ref:'Matthew 21:22', scripture:'"And all things, whatsoever ye shall ask in prayer, believing, ye shall receive." — Matthew 21:22 KJV'
+  },
+  {
+    topic:'Divine Visitation',
+    point:'God of Israel, thank You that You are visiting Your people! This is the season of Your visitation — redemption, mercy, and deliverance are breaking forth in every life that calls on Your name!',
+    ref:'Luke 1:68', scripture:'"Blessed be the Lord God of Israel; for he hath visited and redeemed his people." — Luke 1:68 KJV'
+  },
+  {
+    topic:'Deliverance & Freedom',
+    point:'Thank You, Lord, for the liberty You proclaim! Every captive is set free, every chain is broken, and every prison door is open. Those bound by fear, addiction, and oppression walk into freedom!',
+    ref:'Isaiah 61:1', scripture:'"The Spirit of the Lord GOD is upon me; because the LORD hath anointed me to preach good tidings unto the meek; he hath sent me to bind up the brokenhearted, to proclaim liberty to the captives, and the opening of the prison to them that are bound." — Isaiah 61:1 KJV'
+  },
+  {
+    topic:'Open Heavens',
+    point:'Father, thank You that the heavens are open over every life that will join us! Your presence comes down, mountains flow at Your presence, and blessings pour out where there was no room to receive them!',
+    ref:'Isaiah 64:1', scripture:'"Oh that thou wouldest rend the heavens, that thou wouldest come down, that the mountains might flow down at thy presence." — Isaiah 64:1 KJV'
+  },
+  {
+    topic:'The Set Time of Favour',
+    point:'Lord, thank You that the set time of favour has come! Doors that were closed swing open, and the grace of God goes before every person who prays and believes. Their season of mercy is here!',
+    ref:'Psalm 102:13', scripture:'"Thou shalt arise, and have mercy upon Zion: for the time to favour her, yea, the set time, is come." — Psalm 102:13 KJV'
+  },
+  {
+    topic:'Protection & Peace',
+    point:'Father, thank You for Your covering over every home, every traveler, every family, and every participant. You preserve our going out and our coming in. Fear is gone and Your peace guards every heart!',
+    ref:'Psalm 121:7-8', scripture:'"The LORD shall preserve thee from all evil: he shall preserve thy soul. The LORD shall preserve thy going out and thy coming in from this time forth, and even for evermore." — Psalm 121:7-8 KJV'
+  },
+  {
+    topic:'Restoration of Lost Years',
+    point:'God of restoration, thank You that what the enemy devoured is being returned! Lost time, lost opportunities, lost joy — all are being restored, and our latter days are greater than our former!',
+    ref:'Joel 2:25', scripture:'"And I will restore to you the years that the locust hath eaten, the cankerworm, and the caterpillar, and the palmerworm, my great army which I sent among you." — Joel 2:25 KJV'
+  },
+  {
+    topic:'Healing in Every Form',
+    point:'Jehovah Rapha — thank You for healing that is already flowing! Bodies are healed, minds are restored, emotions are made whole. Your word is sent and healing is accomplished. Every sickness at this Day of Visitation meets its end!',
     ref:'James 5:15', scripture:'"And the prayer of faith shall save the sick, and the Lord shall raise him up; and if he have committed sins, they shall be forgiven him." — James 5:15 KJV'
   },
   {
-    date:'2026-06-02', day:'Tue · Jun 2', topic:'Financial Breakthrough for Attendees',
+    topic:'Financial Breakthrough for Attendees',
     point:'Lord, thank You for the financial breakthrough already released over every person in bondage who will attend! The windows of heaven are open. The spirit of lack is broken and overflow is their new normal!',
     ref:'Malachi 3:10', scripture:'"Bring ye all the tithes into the storehouse...and prove me now herewith, saith the LORD of hosts, if I will not open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it." — Malachi 3:10 KJV'
   },
   {
-    date:'2026-06-03', day:'Wed · Jun 3', topic:'Family Restoration',
+    topic:'Family Restoration',
     point:'God of all families, thank You for the wave of healing already moving through homes around the world! Hearts of fathers are turned to children, and children to fathers. What the enemy broke, You have already restored!',
     ref:'Malachi 4:6', scripture:'"And he shall turn the heart of the fathers to the children, and the heart of the children to their fathers, lest I come and smite the earth with a curse." — Malachi 4:6 KJV'
   },
   {
-    date:'2026-06-04', day:'Thu · Jun 4', topic:'Fire of the Holy Spirit',
-    point:'Holy Spirit, thank You for the fresh outpouring already released upon this gathering! Every participant is baptised in Your fire. Revival, renewal, and awakening begin at this rally — the fire is falling!',
+    topic:'Fire of the Holy Spirit',
+    point:'Holy Spirit, thank You for the fresh outpouring already released upon this gathering! Every participant is baptised in Your fire. Revival, renewal, and awakening begin at this Day of Visitation — the fire is falling!',
     ref:'Acts 1:8', scripture:'"But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth." — Acts 1:8 KJV'
   },
   {
-    date:'2026-06-05', day:'Fri · Jun 5 — Final Prep', topic:'Consecration — The Day Before',
-    point:'Lord, thank You that we are sanctified and set apart for tomorrow. Every minister, intercessor, and participant is pure, ready, and expectant. We enter tomorrow\'s rally in the fullness of Your anointing. Wonders are coming!',
+    topic:'Consecration — The Day Before',
+    point:'Lord, thank You that we are sanctified and set apart for tomorrow. Every minister, intercessor, and participant is pure, ready, and expectant. We enter tomorrow\'s Day of Visitation in the fullness of Your anointing. Wonders are coming!',
     ref:'Joshua 3:5', scripture:'"...Sanctify yourselves: for to morrow the LORD will do wonders among you." — Joshua 3:5 KJV'
   },
   {
-    date:'2026-06-06', day:'Sat · Jun 6 — RALLY DAY', topic:'The Day of the Lord\'s Move',
+    topic:'The Day of the Lord\'s Move',
     point:'THIS IS THE DAY THE LORD HAS MADE! Thank You, Father, that heaven is touching earth right now! Every eye beholds Your glory, every ear hears Your voice, every heart surrenders to Your lordship. YOU ARE DOING IT!',
     ref:'Psalm 118:24', scripture:'"This is the day which the LORD hath made; we will rejoice and be glad in it." — Psalm 118:24 KJV'
   }
 ];
+
+
+// Dates are generated from DOV_CONFIG.startDate (one card per day; the last card is Event Day)
+(function(){
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var p=DOV_CONFIG.startDate.split('-');
+  PRAYER_DAYS.forEach(function(d,i){
+    var dt=new Date(Date.UTC(+p[0],+p[1]-1,+p[2]+i));
+    var iso=dt.toISOString().slice(0,10);
+    d.date=iso;
+    d.day=DOW[dt.getUTCDay()]+' \u00b7 '+MON[dt.getUTCMonth()]+' '+dt.getUTCDate();
+    if(i===PRAYER_DAYS.length-1){ d.day+=' \u2014 DAY OF VISITATION'; }
+  });
+  DOV_CONFIG.eventDate = PRAYER_DAYS[PRAYER_DAYS.length-1].date;
+})();
 
 function buildPrayerSchedule() {
   var container = document.getElementById('prayerDaysList');
@@ -2833,14 +2999,14 @@ function buildPrayerSchedule() {
   PRAYER_DAYS.forEach(function(d, i) {
     var isPast  = d.date < todayStr;
     var isToday = d.date === todayStr;
-    var isEvent = d.date === '2026-06-06';
+    var isEvent = d.date === DOV_CONFIG.eventDate;
     var cls = 'prayer-day-card';
     if (isPast)  cls += ' past';
     if (isToday) cls += ' today';
     if (isEvent && !isToday) cls += ' event-day';
     var badge = '';
     if (isToday)       badge = '<span class="prayer-today-badge">Today</span>';
-    else if (isEvent)  badge = '<span class="prayer-event-badge">Rally Day</span>';
+    else if (isEvent)  badge = '<span class="prayer-event-badge">Event Day</span>';
     html += '<div class="' + cls + '" data-date="' + d.date + '">';
     // Header row: number + date + badge
     html += '<div class="prayer-day-header">';
