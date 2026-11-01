@@ -1030,6 +1030,39 @@
   .dov-unmute, .dov-cal-btn { white-space: nowrap; padding: 11px 6px; font-size: 14px; }
   .dov-cta-btn { padding: 13px 20px; font-size: 16px; }
 }
+
+/* ===== Meet & Greet ===== */
+.mg-home{background:linear-gradient(135deg,var(--primary-mid) 0%,var(--dark) 100%);padding:56px 20px;text-align:center;border-top:1px solid rgba(0,192,192,.2);border-bottom:1px solid rgba(0,192,192,.2)}
+.mg-home-inner{max-width:640px;margin:0 auto}
+.mg-home-sub{font-size:18px;line-height:1.6;color:rgba(255,255,255,.8);margin:0 auto 18px}
+.mg-home-date{font-size:18px;font-weight:700;color:var(--accent-light);margin-bottom:22px}
+.mg-home-btn{width:100%;max-width:420px}
+.mg-wrap{max-width:560px;margin:0 auto;padding:8px 16px 40px}
+.mg-card{background:rgba(255,255,255,.04);border:1px solid rgba(0,192,192,.25);border-radius:18px;padding:24px 20px;text-align:center}
+.mg-card-label{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-light);margin-bottom:8px}
+.mg-date{font-family:var(--font-heading);font-size:clamp(24px,6.5vw,34px);line-height:1.2;color:#fff;margin-bottom:6px}
+.mg-time{font-size:18px;color:rgba(255,255,255,.85);margin-bottom:4px}
+.mg-count{font-size:16px;color:var(--accent-light);font-weight:700;margin-bottom:16px;min-height:20px}
+.mg-zones{text-align:left;margin:0 0 20px;border-top:1px solid rgba(255,255,255,.1)}
+.mg-zone{display:flex;justify-content:space-between;gap:10px;padding:10px 2px;border-bottom:1px solid rgba(255,255,255,.08);font-size:16px;color:rgba(255,255,255,.8)}
+.mg-zone strong{color:#fff;white-space:nowrap}
+.mg-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;min-height:52px;padding:14px 18px;border-radius:50px;font-size:17px;font-weight:800;letter-spacing:.5px;text-decoration:none;cursor:pointer;border:0;margin-top:12px;font-family:inherit}
+.mg-btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#031414}
+.mg-btn-ghost{background:transparent;color:#fff;border:2px solid rgba(0,192,192,.6)}
+.mg-btn-gold{background:linear-gradient(135deg,#b8741a,#e0b44f);color:#1a1205}
+.mg-inperson{margin-top:22px;background:rgba(224,180,79,.08);border:1px solid rgba(224,180,79,.35);border-radius:18px;padding:20px;text-align:center}
+.mg-inperson h3{font-size:20px;margin:0 0 4px;color:#e0b44f}
+.mg-inperson p{font-size:17px;color:rgba(255,255,255,.8);margin:0 0 4px}
+/* legible, consistent button text */
+.btn-primary,.btn-secondary,.btn-hero-primary,.btn-hero-secondary,.btn-hero-tertiary,.btn-hero-christ,.submit-btn,.success-nav-btn{font-size:17px !important;letter-spacing:.5px}
+.btn-primary,.btn-secondary,.btn-hero-primary,.btn-hero-secondary,.btn-hero-christ,.submit-btn{min-height:50px}
+@media (max-width:640px){
+  html,body{overflow-x:hidden}
+  section[style*="padding: 80px 24px"]{padding:48px 16px !important}
+  .section-title{font-size:clamp(24px,7vw,32px) !important}
+  .hero-cta-group button{width:100%}
+  .btn-hero-primary,.btn-hero-secondary,.btn-hero-tertiary,.btn-hero-christ{font-size:17px !important;padding:14px 18px !important}
+}
 </style>
 </head>
 <body>
@@ -1105,9 +1138,6 @@
  <button class="btn-hero-secondary" onclick="showPage('testimony')">
  Share Your Testimony
  </button>
- <button class="btn-hero-secondary" onclick="showPage('community')">
- Join My Prayer Circle
- </button>
  <button class="btn-hero-christ" onclick="showPage('discipleship')">
  I Gave My Life to Christ
  </button>
@@ -1115,12 +1145,15 @@
  </div>
  </div>
  </section>
- <div class="stream-banner">
- <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><strong>Every Weekday</strong> <span id="bannerTimesSpan" style="display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:2px;font-size:14px;color:rgba(255,255,255,0.65);">Loading times&hellip;</span></div></div>
- <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span><div><strong>YouTube</strong> <span>– PC Lancelot</span></div></div>
- <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><strong>All Are Welcome</strong> <span>– Every Nation, Every Need</span></div></div>
- <div class="stream-item"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>No Request Too Big</strong> <span>– God Hears Them All</span></div></div>
+<section class="mg-home">
+ <div class="mg-home-inner">
+  <span class="section-tag">Monthly &middot; Free &middot; Online</span>
+  <h2 class="section-title">Come Meet Us <span class="gold">on Video</span></h2>
+  <p class="mg-home-sub">Our monthly Meet &amp; Greet is a live video call where we pray, connect and get to know you. Tap below for the date and how to join.</p>
+  <div class="mg-home-date" id="mgHomeDate">&nbsp;</div>
+  <button class="btn-primary mg-home-btn" onclick="showPage('meetgreet')">Next Online Meet &amp; Greet</button>
  </div>
+</section>
  <section style="background: var(--dark); padding: 80px 24px;">
  <div class="section-inner">
    <span class="section-tag">Our Divine Mandate</span>
@@ -1219,6 +1252,57 @@
  </section>
  <div class="ornament-divider"> </div>
  <footer id="homeFooter"></footer>
+</div>
+<!-- ONLINE MEET & GREET PAGE -->
+<div class="page" id="page-meetgreet">
+ <div class="form-page-hero">
+  <span class="section-tag">Monthly &middot; Free &middot; Google Meet</span>
+  <h1>Online Meet &amp; Greet</h1>
+  <p>A relaxed video call where we meet, pray and connect. Every first Saturday of the month.</p>
+ </div>
+ <div class="mg-wrap">
+  <div class="mg-card">
+   <div class="mg-card-label">Next Meet &amp; Greet</div>
+   <div class="mg-date" id="mgDate">&hellip;</div>
+   <div class="mg-time" id="mgTimeCT">12:00 PM Central Time</div>
+   <div class="mg-count" id="mgCount"></div>
+   <div class="mg-zones" id="mgZones"></div>
+   <a class="mg-btn mg-btn-primary" id="mgJoin" href="https://meet.google.com/nws-rvtg-hwg" target="_blank" rel="noopener">Join on Google Meet</a>
+   <button type="button" class="mg-btn mg-btn-ghost" onclick="mgAddToCalendar()">&#128197; Add to Calendar</button>
+  </div>
+  <div class="mg-inperson">
+   <h3>Live in Houston?</h3>
+   <p>You are welcome to attend in person.</p>
+   <button type="button" class="mg-btn mg-btn-gold" onclick="showPage('meetinperson')">I Want to Attend In Person</button>
+  </div>
+ </div>
+ <div class="ornament-divider"> </div>
+ <footer id="meetgreetFooter"></footer>
+</div>
+<!-- MEET & GREET IN-PERSON (HOUSTON) PAGE -->
+<div class="page" id="page-meetinperson">
+ <div class="form-page-hero">
+  <span class="section-tag">Houston, TX</span>
+  <h1>Attend In Person</h1>
+  <p>Leave your name and number and we will send you the details.</p>
+ </div>
+ <div class="form-section">
+  <div class="form-container">
+   <div id="mipWrap">
+    <div class="form-group" style="margin-bottom:16px;"><label>Full Name <span class="req">*</span></label><input type="text" id="mipName" placeholder="Your full name" autocomplete="name" /></div>
+    <div class="form-group" style="margin-bottom:20px;"><label>Phone <span class="req">*</span></label><input type="tel" id="mipPhone" placeholder="Phone number" autocomplete="tel" /></div>
+    <button class="submit-btn" id="mipBtn" onclick="submitMeetInPerson()">Submit</button>
+   </div>
+   <div id="mipSuccess" style="display:none;text-align:center;padding:24px 0;">
+    <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));margin:0 auto 22px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+    <h2 style="margin-bottom:14px;">You're on the list, <span id="mipSuccessName"></span>!</h2>
+    <p style="font-size:18px;line-height:1.7;color:rgba(255,255,255,.8);max-width:420px;margin:0 auto 24px;">We will reach out with the location and details of the Meet &amp; Greet.</p>
+    <button class="mg-btn mg-btn-primary" onclick="showPage('meetgreet')">Back to Meet &amp; Greet</button>
+   </div>
+  </div>
+ </div>
+ <div class="ornament-divider"> </div>
+ <footer id="meetinpersonFooter"></footer>
 </div>
 <!-- PRAYER REQUEST PAGE -->
 <div class="page" id="page-prayer">
@@ -2191,6 +2275,7 @@ var ENDPOINTS = {
   testimony:    'https://script.google.com/macros/s/AKfycbxOnA7D0IVM_Wz1kvUvOCh311nivAwxW1vNmNdYaSrCX589KTXnrurGZag0ptgCgcr3/exec',
   contact:      'https://script.google.com/macros/s/AKfycbxOnA7D0IVM_Wz1kvUvOCh311nivAwxW1vNmNdYaSrCX589KTXnrurGZag0ptgCgcr3/exec',
   discipleship: 'https://script.google.com/macros/s/AKfycbxOnA7D0IVM_Wz1kvUvOCh311nivAwxW1vNmNdYaSrCX589KTXnrurGZag0ptgCgcr3/exec',
+  meetinperson: 'https://script.google.com/macros/s/AKfycbxOnA7D0IVM_Wz1kvUvOCh311nivAwxW1vNmNdYaSrCX589KTXnrurGZag0ptgCgcr3/exec',
   events:       'https://script.google.com/macros/s/AKfycbxOnA7D0IVM_Wz1kvUvOCh311nivAwxW1vNmNdYaSrCX589KTXnrurGZag0ptgCgcr3/exec'
 };
 // ── Dynamic discipleship resources (fetched from GitHub) ─────
@@ -2205,7 +2290,7 @@ function loadDiscipleshipResources() {
 }
 // ── Internal page switch (no URL push) ──────────────────────
 function _showPageInternal(name) {
-  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events','discipleship'];
+  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events','discipleship','meetgreet','meetinperson'];
   if (validPages.indexOf(name) === -1) name = 'home';
 
   // Reset fullscreen success overlays
@@ -2240,6 +2325,8 @@ function _showPageInternal(name) {
     document.querySelectorAll('.testimony-choice-card').forEach(function(c){ c.classList.remove('open'); });
   }
 
+  if (name !== 'meetinperson') { var mw=document.getElementById('mipWrap'),ms=document.getElementById('mipSuccess'); if (mw && ms) { mw.style.display=''; ms.style.display='none'; var mb=document.getElementById('mipBtn'); if (mb){ mb.textContent='Submit'; mb.disabled=false; } } }
+  if (name === 'meetgreet' || name === 'home') renderMeetGreet();
   // Switch page
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
   var pageEl = document.getElementById('page-' + name);
@@ -2389,6 +2476,87 @@ function dovMakePlayer() {
   // Show the CTA button after 20s even if the video is still running (never trap the visitor)
   setTimeout(dovShowCta, 20000);
 }
+// ── Online Meet & Greet: first Saturday of each month, 12:00 PM CT ──
+var MG_MEET_URL = 'https://meet.google.com/nws-rvtg-hwg';
+var MG_DURATION_MIN = 60;
+function mgStartFor(y, m) {
+  var d = new Date(Date.UTC(y, m, 1));
+  var day = 1 + ((6 - d.getUTCDay() + 7) % 7);          // first Saturday
+  var guess = Date.UTC(y, m, day, 18, 0, 0);
+  return guess - (_tzOffsetMs('America/Chicago', new Date(guess)) + 6 * 3600000) ; // 12:00 Houston wall time
+}
+function getNextMeetGreetUTC(now) {
+  now = now || Date.now();
+  var t = new Date(now), y = t.getUTCFullYear(), m = t.getUTCMonth();
+  for (var i = 0; i < 3; i++) {
+    var st = mgStartFor(y + Math.floor((m + i) / 12), (m + i) % 12);
+    if (st + (MG_DURATION_MIN + 30) * 60000 > now) return new Date(st);
+  }
+  return new Date(mgStartFor(y, m + 1));
+}
+function mgFmt(d, tz, opts) { return new Intl.DateTimeFormat('en-US', Object.assign({ timeZone: tz }, opts)).format(d); }
+function renderMeetGreet() {
+  var st = getNextMeetGreetUTC();
+  var dateStr = mgFmt(st, 'America/Chicago', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  var short = mgFmt(st, 'America/Chicago', { weekday:'long', month:'long', day:'numeric' });
+  var h = document.getElementById('mgHomeDate'); if (h) h.textContent = short + ' \u00b7 12:00 PM CT';
+  var d = document.getElementById('mgDate'); if (d) d.textContent = dateStr;
+  var ct = document.getElementById('mgTimeCT'); if (ct) ct.textContent = '12:00 PM Central Time (Houston)';
+  var z = document.getElementById('mgZones');
+  if (z) {
+    var zones = [
+      { tz:'America/Los_Angeles', label:'Los Angeles (PT)', flag:'us' },
+      { tz:'America/Chicago',     label:'Houston (CT)',     flag:'us' },
+      { tz:'America/New_York',    label:'New York (ET)',    flag:'us' },
+      { tz:'Europe/London',       label:'London',           flag:'gb' },
+      { tz:'Africa/Lagos',        label:'Nigeria',          flag:'ng' }
+    ];
+    var base = mgFmt(st, 'America/Chicago', { day:'numeric', month:'numeric' });
+    z.innerHTML = zones.map(function(c){
+      var tm = mgFmt(st, c.tz, { hour:'numeric', minute:'2-digit' });
+      var dd = mgFmt(st, c.tz, { day:'numeric', month:'numeric' });
+      if (dd !== base) tm += ' (' + mgFmt(st, c.tz, { weekday:'short' }) + ')';
+      return '<div class="mg-zone"><span><img class="t-flag" src="https://flagcdn.com/16x12/' + c.flag + '.png" alt=""> ' + c.label + '</span><strong>' + tm + '</strong></div>';
+    }).join('');
+  }
+  var cd = document.getElementById('mgCount');
+  if (cd) {
+    var diff = st.getTime() - Date.now();
+    if (diff <= 0) cd.textContent = 'Happening now \u2014 join us!';
+    else {
+      var days = Math.floor(diff / 86400000), hrs = Math.floor((diff % 86400000) / 3600000);
+      cd.textContent = days > 0 ? 'Starts in ' + days + (days === 1 ? ' day' : ' days') + (hrs ? ', ' + hrs + ' hr' : '') : 'Starts in ' + hrs + ' hr';
+    }
+  }
+}
+function mgAddToCalendar() {
+  var st = getNextMeetGreetUTC(), en = new Date(st.getTime() + MG_DURATION_MIN * 60000);
+  function f(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); }
+  var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//PC Lancelot//Meet and Greet//EN','BEGIN:VEVENT','UID:mg-' + f(st) + '@pclancelot.com','DTSTAMP:' + f(new Date()),'DTSTART:' + f(st),'DTEND:' + f(en),'SUMMARY:PC Lancelot Online Meet & Greet','DESCRIPTION:Join on Google Meet: ' + MG_MEET_URL,'LOCATION:' + MG_MEET_URL,'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:Meet & Greet starts in 30 minutes','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  try { if (window.gtag) gtag('event','meetgreet_add_to_calendar'); } catch(e){}
+  var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type:'text/calendar;charset=utf-8' })); a.download = 'Meet-and-Greet.ics';
+  document.body.appendChild(a); a.click(); setTimeout(function(){ document.body.removeChild(a); }, 500);
+}
+function submitMeetInPerson() {
+  var name = document.getElementById('mipName').value.trim();
+  var phone = document.getElementById('mipPhone').value.trim();
+  if (!name)  { alert('Please enter your name.'); return; }
+  if (!phone) { alert('Please enter your phone number.'); return; }
+  var btn = document.getElementById('mipBtn'); btn.textContent = 'Sending\u2026'; btn.disabled = true;
+  var payload = { _subject: 'Meet & Greet In-Person (Houston) - ' + name, type: 'meetgreet_inperson', name: name, phone: phone, meet_date: getNextMeetGreetUTC().toISOString() };
+  function done() {
+    document.getElementById('mipWrap').style.display = 'none';
+    document.getElementById('mipSuccessName').textContent = name.split(' ')[0];
+    document.getElementById('mipSuccess').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    try { if (window.gtag) gtag('event','meetgreet_inperson_submit'); } catch(e){}
+  }
+  fetch(ENDPOINTS.meetinperson, { method:'POST', mode:'no-cors', headers:{ 'Content-Type':'text/plain' }, body: JSON.stringify(payload) })
+    .then(done).catch(function(){ btn.textContent = 'Submit'; btn.disabled = false; alert('Connection error. Please try again.'); });
+}
+document.addEventListener('DOMContentLoaded', renderMeetGreet);
+setInterval(renderMeetGreet, 60000);
+
 function dovAddToCalendar() {
   var start='20261128T180000Z', end='20261128T200000Z';
   var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//PC Lancelot//Day of Visitation//EN','BEGIN:VEVENT','UID:dov-2026-11-28@pclancelot.com','DTSTAMP:'+start,'DTSTART:'+start,'DTEND:'+end,'SUMMARY:Day of Visitation','DESCRIPTION:Join us live at https://pclancelot.com','LOCATION:Online - https://pclancelot.com','BEGIN:VALARM','TRIGGER:-PT1H','ACTION:DISPLAY','DESCRIPTION:Day of Visitation starts in 1 hour','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
@@ -2827,7 +2995,7 @@ function updateCountdown() {
 // GitHub Pages 404.html redirects /events → /?p=%2Fevents
 // index.html reads ?p=, strips it, and replaces state with clean path
 document.addEventListener('DOMContentLoaded', function() {
-  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events','discipleship'];
+  var validPages = ['home','prayer','about','community','livestream','contact','testimony','events','discipleship','meetgreet','meetinperson'];
 
   function pageFromPath(p) {
     var name = (p || '').replace(/^\//, '').split('/')[0].toLowerCase() || 'home';
