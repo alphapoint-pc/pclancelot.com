@@ -977,9 +977,9 @@
 .dov-video-frame{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.45)}
 .dov-video-frame iframe,.dov-video-frame #dovPlayer{position:absolute;inset:0;width:100%;height:100%;border:0}
 .dov-actions{display:flex;flex-direction:column;gap:0;margin:6px auto 0;width:100%;max-width:340px}
-.dov-note{position:relative;z-index:6;display:flex;align-items:flex-start;justify-content:space-between;gap:4px;height:52px;margin:-8px 0 0;padding:0 11% 0 6px;pointer-events:none}
-.dov-note-text{font-family:'Caveat','Segoe Script','Bradley Hand','Comic Sans MS',cursive;font-weight:700;font-size:21px;line-height:1;color:#ffe14d;transform:rotate(-4deg);transform-origin:left center;text-align:left;text-shadow:0 1px 2px rgba(0,0,0,.6);flex:1}
-.dov-note-arrow{flex:0 0 auto;margin-top:0;align-self:flex-start;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
+.dov-note{position:relative;z-index:6;display:flex;align-items:flex-start;justify-content:flex-start;gap:2px;height:52px;margin:-8px 0 0;padding:0 6px;pointer-events:none}
+.dov-note-text{font-family:'Caveat','Segoe Script','Bradley Hand','Comic Sans MS',cursive;font-weight:700;font-size:21px;line-height:1;color:#ffe14d;transform:rotate(-4deg);transform-origin:left center;text-align:left;text-shadow:0 1px 2px rgba(0,0,0,.6);flex:0 0 auto;white-space:nowrap}
+.dov-note-arrow{flex:0 0 auto;margin-top:13px;align-self:flex-start;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
 .dov-unmute{display:none;position:absolute;left:50%;top:64%;transform:translateX(-50%);z-index:5;align-items:center;justify-content:center;gap:8px;white-space:nowrap;background:#fff;color:#111;border:0;cursor:pointer;font-weight:900;font-size:16px;letter-spacing:.5px;text-transform:uppercase;padding:13px 22px;border-radius:50px;box-shadow:0 6px 24px rgba(0,0,0,.55);animation:dovPulse 1.4s ease-in-out infinite}
 .dov-unmute.show{display:inline-flex}
 .dov-cal-btn{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;border:0;cursor:pointer;font-weight:800;font-size:15px;padding:12px 8px;border-radius:50px}
@@ -1371,8 +1371,8 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
    </div>
    <div class="dov-actions">
      <div class="dov-note" aria-hidden="true">
-       <span class="dov-note-text">click to add this event to your calendar so you get notified</span>
-       <svg class="dov-note-arrow" viewBox="0 0 40 56" width="34" height="48" fill="none" stroke="#ffe14d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3 C 6 26, 18 40, 33 52"/><path d="M20 49 L 34 53 L 36 38"/></svg>
+       <span class="dov-note-text">click to add this event to your<br>calendar so you get notified</span>
+       <svg class="dov-note-arrow" viewBox="0 0 40 56" width="28" height="39" fill="none" stroke="#ffe14d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3 C 6 26, 18 40, 33 52"/><path d="M20 49 L 34 53 L 36 38"/></svg>
      </div>
      <button type="button" class="dov-cal-btn" onclick="dovAddToCalendar()">&#128197; Add to Calendar</button>
    </div>
@@ -2477,13 +2477,20 @@ function dovStartVideo() {
   wrap.style.display = 'block';
   var cta = document.getElementById('dovCtaBtn');
   if (cta && cfg.ctaUrl) { cta.href = cfg.ctaUrl; cta.textContent = cfg.ctaLabel; }
+  _dovWantPlayer = true;
   if (window.YT && YT.Player) { dovMakePlayer(); return; }
-  if (_dovApiLoading) return;
+  dovPreloadApi();
+}
+var _dovWantPlayer = false;
+function dovPreloadApi() {
+  if (_dovApiLoading || (window.YT && YT.Player)) return;
   _dovApiLoading = true;
   var prev = window.onYouTubeIframeAPIReady;
-  window.onYouTubeIframeAPIReady = function(){ if (prev) try{prev();}catch(e){} dovMakePlayer(); };
+  window.onYouTubeIframeAPIReady = function(){ if (prev) try{prev();}catch(e){} if (_dovWantPlayer) dovMakePlayer(); };
   var t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(t);
 }
+// Warm up the YouTube player code in the background so the video starts instantly after the form is sent
+window.addEventListener('load', function(){ setTimeout(function(){ try { if (DOV_CONFIG.thankYouVideoId) dovPreloadApi(); } catch(e){} }, 1500); });
 function dovShowCta() {
   if (!DOV_CONFIG.ctaUrl) return;
   var c = document.getElementById('dovCta'); if (c) c.classList.add('show');
@@ -2493,12 +2500,13 @@ function dovMakePlayer() {
   _dovPlayer = new YT.Player('dovPlayer', {
     videoId: DOV_CONFIG.thankYouVideoId,
     host: 'https://www.youtube-nocookie.com',
-    playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
+    playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1, cc_load_policy: 0, iv_load_policy: 3, disablekb: 0 },
     events: {
       onReady: function(e){
         try { e.target.unMute(); e.target.setVolume(100); e.target.playVideo(); } catch(x){}
         // If the browser blocked sound, fall back to muted autoplay + bold tap-to-unmute
         setTimeout(function(){
+          try { e.target.unloadModule('captions'); e.target.unloadModule('cc'); } catch(x){}
           try {
             if (e.target.getPlayerState() !== 1) { e.target.mute(); e.target.playVideo(); }
             setTimeout(function(){ if (e.target.isMuted() || e.target.getPlayerState() !== 1) dovShowUnmute(); }, 600);
@@ -2507,7 +2515,7 @@ function dovMakePlayer() {
       },
       onStateChange: function(e){
         if (e.data === 0) dovShowCta();          // ended
-        if (e.data === 1) { try { if (!e.target.isMuted()) document.getElementById('dovUnmute').classList.remove('show'); } catch(x){} }
+        if (e.data === 1) { try { e.target.unloadModule('captions'); } catch(x){} try { if (!e.target.isMuted()) document.getElementById('dovUnmute').classList.remove('show'); } catch(x){} }
       },
       onAutoplayBlocked: function(){ dovShowUnmute(); }
     }
