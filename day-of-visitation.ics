@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PC Lancelot//Day of Visitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:day-of-visitation-2026-11-28@pclancelot.com
+DTSTAMP:20261101T000000Z
+DTSTART:20261128T180000Z
+DTEND:20261128T200000Z
+SUMMARY:Day of Visitation
+DESCRIPTION:Join us online for the Day of Visitation. Details: https://pclancelot.com/events
+LOCATION:Online - https://pclancelot.com
+URL:https://pclancelot.com/events
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Day of Visitation is tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Day of Visitation starts in 1 hour
+END:VALARM
+END:VEVENT
+END:VCALENDAR
