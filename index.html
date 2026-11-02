@@ -979,13 +979,14 @@
 .dov-video-sub{font-size:16px;color:rgba(255,255,255,.72);line-height:1.6;margin-bottom:18px}
 .dov-video-frame{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.45)}
 .dov-video-frame iframe,.dov-video-frame #dovPlayer{position:absolute;inset:0;width:100%;height:100%;border:0}
-.dov-actions{display:flex;flex-direction:column;gap:0;margin:6px auto 0;width:100%;max-width:340px}
+.dov-actions{display:none;flex-direction:column;gap:0;margin:6px auto 0;width:100%;max-width:340px}
 .dov-note{position:relative;z-index:6;display:flex;align-items:flex-start;justify-content:flex-start;gap:2px;height:52px;margin:-8px 0 0;padding:0 6px;pointer-events:none}
 .dov-note-text{font-family:'Caveat','Segoe Script','Bradley Hand','Comic Sans MS',cursive;font-weight:700;font-size:21px;line-height:1;color:#ffe14d;transform:rotate(-4deg);transform-origin:left center;text-align:left;text-shadow:0 1px 2px rgba(0,0,0,.6);flex:0 0 auto;white-space:nowrap}
 .dov-note-arrow{flex:0 0 auto;margin-top:12px;margin-left:2px;align-self:flex-start;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
 .dov-unmute{display:none;position:absolute;left:50%;top:64%;transform:translateX(-50%);z-index:5;align-items:center;justify-content:center;gap:8px;white-space:nowrap;background:#fff;color:#111;border:0;cursor:pointer;font-weight:900;font-size:16px;letter-spacing:.5px;text-transform:uppercase;padding:13px 22px;border-radius:50px;box-shadow:0 6px 24px rgba(0,0,0,.55);animation:dovPulse 1.4s ease-in-out infinite}
 .dov-unmute.show{display:inline-flex}
 .dov-cal-btn{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;border:0;cursor:pointer;font-weight:800;font-size:15px;padding:12px 8px;border-radius:50px}
+.dov-actions.show{display:flex;animation:dovFade .6s ease}
 .dov-cta{display:none;margin-top:20px}
 .dov-cta.show{display:block;animation:dovFade .6s ease}
 @keyframes dovPulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.05)}}
@@ -2521,6 +2522,7 @@ function dovStartVideo() {
   var cta = document.getElementById('dovCtaBtn');
   if (cta && cfg.ctaUrl) { cta.href = cfg.ctaUrl; cta.textContent = cfg.ctaLabel; }
   _dovWantPlayer = true;
+  dovHideActions(); _dovFallbackT = setTimeout(dovShowActions, 180000);   // if they never tap unmute, show after 3 min
   setTimeout(dovShowCta, 20000);   // never trap the visitor: show the CTA after 20s
   if (_dovReady && _dovPlayer) { dovBeginPlayback(_dovPlayer); return; }   // player was warmed up in the background: start instantly
   if (window.YT && YT.Player) { dovMakePlayer(); return; }
@@ -2537,6 +2539,9 @@ function dovPreloadApi() {
 }
 // Warm up the YouTube player in the background so the video starts instantly after the form is sent
 window.addEventListener('load', function(){ setTimeout(function(){ try { if (DOV_CONFIG.thankYouVideoId) { if (window.YT && YT.Player) dovMakePlayer(); else dovPreloadApi(); } } catch(e){} }, 1200); });
+var _dovActT = null, _dovFallbackT = null;
+function dovShowActions() { clearTimeout(_dovActT); clearTimeout(_dovFallbackT); var a = document.querySelector('.dov-actions'); if (a) a.classList.add('show'); }
+function dovHideActions() { clearTimeout(_dovActT); clearTimeout(_dovFallbackT); var a = document.querySelector('.dov-actions'); if (a) a.classList.remove('show'); }
 function dovShowCta() {
   if (!DOV_CONFIG.ctaUrl) return;
   var c = document.getElementById('dovCta'); if (c) c.classList.add('show');
@@ -2561,7 +2566,7 @@ function dovMakePlayer() {
         if (_dovWantPlayer) dovBeginPlayback(e.target);
       },
       onStateChange: function(e){
-        if (e.data === 0) dovShowCta();          // ended
+        if (e.data === 0) { dovShowCta(); dovShowActions(); }          // ended
         if (e.data === 1) { try { e.target.unloadModule('captions'); } catch(x){} try { if (!e.target.isMuted()) document.getElementById('dovUnmute').classList.remove('show'); } catch(x){} }
       },
       onAutoplayBlocked: function(){ dovShowUnmute(); }
@@ -2675,6 +2680,7 @@ function dovAddToCalendar() {
 }
 function dovShowUnmute() { var u = document.getElementById('dovUnmute'); if (u) u.classList.add('show'); }
 function dovUnmute() {
+  clearTimeout(_dovFallbackT); clearTimeout(_dovActT); _dovActT = setTimeout(dovShowActions, 60000);   // calendar button + note appear 1 min after tapping unmute
   try { _dovPlayer.unMute(); _dovPlayer.setVolume(100); _dovPlayer.seekTo(0, true); _dovPlayer.playVideo(); } catch(x){}
   var u = document.getElementById('dovUnmute'); if (u) u.classList.remove('show');
 }
@@ -2686,6 +2692,7 @@ function dovOnPrayerSuccess() {
 }
 
 function resetPrayerForm() {
+  try { dovHideActions(); } catch(e){}
   try { if (_dovPlayer) { _dovPlayer.destroy(); } } catch(e){}
   _dovPlayer = null; _dovReady = false; _dovWantPlayer = false;
   try { var fr = document.querySelector('.dov-video-frame'); if (fr && !document.getElementById('dovPlayer')) { var d = document.createElement('div'); d.id = 'dovPlayer'; fr.insertBefore(d, fr.firstChild); } if (window.YT && YT.Player) setTimeout(dovMakePlayer, 300); } catch(e){}
