@@ -1422,8 +1422,8 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
  <div id="prayerFormWrap">
  <div class="prayer-form">
  <p class="form-section-label"> Your Prayer Request</p>
- <div class="form-group" style="margin-bottom: 10px;"><label>Write your prayer request here <span class="req">*</span></label><textarea id="pRequest" placeholder="Type your prayer request here. God hears you." required></textarea></div>
- <p class="form-next-hint">Almost done. Scroll down to add your details &#8595;</p>
+ <div class="form-group" style="margin-bottom: 10px;"><label>Write your prayer request here <span class="req">*</span></label><textarea id="pRequest" placeholder="Dear Lord Jesus, here are my requests.." required></textarea></div>
+ <p class="form-next-hint">Scroll down &#8595;</p>
  <div class="form-divider"></div>
  <p class="form-section-label"> Your Information</p>
  <div class="form-row two-col">
@@ -1762,6 +1762,20 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
   <!-- Accordion choice cards -->
   <div class="testimony-choices">
 
+    <!-- Card 3: Send via WhatsApp -->
+    <div class="testimony-choice-card" id="choice-whatsapp">
+      <a class="testimony-choice-hdr" href="https://wa.me/17132573572?text=Hello%20PC%20Lancelot%2C%20I%20would%20like%20to%20share%20my%20testimony." target="_blank" rel="noopener" style="text-decoration:none;color:inherit;" aria-label="Send your testimony via WhatsApp">
+        <div class="testimony-choice-ico" style="background:rgba(37,211,102,0.12);border-color:rgba(37,211,102,0.45);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.300.5 1.700.6.7.2 1.400.2 1.900.1.600-.1 1.700-.7 2-1.400.2-.7.2-1.200.2-1.400-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.600 15.100L2 22l5-1.300A10 10 0 1 0 12 2zm0 18.200c-1.500 0-3-.4-4.200-1.200l-.3-.2-3 .8.8-2.900-.2-.3A8.200 8.200 0 1 1 12 20.200z"/></svg>
+        </div>
+        <div class="testimony-choice-lbl">
+          <div class="testimony-choice-title">Send via WhatsApp</div>
+          <div class="testimony-choice-sub" style="color:#25D366;">Opens WhatsApp &mdash; type your story or send a video or voice note</div>
+        </div>
+        <svg class="testimony-choice-chevron" style="transform:rotate(-90deg);" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </div>
+
     <!-- Card 1: Type your testimony -->
     <div class="testimony-choice-card" id="choice-text">
       <div class="testimony-choice-hdr" onclick="openTestimonyChoice('text')" role="button" aria-expanded="false" aria-controls="testimonyTextBody">
@@ -1769,7 +1783,7 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
         </div>
         <div class="testimony-choice-lbl">
-          <div class="testimony-choice-title">Tap to type your testimony</div>
+          <div class="testimony-choice-title">Send via Text</div>
           <div class="testimony-choice-sub">Write and send your story &mdash; takes about 2 minutes</div>
         </div>
         <svg class="testimony-choice-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1835,7 +1849,7 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
         </div>
         <div class="testimony-choice-lbl">
-          <div class="testimony-choice-title">Tap to send a video or voice note</div>
+          <div class="testimony-choice-title">Send via Video or Audio Upload</div>
           <div class="testimony-choice-sub">Upload a recording from your phone &mdash; up to 10GB</div>
         </div>
         <svg class="testimony-choice-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1872,20 +1886,6 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Card 3: Send via WhatsApp -->
-    <div class="testimony-choice-card" id="choice-whatsapp">
-      <a class="testimony-choice-hdr" href="https://wa.me/17132573572?text=Hello%20PC%20Lancelot%2C%20I%20would%20like%20to%20share%20my%20testimony." target="_blank" rel="noopener" style="text-decoration:none;color:inherit;" aria-label="Send your testimony via WhatsApp">
-        <div class="testimony-choice-ico" style="background:rgba(37,211,102,0.12);border-color:rgba(37,211,102,0.45);">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.300.5 1.700.6.7.2 1.400.2 1.900.1.600-.1 1.700-.7 2-1.400.2-.7.2-1.200.2-1.400-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.600 15.100L2 22l5-1.300A10 10 0 1 0 12 2zm0 18.200c-1.500 0-3-.4-4.200-1.200l-.3-.2-3 .8.8-2.900-.2-.3A8.200 8.200 0 1 1 12 20.200z"/></svg>
-        </div>
-        <div class="testimony-choice-lbl">
-          <div class="testimony-choice-title">Send via WhatsApp</div>
-          <div class="testimony-choice-sub" style="color:#25D366;">Opens WhatsApp &mdash; type your story or send a video or voice note</div>
-        </div>
-        <svg class="testimony-choice-chevron" style="transform:rotate(-90deg);" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </a>
     </div>
 
   </div>
@@ -3124,6 +3124,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   _showPageInternal(startPage);
+  if (startPage === 'prayer') { setTimeout(fitPrayerBox, 50); }
   var cleanPath = startPage === 'home' ? '/' : '/' + startPage;
   history.replaceState({ page: startPage }, '', cleanPath);
 
