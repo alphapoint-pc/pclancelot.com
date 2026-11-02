@@ -977,9 +977,9 @@
 .dov-video-frame{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.45)}
 .dov-video-frame iframe,.dov-video-frame #dovPlayer{position:absolute;inset:0;width:100%;height:100%;border:0}
 .dov-actions{display:flex;flex-direction:column;gap:0;margin:6px auto 0;width:100%;max-width:340px}
-.dov-note{position:relative;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:6px;height:44px;margin:-16px 0 2px;padding:0 6px;pointer-events:none}
+.dov-note{position:relative;z-index:6;display:flex;align-items:flex-start;justify-content:space-between;gap:4px;height:46px;margin:-4px 0 0;padding:0 14% 0 6px;pointer-events:none}
 .dov-note-text{font-family:'Caveat','Segoe Script','Bradley Hand','Comic Sans MS',cursive;font-weight:700;font-size:21px;line-height:1;color:#ffe14d;transform:rotate(-4deg);transform-origin:left center;text-align:left;text-shadow:0 1px 2px rgba(0,0,0,.6);flex:1}
-.dov-note-arrow{flex:0 0 auto;margin-top:6px;transform:rotate(4deg);filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
+.dov-note-arrow{flex:0 0 auto;margin-top:2px;align-self:flex-start;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
 .dov-unmute{display:none;position:absolute;left:50%;top:64%;transform:translateX(-50%);z-index:5;align-items:center;justify-content:center;gap:8px;white-space:nowrap;background:#fff;color:#111;border:0;cursor:pointer;font-weight:900;font-size:16px;letter-spacing:.5px;text-transform:uppercase;padding:13px 22px;border-radius:50px;box-shadow:0 6px 24px rgba(0,0,0,.55);animation:dovPulse 1.4s ease-in-out infinite}
 .dov-unmute.show{display:inline-flex}
 .dov-cal-btn{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;border:0;cursor:pointer;font-weight:800;font-size:15px;padding:12px 8px;border-radius:50px}
@@ -1372,7 +1372,7 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
    <div class="dov-actions">
      <div class="dov-note" aria-hidden="true">
        <span class="dov-note-text">click to add this event to your calendar so you get notified</span>
-       <svg class="dov-note-arrow" viewBox="0 0 70 56" width="64" height="50" fill="none" stroke="#ffe14d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6 C 46 2, 62 20, 40 46"/><path d="M26 40 L 40 47 L 47 31"/></svg>
+       <svg class="dov-note-arrow" viewBox="0 0 50 48" width="46" height="44" fill="none" stroke="#ffe14d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 C 10 26, 22 34, 30 43"/><path d="M19 37 L 31 45 L 36 31"/></svg>
      </div>
      <button type="button" class="dov-cal-btn" onclick="dovAddToCalendar()">&#128197; Add to Calendar</button>
    </div>
@@ -3118,7 +3118,7 @@ var DOV_CONFIG = {
   // To use a different date, set DOV_EVENT_OVERRIDE below.
   eventOverride: '',              // e.g. '2026-11-21' (optional)
   eventHourUTC: 18,               // 18 = 12:00 PM Houston (CT) / 7:00 PM Nigeria / 6:00 PM London
-  thankYouVideoId: 'QyiEv5HhMEc',            // YouTube video ID of the message shown after a prayer request (e.g. 'dQw4w9WgXcQ'). Empty = video hidden.
+  thankYouVideoId: '_hR0wZapS6Y',            // YouTube video ID of the message shown after a prayer request (e.g. 'dQw4w9WgXcQ'). Empty = video hidden.
   ctaUrl: '',                     // YouTube link for the button under the video (testimony). Empty = button hidden.
   ctaLabel: 'Watch This Testimony',
   videoOnlyForAdTraffic: false,   // true = show video only when URL has ?src=...
