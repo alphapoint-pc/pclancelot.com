@@ -1358,7 +1358,7 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
  <div class="form-section">
  <div class="form-container">
  <div class="form-success" id="prayerSuccess">
- <button class="success-close-btn" onclick="showPage('home')" aria-label="Go to home">&#10005;</button>
+ <button class="success-close-btn" onclick="resetPrayerForm();showPage('home')" aria-label="Go to home">&#10005;</button>
  <div class="form-success-inner">
  <!-- DAY OF VISITATION VIDEO (shown only when DOV_CONFIG.thankYouVideoId is set) -->
  <div class="dov-video-block" id="dovVideoBlock" style="display:none;">
@@ -2387,7 +2387,16 @@ function _showPageInternal(name) {
 }
 
 // ── Public showPage: switches + pushes clean path ──────────
+function resetStuckButtons() {
+  try { document.querySelectorAll('.submit-btn').forEach(function(b){
+    if (!b.dataset.orig) { if (!/^Sending/.test(b.textContent)) b.dataset.orig = b.textContent; return; }
+    if (/^Sending/.test(b.textContent)) { b.textContent = b.dataset.orig; b.disabled = false; }
+  }); } catch(e){}
+}
+document.addEventListener('DOMContentLoaded', resetStuckButtons);
 function showPage(name) {
+  resetStuckButtons();
+  try { var ps = document.getElementById('prayerSuccess'); if (name !== 'prayer' && ps && ps.classList.contains('show')) resetPrayerForm(); } catch(e){}
   _showPageInternal(name);
   var newPath = name === 'home' ? '/' : '/' + name;
   if (window.location.pathname !== newPath) history.pushState({ page: name }, '', newPath);
@@ -2445,6 +2454,7 @@ function submitPrayerRequest() {
   var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, prayer_request: request, src: DOV_SRC, page_url: location.href.split('#')[0] };
   fetch(ENDPOINTS.prayer, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
     .then(function(){
+      btn.textContent = 'Submit'; btn.disabled = false;
       document.getElementById('successName').textContent = firstName;
       document.getElementById('successEmail').textContent = email;
       document.getElementById('prayerFormWrap').style.display = 'none';
@@ -2510,7 +2520,7 @@ function dovMakePlayer() {
   _dovPlayer = new YT.Player('dovPlayer', {
     videoId: DOV_CONFIG.thankYouVideoId,
     host: 'https://www.youtube-nocookie.com',
-    playerVars: { autoplay: 0, playsinline: 1, rel: 0, modestbranding: 1, cc_load_policy: 0, iv_load_policy: 3, disablekb: 0 },
+    playerVars: { autoplay: 0, controls: 0, fs: 0, playsinline: 1, rel: 0, modestbranding: 1, cc_load_policy: 0, iv_load_policy: 3, disablekb: 1 },
     events: {
       onReady: function(e){
         _dovReady = true;
