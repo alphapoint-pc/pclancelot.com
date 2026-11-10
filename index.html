@@ -544,7 +544,36 @@
  .countdown-num { font-family: var(--font-heading); font-size: 48px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
  .countdown-label { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
  .countdown-colon { font-size: 40px; font-weight: 700; color: var(--accent); line-height: 1; padding-top: 4px; opacity: 0.4; }
- /* CONTACT */
+ @media (max-width: 640px) {
+   .countdown-section { padding: 28px 14px; margin-top: 32px; }
+   .countdown-section .next-stream { font-size: 16px; margin-bottom: 18px; }
+   .countdown-grid { gap: 8px; align-items: flex-start; }
+   .countdown-unit { min-width: 0; flex: 1 1 0; max-width: 84px; }
+   .countdown-num { font-size: clamp(30px, 10.5vw, 42px); }
+   .countdown-label { font-size: 11px; letter-spacing: 1px; }
+   .countdown-colon { font-size: clamp(24px, 8vw, 32px); padding-top: 2px; flex: 0 0 auto; }
+ }
+ /* DAILY PRAYER COVERING (livestream page) */
+.dpc-hero{background:linear-gradient(160deg,var(--dark) 0%,var(--primary-mid) 100%);padding:96px 20px 64px;text-align:center}
+.dpc-wrap{max-width:860px;margin:0 auto}
+.dpc-title{font-family:var(--font-heading);font-size:clamp(22px,5.4vw,40px);font-weight:700;line-height:1.2;color:var(--white);text-transform:uppercase;letter-spacing:1px;margin:0 0 16px}
+.dpc-title span{color:var(--accent-light)}
+.dpc-frame{border-radius:14px;overflow:hidden;border:1px solid rgba(0,192,192,.3);box-shadow:0 12px 40px rgba(0,0,0,.45);line-height:0;background:#000}
+.dpc-frame img{display:block;width:100%;height:auto}
+.dpc-watch{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:420px;margin:18px auto 0;padding:15px 22px;border-radius:50px;background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;font-weight:800;font-size:17px;text-decoration:none;box-shadow:0 8px 24px rgba(0,192,192,.28)}
+.dpc-times-card{margin:22px auto 0;max-width:420px;background:rgba(0,0,0,.28);border:1px solid rgba(0,192,192,.2);border-radius:14px;padding:16px 18px}
+.dpc-times-head{font-family:var(--font-heading);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.dpc-times{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.dpc-time-row{display:flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;font-size:17px;font-weight:600;color:var(--white)}
+.dpc-time-row .t-flag{width:24px;height:18px;margin:0}
+.dpc-time-row b{color:var(--accent-light);font-weight:800}
+.dpc-word{margin:30px auto 0;max-width:640px}
+.dpc-word-lead{font-size:clamp(18px,4.6vw,24px);font-weight:700;color:var(--white);line-height:1.4;margin:0 0 18px}
+.dpc-scripture{margin:0;padding:16px 18px;border-left:3px solid #e8c14d;background:rgba(232,193,77,.07);border-radius:0 10px 10px 0;text-align:left}
+.dpc-scripture p{margin:0 0 8px;font-size:clamp(16px,4.2vw,19px);line-height:1.55;font-style:italic;color:rgba(255,255,255,.92)}
+.dpc-scripture cite{font-style:normal;font-weight:800;font-size:14px;letter-spacing:1px;color:#e8c14d}
+@media(max-width:640px){.dpc-hero{padding:84px 16px 48px}.dpc-frame{border-radius:10px}.dpc-time-row{font-size:16px}}
+/* CONTACT */
  .contact-hero { background: linear-gradient(135deg, var(--dark) 0%, var(--primary-mid) 100%); padding: 120px 24px 60px; text-align: center; }
  .contact-hero h1 { font-family: var(--font-heading); font-size: clamp(28px, 5vw, 52px); font-weight: 700; color: var(--white); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 2px; }
  .contact-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; padding: 60px 24px 80px; }
@@ -1599,54 +1628,42 @@ section[style*="padding: 80px 24px"]{padding:clamp(48px,8vw,80px) clamp(16px,4vw
 </div>
 <!-- LIVE STREAM PAGE -->
 <div class="page" id="page-livestream">
- <!-- HERO: Schedule cards are the primary above-the-fold content -->
- <div class="livestream-hero" style="padding: 80px 24px 52px;">
- <!-- Compact header — minimal height -->
- <span class="section-tag" style="margin-bottom: 10px; display:block;">Join Me in Prayer</span>
- <h1 style="font-size: clamp(20px, 3.5vw, 34px); margin-bottom: 32px;">Praying for God's People — <span style="color: var(--accent-light);">Live</span></h1>
- <!-- Schedule cards — the hero content -->
- <div class="schedule-grid" style="max-width: 900px; margin: 0 auto 32px;">
- <div class="schedule-card">
- <div class="day">Every Weekday</div>
- <h3>Praying for God's People</h3>
- <div class="time dst-times" style="line-height:1.9;display:flex;flex-wrap:wrap;gap:6px 14px;">
-   Loading times&hellip;
- </div>
- <a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener" class="notify-btn" style="display:inline-block; text-decoration:none; text-align:center;">Watch on YouTube</a>
- </div>
- </div>
- <!-- Countdown — sits just at/below fold -->
- <div class="countdown-section" style="margin-bottom: 0;">
- <h3>Next Live Stream In</h3>
- <div class="next-stream" id="countdownCityLabel">Loading&hellip;</div>
- <div class="countdown-grid">
- <div class="countdown-unit"><div class="countdown-num" id="cd-hours">--</div><div class="countdown-label">Hours</div></div>
- <div class="countdown-colon">:</div>
- <div class="countdown-unit"><div class="countdown-num" id="cd-mins">--</div><div class="countdown-label">Minutes</div></div>
- <div class="countdown-colon">:</div>
- <div class="countdown-unit"><div class="countdown-num" id="cd-secs">--</div><div class="countdown-label">Seconds</div></div>
- </div>
- <p style="font-size:14px; color: rgba(255,255,255,0.3); margin-top: 16px;">Counting down to the next weekday live stream &mdash; <span class="stream-times-text">8:00am Houston (CT) &middot; 2:00pm London &middot; 3:00pm Nigeria</span></p>
- </div>
- </div>
- <!-- Video embed + CTA -->
- <section style="background: var(--dark); padding: 64px 24px 80px;">
- <div class="section-inner">
- <div style="text-align:center; margin-bottom: 40px;">
- <span class="section-tag">Watch Live</span>
- <h2 class="section-title">Tune In on <span class="gold">YouTube</span></h2>
- </div>
- <div style="max-width: 860px; margin: 0 auto 48px;">
- <div class="video-embed-area">
- <div class="video-placeholder">
- <div class="play-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
- <p>Watch live on YouTube<br/><a href="https://www.youtube.com/@pclancelot/streams" target="_blank" rel="noopener">@pclancelot/streams →</a></p>
- </div>
- </div>
- </div>
- <div style="text-align:center;"><button class="btn-primary" onclick="showPage('prayer')">Submit Your Prayer Request Before the Stream</button></div>
- </div>
- </section>
+  <!-- DAILY PRAYER COVERING: thumbnail in the fold, button under it, then times, then the prophetic word -->
+  <div class="dpc-hero">
+    <div class="dpc-wrap">
+      <h1 class="dpc-title">Get under this <span>prophetic covering</span> every day.</h1>
+      <div class="dpc-frame">
+        <img src="daily-prayer-covering.jpg" width="1280" height="720" alt="Daily Prayer Covering, Monday to Friday. Bring your prayer request." fetchpriority="high" decoding="async">
+      </div>
+      <a href="https://www.youtube.com/@pclancelot/live" target="_blank" rel="noopener" class="dpc-watch">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+        Watch on YouTube
+      </a>
+      <div class="dpc-times-card">
+        <div class="dpc-times-head">Every Weekday</div>
+        <div class="dpc-times dst-times-list">Loading times&hellip;</div>
+      </div>
+      <div class="dpc-word">
+        <p class="dpc-word-lead">I pray and declare prophetic words on livestream every day.</p>
+        <blockquote class="dpc-scripture">
+          <p>&ldquo;And the elders of the Jews builded, and they prospered through the prophesying of Haggai the prophet and Zechariah the son of Iddo.&rdquo;</p>
+          <cite>Ezra 6:14 (KJV)</cite>
+        </blockquote>
+      </div>
+      <div class="countdown-section" style="margin: 36px auto 0;">
+        <h3>Next Live Stream In</h3>
+        <div class="next-stream" id="countdownCityLabel">Loading&hellip;</div>
+        <div class="countdown-grid">
+          <div class="countdown-unit"><div class="countdown-num" id="cd-hours">--</div><div class="countdown-label">Hours</div></div>
+          <div class="countdown-colon">:</div>
+          <div class="countdown-unit"><div class="countdown-num" id="cd-mins">--</div><div class="countdown-label">Minutes</div></div>
+          <div class="countdown-colon">:</div>
+          <div class="countdown-unit"><div class="countdown-num" id="cd-secs">--</div><div class="countdown-label">Seconds</div></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:36px;"><button class="btn-primary" onclick="showPage('prayer')">Submit Your Prayer Request Before the Stream</button></div>
+    </div>
+  </div>
  <div class="ornament-divider"> </div>
  <footer id="livestreamFooter"></footer>
 </div>
@@ -3080,6 +3097,10 @@ function updateAllStreamTimes() {
   }
   // Livestream page: elements with class dst-times
   document.querySelectorAll('.dst-times').forEach(function(el){ el.innerHTML = html; });
+  var listHTML = STREAM_CITIES.map(function(c){
+    return '<div class="dpc-time-row"><img class="t-flag" src="https://flagcdn.com/24x18/' + c.flag + '.png" alt="' + c.flag.toUpperCase() + '"><b>' + formatStreamInCity(streamUTC, c.tz) + '</b><span>' + c.label + '</span></div>';
+  }).join('');
+  document.querySelectorAll('.dst-times-list').forEach(function(el){ el.innerHTML = listHTML; });
   document.querySelectorAll('.stream-times-text').forEach(function(el){
     el.textContent = STREAM_CITIES.map(function(c){ return formatStreamInCity(streamUTC, c.tz) + ' ' + c.label + (c.label==='Houston' ? ' (CT)' : ''); }).join(' \u00b7 ');
   });
