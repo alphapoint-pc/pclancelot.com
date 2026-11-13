@@ -2448,6 +2448,7 @@ function showPage(name) {
   resetStuckButtons();
   try { var ps = document.getElementById('prayerSuccess'); if (name !== 'prayer' && ps && ps.classList.contains('show')) resetPrayerForm(); } catch(e){}
   _showPageInternal(name);
+  try { TRK.page(name); } catch(e){}
   if (name === 'prayer') { setTimeout(fitPrayerBox, 50); setTimeout(fitPrayerBox, 400); }
   var newPath = name === 'home' ? '/' : '/' + name;
   if (window.location.pathname !== newPath) history.pushState({ page: name }, '', newPath);
@@ -2502,7 +2503,7 @@ function submitPrayerRequest() {
   var btn = document.querySelector('#prayerFormWrap .submit-btn');
   btn.textContent = 'Sending…'; btn.disabled = true;
   var fullName = firstName + ' ' + lastName;
-  var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, prayer_request: request, src: DOV_SRC, page_url: location.href.split('#')[0] };
+  var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, prayer_request: request, src: DOV_SOURCE, src_raw: DOV_SRC, page_url: location.href.split('#')[0] };
   fetch(ENDPOINTS.prayer, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
     .then(function(){
       btn.textContent = 'Submit'; btn.disabled = false;
@@ -2517,6 +2518,132 @@ function submitPrayerRequest() {
     })
     .catch(function(){ btn.textContent = 'Submit'; btn.disabled = false; alert('Connection error. Please check your internet and try again.'); });
 }
+
+
+// ── Visitor analytics → "Site Events" tab in the Google Sheet ─────────────
+var DOV_SOURCE = 'Other';
+var TRK = (function(){
+  var T = { q: [], sid: '', seen: {}, active: 0, vmax: 0, vdur: 0, vplayed: false, vTimer: null };
+  var ua = navigator.userAgent || '';
+  var off = !/(^|\.)pclancelot\.com$/i.test(location.hostname) || navigator.webdriver || /bot|crawl|spider|headless|lighthouse|preview/i.test(ua);
+  var refHost = ''; try { refHost = new URL(document.referrer).hostname.toLowerCase(); } catch(e){}
+  var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+  var device = /iPad|Tablet/i.test(ua) ? 'tablet' : (/Mobi|Android|iPhone/i.test(ua) ? 'mobile' : 'desktop');
+
+  function classify(){
+    var q = null, raw = '';
+    try { q = new URLSearchParams(location.search); raw = (q.get('src') || q.get('utm_source') || '').toLowerCase(); } catch(e){}
+    var has = function(k){ try { return q && q.has(k); } catch(e){ return false; } };
+    if (raw) {
+      if (/youtube|(^|[^a-z])yt([^a-z]|$)/.test(raw)) return 'YT';
+      if (/facebook|(^|[^a-z])fb([^a-z]|$)|meta|insta|(^|[^a-z])ig([^a-z]|$)/.test(raw)) return 'FB';
+      return 'Other';
+    }
+    if (has('gclid') || has('gbraid') || has('wbraid')) return 'YT';     // Google/YouTube ad click
+    if (has('fbclid')) return 'FB';                                        // Facebook/Instagram ad click
+    if (/(^|\.)(youtube\.com|youtu\.be|youtube-nocookie\.com)$/.test(refHost)) return 'YT';
+    if (/(^|\.)(facebook\.com|fb\.com|fb\.me|instagram\.com|messenger\.com)$/.test(refHost)) return 'FB';
+    return 'Other';
+  }
+  try {
+    var st = sessionStorage.getItem('trk_src');
+    if (st) DOV_SOURCE = st; else { DOV_SOURCE = classify(); sessionStorage.setItem('trk_src', DOV_SOURCE); }
+    T.sid = sessionStorage.getItem('trk_sid');
+    if (!T.sid) { T.sid = Math.random().toString(36).slice(2, 8) + Date.now().toString(36); sessionStorage.setItem('trk_sid', T.sid); }
+  } catch(e) { DOV_SOURCE = classify(); T.sid = Math.random().toString(36).slice(2, 10); }
+
+  function curPage(){ var a = document.querySelector('.page.active'); return a ? (a.id || '').replace(/^page-/, '') : ''; }
+  T.ev = function(e, d, v){
+    if (off) return;
+    T.q.push({ t: Date.now(), e: e, d: (d == null ? '' : String(d)).slice(0, 80), p: curPage(), v: (v == null ? '' : v) });
+    if (T.q.length >= 25) T.flush();
+  };
+  T.once = function(key, e, d, v){ if (T.seen[key]) return; T.seen[key] = 1; T.ev(e, d, v); };
+  T.flush = function(){
+    if (off || !T.q.length) return;
+    var batch = T.q.splice(0, 60);
+    var body = JSON.stringify({ type: 'track', sid: T.sid, src: DOV_SOURCE, device: device, ref: refHost, tz: tz, events: batch });
+    try { fetch(ENDPOINTS.events, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: body }); } catch(e){}
+  };
+  T.page = function(name){ T.ev('page_view', name); };
+  T.leave = function(){
+    if (T.vmax > 0) T.ev('video_watch', Math.round(T.vdur || 0), Math.round(T.vmax));
+    T.ev('leave', '', T.active);
+    T.flush();
+  };
+  T.vstate = function(e){
+    var pl = e.target, muted = false;
+    try { muted = pl.isMuted(); } catch(x){}
+    if (e.data === 1) {
+      if (!T.vplayed) { T.vplayed = true; T.ev('video_play', muted ? 'muted' : 'sound'); }
+      clearInterval(T.vTimer);
+      T.vTimer = setInterval(function(){
+        try {
+          var cur = pl.getCurrentTime(), dur = pl.getDuration(), m = pl.isMuted();
+          if (dur > 0) T.vdur = dur;
+          if (cur > T.vmax) T.vmax = cur;
+          if (dur > 0) [25, 50, 75].forEach(function(pct){ if (T.vmax / dur >= pct / 100) T.once('v' + pct, 'video_' + pct, m ? 'muted' : 'sound'); });
+        } catch(x){}
+      }, 1000);
+    } else {
+      clearInterval(T.vTimer);
+      if (e.data === 0) T.once('vdone', 'video_complete', muted ? 'muted' : 'sound');
+    }
+  };
+
+  if (!off) {
+    setInterval(function(){ if (document.visibilityState === 'visible') T.active++; }, 1000);
+    setInterval(T.flush, 4000);
+    document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') T.leave(); });
+    window.addEventListener('pagehide', T.leave);
+    window.addEventListener('load', function(){ setTimeout(function(){
+      var back = false; try { back = !!localStorage.getItem('trk_seen'); localStorage.setItem('trk_seen', '1'); } catch(e){}
+      T.once('visit', 'visit', curPage()); if (back) T.ev('returning'); T.page(curPage());
+    }, 800); });
+    document.addEventListener('click', function(ev){
+      var el = ev.target && ev.target.closest ? ev.target.closest('a,button,[onclick]') : null;
+      if (!el) return;
+      var label = (el.getAttribute('aria-label') || el.innerText || el.title || el.id || el.getAttribute('href') || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+      if (!label) return;
+      var href = el.getAttribute('href') || '';
+      T.ev('click', label);
+      T.once('eng', 'engaged');
+      if (/@pclancelot\/live|\/live\/?$/.test(href)) T.ev('live_click', label);
+      if (/dovAddToCalendar/.test(el.getAttribute('onclick') || '')) T.ev('calendar_click', label);
+    }, true);
+    document.addEventListener('focusin', function(ev){
+      var el = ev.target; if (!el || !el.closest || !/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return;
+      var pg = curPage(); if (!pg || pg === 'home') return;
+      T.once('fs_' + pg, 'form_start', pg);                       // started a form on this page
+      T.once('eng', 'engaged');
+      if (pg === 'prayer' && el.id) T.once('ff_' + el.id, 'form_field', el.id.replace(/^p/, '').toLowerCase());   // which prayer-form fields they reached
+    });
+    var _alert = window.alert;
+    window.alert = function(m){ try { T.ev('form_error', String(m || '').slice(0, 70)); } catch(x){} return _alert.apply(this, arguments); };
+    setTimeout(function(){ if (T.active >= 10) T.once('eng', 'engaged'); }, 10500);
+    var scrollT = null;
+    window.addEventListener('scroll', function(){
+      if (scrollT) return;
+      scrollT = setTimeout(function(){
+        scrollT = null;
+        var h = document.documentElement.scrollHeight - window.innerHeight; if (h <= 0) return;
+        var pct = (window.scrollY / h) * 100, pg = curPage();
+        [25, 50, 75, 100].forEach(function(m){ if (pct >= m - 2) T.once('s' + pg + m, 'scroll', m); });
+        if (pct >= 25) T.once('eng', 'engaged');
+      }, 400);
+    }, { passive: true });
+    var _fetch = window.fetch;
+    window.fetch = function(u, o){
+      try {
+        if (o && o.method === 'POST' && typeof o.body === 'string' && String(u).indexOf('script.google.com') > -1) {
+          var j = JSON.parse(o.body); if (j.type !== 'track') T.ev('form_submit', j.type || 'prayer');
+        }
+      } catch(x){}
+      return _fetch.apply(this, arguments);
+    };
+  }
+  return T;
+})();
 
 // ── Day of Visitation funnel: source tracking + thank-you video ──────────
 var DOV_SRC = '';
@@ -2583,6 +2710,7 @@ function dovMakePlayer() {
         if (_dovWantPlayer) dovBeginPlayback(e.target);
       },
       onStateChange: function(e){
+        try { TRK.vstate(e); } catch(x){}
         if (e.data === 0) { dovShowCta(); dovShowActions(); }          // ended
         if (e.data === 1) { try { e.target.unloadModule('captions'); } catch(x){} try { if (!e.target.isMuted()) document.getElementById('dovUnmute').classList.remove('show'); } catch(x){} }
       },
@@ -2697,11 +2825,13 @@ function dovAddToCalendar() {
 }
 function dovShowUnmute() { var u = document.getElementById('dovUnmute'); if (u) u.classList.add('show'); }
 function dovUnmute() {
+  try { TRK.once('unmute', 'video_unmute'); } catch(x){}
   clearTimeout(_dovFallbackT); clearTimeout(_dovActT); _dovActT = setTimeout(dovShowActions, 60000);   // calendar button + note appear 1 min after tapping unmute
   try { _dovPlayer.unMute(); _dovPlayer.setVolume(100); _dovPlayer.seekTo(0, true); _dovPlayer.playVideo(); } catch(x){}
   var u = document.getElementById('dovUnmute'); if (u) u.classList.remove('show');
 }
 function dovOnPrayerSuccess() {
+  try { TRK.ev('prayer_submit', DOV_SOURCE); TRK.ev('thankyou_view'); TRK.flush(); } catch(x){}
   try { history.replaceState(null, '', location.pathname + location.search + '#' + DOV_CONFIG.hash); } catch(e){}
   try { if (window.gtag) gtag('event', 'day_of_visitation_prayer_submit', { src: DOV_SRC }); } catch(e){}
   try { if (window.dataLayer) dataLayer.push({ event: 'day_of_visitation_prayer_submit', src: DOV_SRC }); } catch(e){}
