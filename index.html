@@ -2608,23 +2608,54 @@ function submitPrayerRequest() {
   if (!country)   { alert('Please select your country.'); return; }
   if (!request)   { alert('Please write your prayer request.'); return; }
   var btn = document.querySelector('#prayerFormWrap .submit-btn');
-  btn.textContent = 'Sending…'; btn.disabled = true;
   var fullName = firstName + ' ' + lastName;
   var payload = { _subject: 'Prayer Request — ' + fullName + ' (' + country + ')', first_name: firstName, last_name: lastName, email: email, phone: phone, country: country, prayer_request: request, src: DOV_SOURCE, src_raw: DOV_SRC, page_url: location.href.split('#')[0] };
-  fetch(ENDPOINTS.prayer, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
-    .then(function(){
-      btn.textContent = 'Submit'; btn.disabled = false;
-      document.getElementById('successName').textContent = firstName;
-      document.getElementById('successEmail').textContent = email;
-      document.getElementById('prayerFormWrap').style.display = 'none';
-      document.querySelector('#page-prayer .form-page-hero').style.display = 'none';
-      document.getElementById('prayerSuccess').classList.add('show');
-      dovOnPrayerSuccess();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (!DOV_CONFIG.thankYouVideoId) { showToast('Prayer Received!', 'God hears you, ' + firstName + '. We\'ll be praying.'); }
-    })
-    .catch(function(){ btn.textContent = 'Submit'; btn.disabled = false; alert('Connection error. Please check your internet and try again.'); });
+  // Show the thank-you screen immediately; deliver the request in the background (keepalive survives closing/leaving the page).
+  pclQueuePrayer(payload);
+  document.getElementById('successName').textContent = firstName;
+  document.getElementById('successEmail').textContent = email;
+  document.getElementById('prayerFormWrap').style.display = 'none';
+  document.querySelector('#page-prayer .form-page-hero').style.display = 'none';
+  document.getElementById('prayerSuccess').classList.add('show');
+  try { dovOnPrayerSuccess(); } catch(e){}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!DOV_CONFIG.thankYouVideoId) { showToast('Prayer Received!', 'God hears you, ' + firstName + '. We\'ll be praying.'); }
 }
+
+// ── Background delivery of prayer requests (with retry if the connection fails) ──
+var PCL_PENDING_KEY = 'pcl_pending_prayers';
+function pclPendingGet(){ try { return JSON.parse(localStorage.getItem(PCL_PENDING_KEY) || '[]'); } catch(e){ return []; } }
+function pclPendingSet(a){ try { localStorage.setItem(PCL_PENDING_KEY, JSON.stringify(a)); } catch(e){} }
+function pclPendingUpdate(id, status){
+  var a = pclPendingGet();
+  if (status === 'done') { a = a.filter(function(x){ return x.id !== id; }); }
+  else { a.forEach(function(x){ if (x.id === id) { x.status = status; } }); }
+  pclPendingSet(a);
+}
+function pclSendPrayer(id, payload, attempt){
+  attempt = attempt || 0;
+  fetch(ENDPOINTS.prayer, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) })
+    .then(function(){ pclPendingUpdate(id, 'done'); })
+    .catch(function(){
+      pclPendingUpdate(id, 'failed');
+      if (attempt < 4) { setTimeout(function(){ pclSendPrayer(id, payload, attempt + 1); }, [3000, 10000, 30000, 60000][attempt]); }
+    });
+}
+function pclQueuePrayer(payload){
+  var id = 'p' + Date.now() + Math.random().toString(36).slice(2, 7);
+  var a = pclPendingGet(); a.push({ id: id, t: Date.now(), status: 'sending', payload: payload }); pclPendingSet(a);
+  pclSendPrayer(id, payload, 0);
+}
+// On a later visit, resend only requests that were confirmed to have failed (never ones that may already have been delivered).
+function pclRetryFailedPrayers(){
+  var cutoff = Date.now() - 7 * 24 * 3600 * 1000;
+  pclPendingGet().forEach(function(x){
+    if (x.t < cutoff) { pclPendingUpdate(x.id, 'done'); return; }
+    if (x.status === 'failed') { pclSendPrayer(x.id, x.payload, 2); }
+  });
+}
+window.addEventListener('online', pclRetryFailedPrayers);
+setTimeout(pclRetryFailedPrayers, 4000);
 
 
 // ── Visitor analytics → "Site Events" tab in the Google Sheet ─────────────
